@@ -1,0 +1,15 @@
+{
+  "originHash" : "fe8e8d796db24e192adeed97cafb40ab783966da733c564cc8b7fc14183aa10e",
+  "pins" : [
+    {
+      "identity" : "mediakeytap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AlexPerathoner/MediaKeyTap",
+      "state" : {
+        "branch" : "master",
+        "revision" : "bd1402a89a0f0caa9b0a6cd0cc9b76fe55bf3f4e"
+      }
+    }
+  ],
+  "version" : 3
+}
