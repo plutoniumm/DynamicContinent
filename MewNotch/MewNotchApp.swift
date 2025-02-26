@@ -39,14 +39,8 @@ struct MewNotchApp: App {
 
     var body: some Scene {
         Settings {
-            NavigationSplitView(
-                sidebar: {
-                    Text("Something")
-                },
-                detail: {
-                    Text("Detail Here")
-                }
-            )
+            MewSettingsView()
+                .modelContainer(sharedModelContainer)
         }
     }
 }

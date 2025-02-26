@@ -38,12 +38,25 @@ struct NotchView: View {
         }
         .contextMenu(
             menuItems: {
+                
+                SettingsLink {
+                    Text("Settings")
+                }
+                .keyboardShortcut(
+                    ",",
+                    modifiers: .command
+                )
+                
                 Button(
-                    "Quit App",
+                    "Restart App",
                     role: .destructive
                 ) {
                     NSApplication.shared.terminate(nil)
                 }
+                .keyboardShortcut(
+                    "R",
+                    modifiers: .command
+                )
             }
         )
     }

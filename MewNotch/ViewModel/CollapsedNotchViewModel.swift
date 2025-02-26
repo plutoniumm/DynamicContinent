@@ -11,7 +11,7 @@ class CollapsedNotchViewModel: ObservableObject {
     
     @Published var notchSize: CGSize = .zero
     var extraNotchPadSize: CGSize = .init(
-        width: 13,
+        width: 14,
         height: 0
     )
     
@@ -64,11 +64,13 @@ class CollapsedNotchViewModel: ObservableObject {
     @objc private func handleVolumeChanges() {
         
         withAnimation {
-            hudIcon = Image(
-                systemName: "speaker"
-            )
+            hudIcon = MewNotch.Assets.iconSpeaker
             
-            hudValue = VolumeManager.shared.getOutputVolume()
+            if VolumeManager.shared.isMuted() {
+                self.hudValue = 0.0
+            } else {
+                self.hudValue = VolumeManager.shared.getOutputVolume()
+            }
         }
         
         var counter = 0
@@ -85,7 +87,11 @@ class CollapsedNotchViewModel: ObservableObject {
             counter += 1
             
             withAnimation {
-                self.hudValue = VolumeManager.shared.getOutputVolume()
+                if VolumeManager.shared.isMuted() {
+                    self.hudValue = 0.0
+                } else {
+                    self.hudValue = VolumeManager.shared.getOutputVolume()
+                }
             }
         }
         
@@ -103,9 +109,7 @@ class CollapsedNotchViewModel: ObservableObject {
     
     @objc private func handleBrightnessChanges() {
         withAnimation {
-            hudIcon = Image(
-                systemName: "rays"
-            )
+            hudIcon = MewNotch.Assets.iconBrightness
             
             hudValue = try? DisplayManager.shared.getDisplayBrightness()
         }

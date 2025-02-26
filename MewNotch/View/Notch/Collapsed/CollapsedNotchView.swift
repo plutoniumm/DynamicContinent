@@ -11,81 +11,101 @@ struct CollapsedNotchView: View {
     
     @StateObject private var notchViewModel = CollapsedNotchViewModel.init()
     
+    @StateObject var defaultsManager = MewDefaultsManager.shared
+    
     var isHovered: Bool = false
     
     var body: some View {
-        HStack(
+        VStack(
             spacing: 0
         ) {
-            if let hudIcon = notchViewModel.hudIcon {
-                Text(
-                    "000 %"
-                )
-                .font(.title3.bold())
-                .frame(
-                    height: notchViewModel.notchSize.height
-                )
-                .opacity(0)
-                .overlay {
-                    hudIcon
-                        .renderingMode(.template)
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(Color.white)
-                        .padding(8)
+            HStack(
+                spacing: 0
+            ) {
+                if defaultsManager.hudType == .minimal {
+                    if let hudIcon = notchViewModel.hudIcon {
+                        Text(
+                            "000 %"
+                        )
+                        .font(.title3.bold())
+                        .frame(
+                            height: notchViewModel.notchSize.height
+                        )
+                        .opacity(0)
+                        .overlay {
+                            hudIcon
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundStyle(Color.white)
+                                .padding(8)
+                        }
+                        .padding(
+                            .leading,
+                            notchViewModel.extraNotchPadSize.width / 2
+                        )
                         .transition(
-                            .move(
-                                edge: .trailing
+                            .offset(
+                                x: notchViewModel.extraNotchPadSize.width / 2
                             )
                             .combined(
                                 with: .opacity
                             )
                         )
+                    }
                 }
-                .padding(
-                    .leading,
-                    notchViewModel.extraNotchPadSize.width / 2
+                
+                OnlyNotchView(
+                    notchSize: notchViewModel.notchSize
                 )
-            }
-            
-            OnlyNotchView(
-                notchSize: notchViewModel.notchSize
-            )
-            
-            if let hudValue = notchViewModel.hudValue {
-                Text(
-                    "000%"
-                )
-                .font(.title3.bold())
-                .frame(
-                    height: notchViewModel.notchSize.height
-                )
-                .opacity(0)
-                .overlay {
-                    AnimatedTextView(
-                        value: Double(hudValue * 100)
-                    ) { value in
+                
+                if defaultsManager.hudType == .minimal {
+                    if let hudValue = notchViewModel.hudValue {
                         Text(
-                            String(
-                                format: "%02.0f",
-                                value
-                            )
+                            "000%"
                         )
                         .font(.title3.bold())
-                        .foregroundStyle(Color.white)
+                        .frame(
+                            height: notchViewModel.notchSize.height
+                        )
+                        .opacity(0)
+                        .overlay {
+                            AnimatedTextView(
+                                value: Double(hudValue * 100)
+                            ) { value in
+                                Text(
+                                    String(
+                                        format: "%02.0f",
+                                        value
+                                    )
+                                )
+                                .font(.title3.bold())
+                                .foregroundStyle(Color.white)
+                            }
+                        }
+                        .padding(
+                            .trailing,
+                            notchViewModel.extraNotchPadSize.width / 2
+                        )
+                        .transition(
+                            .offset(
+                                x: -notchViewModel.extraNotchPadSize.width / 2
+                            )
+                            .combined(
+                                with: .opacity
+                            )
+                        )
                     }
-                    .transition(
-                        .move(
-                            edge: .leading
-                        )
-                        .combined(
-                            with: .opacity
-                        )
-                    )
                 }
-                .padding(
-                    .trailing,
-                    notchViewModel.extraNotchPadSize.width / 2
+            }
+            
+            if defaultsManager.hudType == .progress {
+                ProgressHUDView(
+                    notchViewModel: notchViewModel
+                )
+            } else if defaultsManager.hudType == .notched {
+                NotchedHUDView(
+                    notchViewModel: notchViewModel
                 )
             }
         }
@@ -102,6 +122,15 @@ struct CollapsedNotchView: View {
         .shadow(
             radius: isHovered ? 5 : 0
         )
+        .onReceive(
+            defaultsManager.objectWillChange
+        ) {
+            notchViewModel.hudRefreshTimer?.invalidate()
+            notchViewModel.hudTimer?.invalidate()
+            
+            notchViewModel.hudIcon = nil
+            notchViewModel.hudValue = nil
+        }
     }
 }
 
