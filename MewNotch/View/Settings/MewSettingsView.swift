@@ -42,6 +42,7 @@ struct MewSettingsView: View {
                                     systemImage: "gear"
                                 )
                             }
+                            .id(SettingsPages.General)
                         case .About:
                             NavigationLink(
                                 destination: {
@@ -53,6 +54,7 @@ struct MewSettingsView: View {
                                     systemImage: "info.circle"
                                 )
                             }
+                            .id(SettingsPages.About)
                         }
                     }
                 }

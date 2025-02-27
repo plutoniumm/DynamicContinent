@@ -104,6 +104,16 @@ class MewDefaultsManager: ObservableObject {
         case notched
     }
     
+    @UserDefault(
+        "HUDEnabled",
+        defaultValue: true
+    )
+    var hudEnabled: Bool {
+        didSet {
+            self.objectWillChange.send()
+        }
+    }
+    
     @RawEnumUserDefault(
         "HUDType",
         defaultValue: HUDType.minimal,

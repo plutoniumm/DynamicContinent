@@ -18,6 +18,7 @@ struct NotchedHUDView: View {
                     .renderingMode(.template)
                     .resizable()
                     .scaledToFit()
+                    .foregroundStyle(Color.white)
                 
                 RoundedRectangle(
                     cornerRadius: 2

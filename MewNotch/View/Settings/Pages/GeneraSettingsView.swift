@@ -15,24 +15,31 @@ struct GeneraSettingsView: View {
         Form {
             Section(
                 content: {
+                    Toggle(
+                        "HUD Enabled",
+                        isOn: $defaultsManager.hudEnabled
+                    )
+                    
                     Picker(
-                        "Mode",
+                        "HUD Mode",
                         selection: $defaultsManager.hudType,
                         content: {
                             ForEach(
                                 MewDefaultsManager.HUDType.allCases
                             ) { type in
-                                Text(type.rawValue)
+                                Text(type.rawValue.capitalized)
                                     .tag(type)
                             }
                         }
                     )
+                    .disabled(!defaultsManager.hudEnabled)
                 },
                 header: {
-                    Text("HUD")
+                    Text("Closed State")
                 }
             )
         }
+        .formStyle(.grouped)
         .navigationTitle("General")
         .toolbarTitleDisplayMode(.inline)
     }
