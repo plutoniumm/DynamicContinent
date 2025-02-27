@@ -34,7 +34,9 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(
         _ notification: Notification
     ) {
-        OSDUIManager.shared.stop()
+        if MewDefaultsManager.shared.hudEnabled {
+            OSDUIManager.shared.stop()
+        }
         
         mediaKeyTap = MediaKeyTap(
             delegate: self
@@ -102,14 +104,18 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func quitApp() {
-        OSDUIManager.shared.start()
+        if MewDefaultsManager.shared.hudEnabled {
+            OSDUIManager.shared.start()
+        }
         NSApplication.shared.terminate(self)
     }
     
     func applicationShouldTerminate(
         _ sender: NSApplication
     ) -> NSApplication.TerminateReply {
-        OSDUIManager.shared.start()
+        if MewDefaultsManager.shared.hudEnabled {
+            OSDUIManager.shared.start()
+        }
         
         return .terminateNow
     }

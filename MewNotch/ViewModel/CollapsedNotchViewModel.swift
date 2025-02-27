@@ -62,6 +62,9 @@ class CollapsedNotchViewModel: ObservableObject {
     }
     
     @objc private func handleVolumeChanges() {
+        if !MewDefaultsManager.shared.hudEnabled {
+            return
+        }
         
         withAnimation {
             hudIcon = MewNotch.Assets.iconSpeaker
@@ -108,6 +111,10 @@ class CollapsedNotchViewModel: ObservableObject {
     }
     
     @objc private func handleBrightnessChanges() {
+        if !MewDefaultsManager.shared.hudEnabled {
+            return
+        }
+        
         withAnimation {
             hudIcon = MewNotch.Assets.iconBrightness
             

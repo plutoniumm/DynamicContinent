@@ -130,6 +130,19 @@ struct CollapsedNotchView: View {
             
             notchViewModel.hudIcon = nil
             notchViewModel.hudValue = nil
+            
+            if defaultsManager.hudEnabled {
+                OSDUIManager.shared.stop()
+            } else {
+                OSDUIManager.shared.start()
+            }
+        }
+        .onAppear {
+            if defaultsManager.hudEnabled {
+                OSDUIManager.shared.stop()
+            } else {
+                OSDUIManager.shared.start()
+            }
         }
     }
 }
