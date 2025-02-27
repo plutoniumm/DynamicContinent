@@ -12,6 +12,7 @@ import MediaKeyTap
 class MewAppDelegate: NSObject, NSApplicationDelegate {
     
     @Environment(\.openWindow) var openWindow
+    @Environment(\.openSettings) var openSettingsWindow
     
     var windows: [NSScreen: NSWindow] = [:]
     
@@ -74,25 +75,31 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func createStatusItem() {
-        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        let statusItem = NSStatusBar.system.statusItem(
+            withLength: NSStatusItem.squareLength
+        )
         
         let menu = NSMenu()
         
         menu.items = [
             NSMenuItem(
-                title: "Quit App",
+                title: "Settings",
+                action: #selector(openSettings),
+                keyEquivalent: "S"
+            ),
+            NSMenuItem(
+                title: "Quit",
                 action: #selector(quitApp),
                 keyEquivalent: "Q"
             ),
         ]
         
-        item.menu = menu
+//        statusItem.menu = menu
         
-        item.isVisible = true
-        
-        if let button = item.button {
-//            button.image = NSImage(named: "muse")
-            button.image = NSStatusBarButton.init(checkboxWithTitle: "", target: nil, action: nil).image
+        if let button = statusItem.button {
+            button.image = NSImage(
+                named: "Speaker"
+            )
             button.image?.isTemplate = true
             
             button.identifier = NSUserInterfaceItemIdentifier("MewStatusItem")
@@ -100,7 +107,7 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func openSettings() {
-        
+        openSettingsWindow()
     }
     
     @objc func quitApp() {
