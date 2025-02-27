@@ -95,7 +95,7 @@ class MewDefaultsManager: ObservableObject {
     
     // MARK: Variables
     
-    enum HUDType: String, CaseIterable, Identifiable, Codable {
+    enum HUDStyle: String, CaseIterable, Identifiable, Codable {
         var id: String { rawValue }
         
         case minimal
@@ -115,15 +115,15 @@ class MewDefaultsManager: ObservableObject {
     }
     
     @RawEnumUserDefault(
-        "HUDType",
-        defaultValue: HUDType.minimal,
+        "HUDStyle",
+        defaultValue: HUDStyle.minimal,
         initializer: {
-            return HUDType.init(
+            return HUDStyle.init(
                 rawValue: $0
             )
         }
     )
-    var hudType: HUDType {
+    var hudStyle: HUDStyle {
         didSet {
             self.objectWillChange.send()
         }

@@ -16,26 +16,26 @@ struct GeneraSettingsView: View {
             Section(
                 content: {
                     Toggle(
-                        "HUD Enabled",
+                        "Enabled",
                         isOn: $defaultsManager.hudEnabled
                     )
                     
                     Picker(
-                        "HUD Mode",
-                        selection: $defaultsManager.hudType,
+                        "Style",
+                        selection: $defaultsManager.hudStyle,
                         content: {
                             ForEach(
-                                MewDefaultsManager.HUDType.allCases
-                            ) { type in
-                                Text(type.rawValue.capitalized)
-                                    .tag(type)
+                                MewDefaultsManager.HUDStyle.allCases
+                            ) { style in
+                                Text(style.rawValue.capitalized)
+                                    .tag(style)
                             }
                         }
                     )
                     .disabled(!defaultsManager.hudEnabled)
                 },
                 header: {
-                    Text("Closed State")
+                    Text("HUD")
                 }
             )
         }
