@@ -15,6 +15,13 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 2. Move the app to the Applications folder.
 3. Run the app and grant necessary permissions if prompted.
 
+> ### <span style="color: yellow">Note!</span>
+> I don't have an Apple Developer account yet, so the application will display a popup on the first launch. 
+>
+> Click Okay, then navigate to **Settings > Privacy & Security**, scroll down, and click **Open Anyway**. 
+> 
+> This only needs to be done once.
+
 ## Usage
 
 1. Launch **MewNotch**.
