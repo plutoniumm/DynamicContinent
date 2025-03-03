@@ -14,8 +14,11 @@ struct MewNotchApp: App {
     @NSApplicationDelegateAdaptor(MewAppDelegate.self) var mewAppDelegate
     
     @Environment(\.openWindow) private var openWindow
+    @Environment(\.openSettings) private var openSettings
     
-    @State private var isMenuShown: Bool = false
+    @StateObject private var defaultsManager = MewDefaultsManager.shared
+    
+    @State private var isMenuShown: Bool = true
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([ ])
@@ -38,6 +41,63 @@ struct MewNotchApp: App {
     }()
 
     var body: some Scene {
+        MenuBarExtra(
+            "MewNotch",
+            image: ImageResource.menuBarIcon,
+            isInserted: $isMenuShown
+        ) {
+            Text("MewNotch")
+            
+            Button("Settings") {
+                openSettings()
+            }
+            .keyboardShortcut(
+                ",",
+                modifiers: .command
+            )
+
+            
+            Button("Restart") {
+                guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
+                    return
+                }
+                
+                let workspace = NSWorkspace.shared
+                
+                if let appURL = workspace.urlForApplication(
+                    withBundleIdentifier: bundleIdentifier
+                ) {
+                    let configuration = NSWorkspace.OpenConfiguration()
+                    
+                    configuration.createsNewApplicationInstance = true
+                    
+                    workspace.openApplication(
+                        at: appURL,
+                        configuration: configuration
+                    )
+                }
+            
+               NSApplication.shared.terminate(nil)
+            }
+            .keyboardShortcut("R", modifiers: .command)
+            
+            Button(
+                "Quit",
+                role: .destructive
+            ) {
+                NSApplication.shared.terminate(nil)
+            }
+            .keyboardShortcut(
+                "Q",
+                modifiers: .command
+            )
+        }
+        .onChange(of: defaultsManager.showMenuIcon) { oldVal, newVal in
+            if oldVal != newVal {
+                isMenuShown = newVal
+            }
+        }
+        
         Settings {
             MewSettingsView()
                 .modelContainer(sharedModelContainer)

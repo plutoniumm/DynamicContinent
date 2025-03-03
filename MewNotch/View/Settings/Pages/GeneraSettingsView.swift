@@ -16,6 +16,26 @@ struct GeneraSettingsView: View {
             Section(
                 content: {
                     Toggle(
+                        isOn: $defaultsManager.showMenuIcon
+                    ) {
+                        VStack(
+                            alignment: .leading
+                        ) {
+                            Text("Status Icon")
+                            
+                            Text("Shown in Menu Bar for easy access")
+                                .font(.footnote)
+                        }
+                    }
+                },
+                header: {
+                    Text("App")
+                }
+            )
+            
+            Section(
+                content: {
+                    Toggle(
                         isOn: $defaultsManager.notchForceEnabled
                     ) {
                         VStack(

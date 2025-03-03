@@ -76,40 +76,6 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
             self.windows[screen] = panel
             NotchSpaceManager.shared.notchSpace.windows.insert(panel)
         }
-        
-//        self.createStatusItem()
-    }
-    
-    func createStatusItem() {
-        let statusItem = NSStatusBar.system.statusItem(
-            withLength: NSStatusItem.squareLength
-        )
-        
-        let menu = NSMenu()
-        
-        menu.items = [
-            NSMenuItem(
-                title: "Settings",
-                action: #selector(openSettings),
-                keyEquivalent: "S"
-            ),
-            NSMenuItem(
-                title: "Quit",
-                action: #selector(quitApp),
-                keyEquivalent: "Q"
-            ),
-        ]
-        
-//        statusItem.menu = menu
-        
-        if let button = statusItem.button {
-            button.image = NSImage(
-                named: "Speaker"
-            )
-            button.image?.isTemplate = true
-            
-            button.identifier = NSUserInterfaceItemIdentifier("MewStatusItem")
-        }
     }
     
     @objc func openSettings() {

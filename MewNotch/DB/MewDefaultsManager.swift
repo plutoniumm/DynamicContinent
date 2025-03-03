@@ -110,6 +110,16 @@ class MewDefaultsManager: ObservableObject {
     // MARK: Variables
     
     @UserDefault(
+        "MenuIconShown",
+        defaultValue: true
+    )
+    var showMenuIcon: Bool {
+        didSet {
+            self.objectWillChange.send()
+        }
+    }
+    
+    @UserDefault(
         "NotchForceEnabled",
         defaultValue: false
     )
