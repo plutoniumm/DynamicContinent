@@ -11,7 +11,7 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 
 ## Installation
 
-1. Download the latest release from [GitHub Releases](#).
+1. Download the latest release from [GitHub Releases](https://github.com/monuk7735/mew-notch/releases).
 2. Move the app to the Applications folder.
 3. Run the app and grant necessary permissions if prompted.
 
