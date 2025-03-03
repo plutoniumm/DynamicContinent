@@ -100,7 +100,6 @@ class MewDefaultsManager: ObservableObject {
         
         case minimal
         case progress
-        case system
         case notched
     }
     
