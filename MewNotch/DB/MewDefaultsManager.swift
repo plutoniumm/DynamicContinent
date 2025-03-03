@@ -10,25 +10,20 @@ import SwiftUI
 class MewDefaultsManager: ObservableObject {
     
     @propertyWrapper
-    public struct RawEnumUserDefault<T> where T: RawRepresentable {
+    public struct CodableUserDefault<T> where T: Codable {
         
         let key: String
         let defaultValue: T
         let suiteName: String?
         
-        let initializer: (T.RawValue) -> T?
-        
         public init(
             _ key: String,
             defaultValue: T,
-            suiteName: String? = nil,
-            initializer: @escaping (T.RawValue) -> T?
+            suiteName: String? = nil
         ) {
             self.key = key
             self.defaultValue = defaultValue
             self.suiteName = suiteName
-            
-            self.initializer = initializer
         }
         
         public var wrappedValue: T {
@@ -37,10 +32,12 @@ class MewDefaultsManager: ObservableObject {
                     suiteName: suiteName!
                 ): UserDefaults.standard
                 
-                return self.initializer(
-                    defaults?.object(
-                        forKey: key
-                    ) as? T.RawValue ?? defaultValue.rawValue
+                guard let data = defaults?.data(forKey: key) else {
+                    return defaultValue
+                }
+                
+                return (
+                    try? JSONDecoder().decode(T.self, from: data)
                 ) ?? defaultValue
             }
             set {
@@ -48,10 +45,9 @@ class MewDefaultsManager: ObservableObject {
                     suiteName: suiteName!
                 ): UserDefaults.standard
                 
-                defaults?.set(
-                    newValue.rawValue,
-                    forKey: key
-                )
+                let encoded = try? JSONEncoder().encode(newValue)
+                
+                defaults?.set(encoded, forKey: key)
             }
         }
     }
@@ -93,14 +89,44 @@ class MewDefaultsManager: ObservableObject {
     
     private let userDefaults: UserDefaults = .standard
     
-    // MARK: Variables
-    
-    enum HUDStyle: String, CaseIterable, Identifiable, Codable {
+    // MARK: Enums
+    public enum NotchHeightMode: String, CaseIterable, Identifiable, Codable {
         var id: String { rawValue }
         
-        case minimal
-        case progress
-        case notched
+        case Match_Notch
+        case Match_Menu_Bar
+        case Manual
+    }
+    
+    public enum HUDStyle: String, CaseIterable, Identifiable, Codable {
+        var id: String { rawValue }
+        
+        case Minimal
+        case Progress
+        case Notched
+    }
+    
+    
+    // MARK: Variables
+    
+    @UserDefault(
+        "NotchForceEnabled",
+        defaultValue: false
+    )
+    var notchForceEnabled: Bool {
+        didSet {
+            self.objectWillChange.send()
+        }
+    }
+    
+    @CodableUserDefault(
+        "NotchHeightMode",
+        defaultValue: NotchHeightMode.Match_Notch
+    )
+    var notchHeightMode: NotchHeightMode {
+        didSet {
+            self.objectWillChange.send()
+        }
     }
     
     @UserDefault(
@@ -113,14 +139,9 @@ class MewDefaultsManager: ObservableObject {
         }
     }
     
-    @RawEnumUserDefault(
+    @CodableUserDefault(
         "HUDStyle",
-        defaultValue: HUDStyle.minimal,
-        initializer: {
-            return HUDStyle.init(
-                rawValue: $0
-            )
-        }
+        defaultValue: HUDStyle.Minimal
     )
     var hudStyle: HUDStyle {
         didSet {

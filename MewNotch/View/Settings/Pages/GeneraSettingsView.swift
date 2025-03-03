@@ -16,12 +16,73 @@ struct GeneraSettingsView: View {
             Section(
                 content: {
                     Toggle(
-                        "Enabled",
-                        isOn: $defaultsManager.hudEnabled
-                    )
+                        isOn: $defaultsManager.notchForceEnabled
+                    ) {
+                        VStack(
+                            alignment: .leading
+                        ) {
+                            Text("Force Enable")
+                            
+                            Text("Enable Notch on Non-notched Displays")
+                                .font(.footnote)
+                        }
+                    }
                     
                     Picker(
-                        "Style",
+                        selection: $defaultsManager.notchHeightMode,
+                        content: {
+                            Text(
+                                MewDefaultsManager.NotchHeightMode.Match_Notch.rawValue.replacingOccurrences(
+                                    of: "_",
+                                    with: " "
+                                )
+                            )
+                            .tag(
+                                MewDefaultsManager.NotchHeightMode.Match_Notch
+                            )
+                            
+                            Text(
+                                MewDefaultsManager.NotchHeightMode.Match_Menu_Bar.rawValue.replacingOccurrences(
+                                    of: "_",
+                                    with: " "
+                                )
+                            )
+                            .tag(
+                                MewDefaultsManager.NotchHeightMode.Match_Menu_Bar
+                            )
+                        }
+                    ) {
+                        VStack(
+                            alignment: .leading
+                        ) {
+                            Text("Height")
+                            
+//                            Text("Design to be used for HUD")
+//                                .font(.footnote)
+                        }
+                    }
+                },
+                header: {
+                    Text("Notch")
+                }
+            )
+            
+            Section(
+                content: {
+                    Toggle(
+                        isOn: $defaultsManager.hudEnabled
+                    ) {
+                        VStack(
+                            alignment: .leading
+                        ) {
+                            Text("Enabled")
+                            
+                            Text("Show Volume and Brightness changes on Notch and turn off system HUD")
+                                .font(.footnote)
+                        }
+                    }
+                    
+                    Picker(
                         selection: $defaultsManager.hudStyle,
                         content: {
                             ForEach(
@@ -31,7 +92,16 @@ struct GeneraSettingsView: View {
                                     .tag(style)
                             }
                         }
-                    )
+                    ) {
+                        VStack(
+                            alignment: .leading
+                        ) {
+                            Text("Style")
+                            
+                            Text("Design to be used for HUD")
+                                .font(.footnote)
+                        }
+                    }
                     .disabled(!defaultsManager.hudEnabled)
                 },
                 header: {

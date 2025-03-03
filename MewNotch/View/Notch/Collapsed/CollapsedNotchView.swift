@@ -22,7 +22,7 @@ struct CollapsedNotchView: View {
             HStack(
                 spacing: 0
             ) {
-                if defaultsManager.hudStyle == .minimal {
+                if defaultsManager.hudStyle == .Minimal {
                     if let hudIcon = notchViewModel.hudIcon {
                         Text(
                             "000 %"
@@ -59,7 +59,7 @@ struct CollapsedNotchView: View {
                     notchSize: notchViewModel.notchSize
                 )
                 
-                if defaultsManager.hudStyle == .minimal {
+                if defaultsManager.hudStyle == .Minimal {
                     if let hudValue = notchViewModel.hudValue {
                         Text(
                             "000%"
@@ -99,11 +99,11 @@ struct CollapsedNotchView: View {
                 }
             }
             
-            if defaultsManager.hudStyle == .progress {
+            if defaultsManager.hudStyle == .Progress {
                 ProgressHUDView(
                     notchViewModel: notchViewModel
                 )
-            } else if defaultsManager.hudStyle == .notched {
+            } else if defaultsManager.hudStyle == .Notched {
                 NotchedHUDView(
                     notchViewModel: notchViewModel
                 )
@@ -136,6 +136,8 @@ struct CollapsedNotchView: View {
             } else {
                 OSDUIManager.shared.start()
             }
+            
+            notchViewModel.refreshNotchSize()
         }
         .onAppear {
             if defaultsManager.hudEnabled {

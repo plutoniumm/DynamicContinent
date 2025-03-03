@@ -47,29 +47,35 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
         
         guard let screen = NSScreen.main else { return }
         
-        let view: NSView = NSHostingView(
-            rootView: NotchView()
-        )
+        var panel: NSWindow! = windows[screen]
         
-        let panel = MewPanel(
-            contentRect: .zero,
-            styleMask: [
-                .borderless,
-                .nonactivatingPanel
-            ],
-            backing: .buffered,
-            defer: true
-        )
-        
-        panel.contentView = view
-        panel.orderFrontRegardless()
-        
-        panel.setFrame(
-            screen.frame,
-            display: true
-        )
-        
-        NotchSpaceManager.shared.notchSpace.windows.insert(panel)
+        if panel == nil {
+            let view: NSView = NSHostingView(
+                rootView: NotchView()
+            )
+            
+            panel = MewPanel(
+                contentRect: .zero,
+                styleMask: [
+                    .borderless,
+                    .nonactivatingPanel
+                ],
+                backing: .buffered,
+                defer: true
+            )
+            
+            panel.contentView = view
+            
+            panel.orderFrontRegardless()
+            
+            panel.setFrame(
+                screen.frame,
+                display: true
+            )
+            
+            self.windows[screen] = panel
+            NotchSpaceManager.shared.notchSpace.windows.insert(panel)
+        }
         
 //        self.createStatusItem()
     }

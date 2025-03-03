@@ -55,6 +55,10 @@ class NotchUtils {
         }
         
         notchHeight = screen.safeAreaInsets.top
+        
+        if MewDefaultsManager.shared.notchHeightMode == .Match_Menu_Bar {
+            notchHeight = screen.frame.maxY - screen.visibleFrame.maxY
+        }
 
         return .init(
             width: notchWidth,

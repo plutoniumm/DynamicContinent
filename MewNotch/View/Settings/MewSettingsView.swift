@@ -63,6 +63,19 @@ struct MewSettingsView: View {
                 GeneraSettingsView()
             }
         )
+        .task {
+            guard let window = NSApp.windows.first(
+                where: {
+                    $0.identifier?.rawValue == "com_apple_SwiftUI_Settings_window"
+                }
+            ) else {
+                return
+            }
+            
+            window.toolbarStyle = .unified
+            window.level = .mainMenu
+            window.styleMask.insert(.resizable)
+        }
     }
 }
 

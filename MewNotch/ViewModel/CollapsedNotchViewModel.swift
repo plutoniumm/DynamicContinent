@@ -23,7 +23,7 @@ class CollapsedNotchViewModel: ObservableObject {
     init() {
         self.notchSize = NotchUtils.shared.notchSize(
             screen: NSScreen.main,
-            force: true
+            force: MewDefaultsManager.shared.notchForceEnabled
         )
         
         withAnimation {
@@ -32,6 +32,18 @@ class CollapsedNotchViewModel: ObservableObject {
         }
         
         self.startListeners()
+    }
+    
+    func refreshNotchSize() {
+        self.notchSize = NotchUtils.shared.notchSize(
+            screen: NSScreen.main,
+            force: MewDefaultsManager.shared.notchForceEnabled
+        )
+        
+        withAnimation {
+            notchSize.width += extraNotchPadSize.width
+            notchSize.height += extraNotchPadSize.height
+        }
     }
     
     func startListeners() {
