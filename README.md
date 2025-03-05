@@ -4,10 +4,10 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 
 ## Features
 
-- **Volume Display** – Shows volume changes directly on the notch.
-- **Brightness Display** – Displays brightness adjustments in real-time.
-- **Minimal & Non-Intrusive** – A clean, lightweight alternative to the default system HUD.
-- **SwiftUI-based UI** – Smooth animations and modern macOS styling.
+- **Volume Display** - Shows volume changes directly on the notch.
+- **Brightness Display** - Displays brightness adjustments in real-time.
+- **Minimal & Non-Intrusive** - A clean, lightweight alternative to the default system HUD.
+- **SwiftUI-based UI** - Smooth animations and modern macOS styling.
 
 ## Installation
 
@@ -25,13 +25,15 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 ## Usage
 
 1. Launch **MewNotch**.
-2. Adjust the volume or brightness using the keyboard or Touch Bar.
+2. Adjust the volume or brightness.
 3. Enjoy the sleek visual feedback right on the notch!
 
 ## Roadmap
 
-- [ ] Add support for different types of HUD UIs.
-- [ ] Allow users to toggle HUD usage.
+- [✓] Add support for different types of HUD UIs.
+- [✓] Allow users to toggle HUD usage.
+- [✓] Icon in Menu bar to show app's running status.
+- [ ] Explore Music player integeation and possible usage.
 - [ ] Explore additional notch-based utilities.
 
 ## Contributing
@@ -45,7 +47,7 @@ This project is licensed under the [GPLv3 License](LICENSE).
 ## Acknowledgments
 
 - Inspired by the idea of making the Mac notch actually useful!
-- Built with ❤️ using Swift and SwiftUI.
+- Built with ♥️ using Swift and SwiftUI.
 - Special thanks to the following GitHub repositories for their code and inspiration:
   - [MediaKey](https://github.com/AlexPerathoner/MediaKeyTap)
   - [SlimHUD](https://github.com/AlexPerathoner/SlimHUD)
