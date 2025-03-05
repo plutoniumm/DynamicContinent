@@ -17,6 +17,8 @@ struct MewSettingsView: View {
         case About
     }
     
+    @StateObject var settingsViewModel: SettingsViewModel = .init()
+    
     @StateObject var defaultsManager = MewDefaultsManager.shared
     
     @State var selectedPage: SettingsPages = .General
@@ -34,7 +36,9 @@ struct MewSettingsView: View {
                         case .General:
                             NavigationLink(
                                 destination: {
-                                    GeneraSettingsView()
+                                    GeneraSettingsView(
+                                        settingsViewModel: settingsViewModel
+                                    )
                                 }
                             ) {
                                 Label(
@@ -43,10 +47,13 @@ struct MewSettingsView: View {
                                 )
                             }
                             .id(SettingsPages.General)
+                            
                         case .About:
                             NavigationLink(
                                 destination: {
-                                    AboutAppView()
+                                    AboutAppView(
+                                        settingsViewModel: settingsViewModel
+                                    )
                                 }
                             ) {
                                 Label(
@@ -60,7 +67,9 @@ struct MewSettingsView: View {
                 }
             },
             detail: {
-                GeneraSettingsView()
+                GeneraSettingsView(
+                    settingsViewModel: settingsViewModel
+                )
             }
         )
         .task {

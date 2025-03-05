@@ -11,6 +11,8 @@ struct GeneraSettingsView: View {
     
     @StateObject var defaultsManager = MewDefaultsManager.shared
     
+    @ObservedObject var settingsViewModel: SettingsViewModel = .init()
+    
     var body: some View {
         Form {
             Section(
