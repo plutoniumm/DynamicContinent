@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Lottie
+
 class CollapsedNotchViewModel: ObservableObject {
     
     @Published var notchSize: CGSize = .zero
@@ -15,7 +17,7 @@ class CollapsedNotchViewModel: ObservableObject {
         height: 0
     )
     
-    @Published var hudIcon: Image?
+    @Published var hudIcon: LottieAnimation?
     @Published var hudValue: Float?
     @Published var hudTimer: Timer?
     @Published var hudRefreshTimer: Timer?
@@ -79,7 +81,7 @@ class CollapsedNotchViewModel: ObservableObject {
         }
         
         withAnimation {
-            hudIcon = MewNotch.Assets.iconSpeaker
+            hudIcon = MewNotch.Lotties.speaker
             
             if VolumeManager.shared.isMuted() {
                 self.hudValue = 0.0
@@ -128,7 +130,7 @@ class CollapsedNotchViewModel: ObservableObject {
         }
         
         withAnimation {
-            hudIcon = MewNotch.Assets.iconBrightness
+            hudIcon = MewNotch.Lotties.brightness
             
             hudValue = try? DisplayManager.shared.getDisplayBrightness()
         }

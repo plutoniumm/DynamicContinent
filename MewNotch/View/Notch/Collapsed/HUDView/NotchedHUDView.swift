@@ -7,18 +7,30 @@
 
 import SwiftUI
 
+import Lottie
+
 struct NotchedHUDView: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
     
     var body: some View {
-        if let hudIcon = notchViewModel.hudIcon, let hudValue = notchViewModel.hudValue {
+        if let hudLottie = notchViewModel.hudIcon, let hudValue = notchViewModel.hudValue {
             VStack {
-                hudIcon
-                    .renderingMode(.template)
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(Color.white)
+                Rectangle()
+                    .opacity(0)
+                    .overlay {
+                        LottieView(
+                            animation: hudLottie
+                        )
+                        .currentProgress(Double(hudValue))
+                        .configuration(
+                            .init(
+                                renderingEngine: .mainThread
+                            )
+                        )
+                        .colorInvert()
+                        .scaledToFit()
+                    }
                 
                 RoundedRectangle(
                     cornerRadius: 2

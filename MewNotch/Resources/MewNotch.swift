@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Lottie
+
 class MewNotch {
     
     class Assets {
@@ -18,6 +20,11 @@ class MewNotch {
     
     class Colors {
         
+    }
+    
+    class Lotties {
+        static let brightness = LottieAnimation.named("Brightness.json")
+        static let speaker = LottieAnimation.named("Speaker.json")
     }
     
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9E36AFAA2D78EB2100D53482 /* Lottie */; };
 		9E903D0E2D6E54D8004BFD02 /* MediaKeyTap in Frameworks */ = {isa = PBXBuildFile; productRef = 9E903D0D2D6E54D8004BFD02 /* MediaKeyTap */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E903D0E2D6E54D8004BFD02 /* MediaKeyTap in Frameworks */,
+				9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			name = MewNotch;
 			packageProductDependencies = (
 				9E903D0D2D6E54D8004BFD02 /* MediaKeyTap */,
+				9E36AFAA2D78EB2100D53482 /* Lottie */,
 			);
 			productName = MewNotch;
 			productReference = 9EA41D872D6DEACA00817679 /* MewNotch.app */;
@@ -88,6 +91,7 @@
 				TargetAttributes = {
 					9EA41D862D6DEACA00817679 = {
 						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
@@ -102,6 +106,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				9E903D0C2D6E54D8004BFD02 /* XCRemoteSwiftPackageReference "MediaKeyTap" */,
+				9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9EA41D882D6DEACA00817679 /* Products */;
@@ -338,6 +343,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
 		9E903D0C2D6E54D8004BFD02 /* XCRemoteSwiftPackageReference "MediaKeyTap" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AlexPerathoner/MediaKeyTap";
@@ -349,6 +362,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9E36AFAA2D78EB2100D53482 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		9E903D0D2D6E54D8004BFD02 /* MediaKeyTap */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9E903D0C2D6E54D8004BFD02 /* XCRemoteSwiftPackageReference "MediaKeyTap" */;

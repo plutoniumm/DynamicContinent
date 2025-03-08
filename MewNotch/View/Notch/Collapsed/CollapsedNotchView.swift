@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Lottie
+
 struct CollapsedNotchView: View {
     
     @StateObject private var notchViewModel = CollapsedNotchViewModel.init()
@@ -22,8 +24,8 @@ struct CollapsedNotchView: View {
             HStack(
                 spacing: 0
             ) {
-                if defaultsManager.hudStyle == .Minimal {
-                    if let hudIcon = notchViewModel.hudIcon {
+                if defaultsManager.hudStyle == .Minimal, let hudValue = notchViewModel.hudValue {
+                    if let hudLottie = notchViewModel.hudIcon {
                         Text(
                             "000 %"
                         )
@@ -33,12 +35,18 @@ struct CollapsedNotchView: View {
                         )
                         .opacity(0)
                         .overlay {
-                            hudIcon
-                                .renderingMode(.template)
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundStyle(Color.white)
-                                .padding(8)
+                            LottieView(
+                                animation: hudLottie
+                            )
+                            .currentProgress(Double(hudValue))
+                            .configuration(
+                                .init(
+                                    renderingEngine: .mainThread
+                                )
+                            )
+                            .colorInvert()
+                            .scaledToFit()
+                            .padding(8)
                         }
                         .padding(
                             .leading,
