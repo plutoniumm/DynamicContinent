@@ -90,28 +90,6 @@ class CollapsedNotchViewModel: ObservableObject {
             }
         }
         
-        var counter = 0
-        
-        hudRefreshTimer?.invalidate()
-        hudRefreshTimer = Timer.scheduledTimer(
-            withTimeInterval: 0.1,
-            repeats: true
-        ) { timer in
-            if counter == 10 {
-                timer.invalidate()
-            }
-            
-            counter += 1
-            
-            withAnimation {
-                if VolumeManager.shared.isMuted() {
-                    self.hudValue = 0.0
-                } else {
-                    self.hudValue = VolumeManager.shared.getOutputVolume()
-                }
-            }
-        }
-        
         hudTimer?.invalidate()
         hudTimer = .scheduledTimer(
             withTimeInterval: 1.5,
