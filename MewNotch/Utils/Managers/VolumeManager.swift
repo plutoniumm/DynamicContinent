@@ -11,41 +11,18 @@ class VolumeManager {
     
     static let shared = VolumeManager()
     
+    var outputAudioControl: AudioControl = .sharedInstanceOutput()
+    var inputAudioControl: AudioControl = .sharedInstanceInput()
+    
     private init() {}
 
     func isMuted() -> Bool {
-        do {
-            return try AppleScriptRunner.shared.run(
-                script: "return output muted of (get volume settings)"
-            ) == "true"
-        } catch {
-            NSLog(
-                "Error while trying to retrieve muted properties of device: \(error). Returning default value false."
-            )
-            
-            return false
-        }
+        return outputAudioControl.isMute
     }
 
     func getOutputVolume() -> Float {
-        do {
-            if let volumeStr = Float(
-                try AppleScriptRunner.shared.run(
-                    script: "return output volume of (get volume settings)"
-                )
-            ) {
-                return volumeStr / 100
-            } else {
-                NSLog(
-                    "Error while trying to parse volume string value. Returning default volume value 1."
-                )
-            }
-        } catch {
-            NSLog(
-                "Error while trying to retrieve volume properties of device: \(error). Returning default volume value 1."
-            )
-        }
+        let volume = AudioControl.sharedInstanceOutput().volume
         
-        return 0.01
+        return volume.isNaN ? 0.01 : Float(volume)
     }
 }

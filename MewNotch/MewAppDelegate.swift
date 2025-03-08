@@ -39,6 +39,10 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
             OSDUIManager.shared.stop()
         }
         
+        // Need to Initialise once to set system listeners
+        AudioControl.sharedInstanceInput()
+        AudioControl.sharedInstanceOutput()
+        
         mediaKeyTap = MediaKeyTap(
             delegate: self
         )
@@ -107,10 +111,7 @@ extension MewAppDelegate: MediaKeyTapDelegate {
         event: KeyEvent?,
         modifiers: NSEvent.ModifierFlags?
     ) {
-//        print(mediaKey)
         switch mediaKey {
-        case .volumeUp, .volumeDown, .mute:
-            NotificationManager.shared.postVolumeChanged()
         case .brightnessDown, .brightnessUp:
             NotificationManager.shared.postBrightnessChanged()
         case .keyboardBrightnessUp, .keyboardBrightnessDown, .keyboardBrightnessToggle:

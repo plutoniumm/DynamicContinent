@@ -61,7 +61,7 @@ class CollapsedNotchViewModel: ObservableObject {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleVolumeChanges),
-            name: NotificationManager.volumeChangedNotification,
+            name: NSNotification.Name.AudioControl,
             object: nil
         )
     }
