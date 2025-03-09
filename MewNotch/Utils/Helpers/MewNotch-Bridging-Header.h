@@ -10,5 +10,4 @@
 #import <Foundation/Foundation.h>
 
 #import "Brightness/Brightness.h"
-
 #import "AudioControl/AudioControl.h"
