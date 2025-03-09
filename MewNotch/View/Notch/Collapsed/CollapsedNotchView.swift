@@ -133,7 +133,6 @@ struct CollapsedNotchView: View {
         .onReceive(
             defaultsManager.objectWillChange
         ) {
-            notchViewModel.hudRefreshTimer?.invalidate()
             notchViewModel.hudTimer?.invalidate()
             
             notchViewModel.hudIcon = nil

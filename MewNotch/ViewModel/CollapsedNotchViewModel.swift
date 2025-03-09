@@ -19,8 +19,8 @@ class CollapsedNotchViewModel: ObservableObject {
     
     @Published var hudIcon: LottieAnimation?
     @Published var hudValue: Float?
+    
     @Published var hudTimer: Timer?
-    @Published var hudRefreshTimer: Timer?
     
     init() {
         self.notchSize = NotchUtils.shared.notchSize(
@@ -34,6 +34,10 @@ class CollapsedNotchViewModel: ObservableObject {
         }
         
         self.startListeners()
+    }
+    
+    deinit {
+        
     }
     
     func refreshNotchSize() {
@@ -70,7 +74,7 @@ class CollapsedNotchViewModel: ObservableObject {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleBrightnessChanges),
-            name: NotificationManager.brightnessChangedNotification,
+            name: NSNotification.Name.Brightness,
             object: nil
         )
     }
@@ -110,25 +114,7 @@ class CollapsedNotchViewModel: ObservableObject {
         withAnimation {
             hudIcon = MewNotch.Lotties.brightness
             
-            hudValue = try? DisplayManager.shared.getDisplayBrightness()
-        }
-        
-        var counter = 0
-        
-        hudRefreshTimer?.invalidate()
-        hudRefreshTimer = Timer.scheduledTimer(
-            withTimeInterval: 0.1,
-            repeats: true
-        ) { timer in
-            if counter == 10 {
-                timer.invalidate()
-            }
-            
-            counter += 1
-            
-            withAnimation {
-                self.hudValue = try? DisplayManager.shared.getDisplayBrightness()
-            }
+            hudValue = Float(Brightness.sharedInstance().brightness)
         }
         
         hudTimer?.invalidate()

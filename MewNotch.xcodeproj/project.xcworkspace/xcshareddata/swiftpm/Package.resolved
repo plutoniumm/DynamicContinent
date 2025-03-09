@@ -1,5 +1,5 @@
 {
-  "originHash" : "7d6b34f06e5ea01c0b65d75d69de9e534f3a732ee4f3ede4d080a6b036050815",
+  "originHash" : "0a79f2009ea5ba6a9e7c2c6471d05458a7ac9a981d2fd7ab914f1eb741af1ea1",
   "pins" : [
     {
       "identity" : "lottie-ios",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "047aa81b77adcbf583a966dfef620d17650cc656",
         "version" : "4.5.1"
-      }
-    },
-    {
-      "identity" : "mediakeytap",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/AlexPerathoner/MediaKeyTap",
-      "state" : {
-        "branch" : "master",
-        "revision" : "bd1402a89a0f0caa9b0a6cd0cc9b76fe55bf3f4e"
       }
     }
   ],

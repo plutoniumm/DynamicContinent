@@ -5,9 +5,10 @@
 //  Created by Monu Kumar on 07/03/2025.
 //
 
+#pragma once
+
 #import <Foundation/Foundation.h>
 
 #import "Brightness/Brightness.h"
-#import "Power/PowerStatus.h"
 
 #import "AudioControl/AudioControl.h"

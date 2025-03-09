@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import MediaKeyTap
-
 class MewAppDelegate: NSObject, NSApplicationDelegate {
     
     @Environment(\.openWindow) var openWindow
@@ -17,8 +15,6 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
     var windows: [NSScreen: NSWindow] = [:]
     
     var window: NSWindow!
-    
-    var mediaKeyTap: MediaKeyTap?
     
     func applicationShouldTerminateAfterLastWindowClosed(
         _ sender: NSApplication
@@ -40,14 +36,8 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
         }
         
         // Need to Initialise once to set system listeners
-        AudioControl.sharedInstanceInput()
         AudioControl.sharedInstanceOutput()
-        
-        mediaKeyTap = MediaKeyTap(
-            delegate: self
-        )
-        
-        mediaKeyTap?.start()
+        Brightness.sharedInstance()
         
         guard let screen = NSScreen.main else { return }
         
@@ -101,23 +91,5 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
         }
         
         return .terminateNow
-    }
-}
-
-extension MewAppDelegate: MediaKeyTapDelegate {
-    
-    func handle(
-        mediaKey: MediaKey,
-        event: KeyEvent?,
-        modifiers: NSEvent.ModifierFlags?
-    ) {
-        switch mediaKey {
-        case .brightnessDown, .brightnessUp:
-            NotificationManager.shared.postBrightnessChanged()
-        case .keyboardBrightnessUp, .keyboardBrightnessDown, .keyboardBrightnessToggle:
-            NotificationManager.shared.postBacklightChanged()
-        default:
-            return
-        }
     }
 }

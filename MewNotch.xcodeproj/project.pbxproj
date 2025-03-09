@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E05A76F2D7D93A900980012 /* DisplayServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E05A76E2D7D93A900980012 /* DisplayServices.framework */; };
 		9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9E36AFAA2D78EB2100D53482 /* Lottie */; };
-		9E903D0E2D6E54D8004BFD02 /* MediaKeyTap in Frameworks */ = {isa = PBXBuildFile; productRef = 9E903D0D2D6E54D8004BFD02 /* MediaKeyTap */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E05A76E2D7D93A900980012 /* DisplayServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DisplayServices.framework; path = ../../../../System/Library/PrivateFrameworks/DisplayServices.framework; sourceTree = "<group>"; };
 		9EA41D872D6DEACA00817679 /* MewNotch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MewNotch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -28,7 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E903D0E2D6E54D8004BFD02 /* MediaKeyTap in Frameworks */,
+				9E05A76F2D7D93A900980012 /* DisplayServices.framework in Frameworks */,
 				9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,10 +37,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E05A76B2D7D935F00980012 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E05A76E2D7D93A900980012 /* DisplayServices.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9EA41D7E2D6DEACA00817679 = {
 			isa = PBXGroup;
 			children = (
 				9EA41D892D6DEACA00817679 /* MewNotch */,
+				9E05A76B2D7D935F00980012 /* Frameworks */,
 				9EA41D882D6DEACA00817679 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,7 +82,6 @@
 			);
 			name = MewNotch;
 			packageProductDependencies = (
-				9E903D0D2D6E54D8004BFD02 /* MediaKeyTap */,
 				9E36AFAA2D78EB2100D53482 /* Lottie */,
 			);
 			productName = MewNotch;
@@ -105,7 +114,6 @@
 			mainGroup = 9EA41D7E2D6DEACA00817679;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				9E903D0C2D6E54D8004BFD02 /* XCRemoteSwiftPackageReference "MediaKeyTap" */,
 				9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -288,6 +296,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MewNotch/Utils/Helpers/MewNotch-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
 			};
 			name = Debug;
 		};
@@ -321,6 +330,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MewNotch/Utils/Helpers/MewNotch-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
 			};
 			name = Release;
 		};
@@ -356,14 +366,6 @@
 				minimumVersion = 4.5.1;
 			};
 		};
-		9E903D0C2D6E54D8004BFD02 /* XCRemoteSwiftPackageReference "MediaKeyTap" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AlexPerathoner/MediaKeyTap";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -371,11 +373,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		9E903D0D2D6E54D8004BFD02 /* MediaKeyTap */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E903D0C2D6E54D8004BFD02 /* XCRemoteSwiftPackageReference "MediaKeyTap" */;
-			productName = MediaKeyTap;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
