@@ -117,19 +117,6 @@ struct CollapsedNotchView: View {
                 )
             }
         }
-        .background {
-            Color.black
-        }
-        .mask {
-            NotchShape()
-        }
-        .scaleEffect(
-            isHovered ? 1.05 : 1.0,
-            anchor: .top
-        )
-        .shadow(
-            radius: isHovered ? 5 : 0
-        )
         .onReceive(
             defaultsManager.objectWillChange
         ) {

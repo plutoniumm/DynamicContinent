@@ -24,12 +24,24 @@ struct NotchView: View {
                 CollapsedNotchView(
                     isHovered: isHovered
                 )
+                .background {
+                    Color.black
+                }
+                .mask {
+                    NotchShape()
+                }
+                .scaleEffect(
+                    isHovered ? 1.05 : 1.0,
+                    anchor: .top
+                )
+                .shadow(
+                    radius: isHovered ? 5 : 0
+                )
                 .onHover { isHovered in
                     withAnimation {
                         self.isHovered = isHovered
                     }
                 }
-                    
                 
                 Spacer()
             }
