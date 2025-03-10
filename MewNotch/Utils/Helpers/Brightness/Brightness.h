@@ -2,7 +2,7 @@
 //  Brightness.m
 //  MewNotch
 //
-//  Created by Monu Kumar on 3/8/25.
+//  Created by Monu Kumar on 8/3/25.
 //
 
 #ifndef BRIGHTNESS_H_INCLUDED
