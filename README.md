@@ -1,5 +1,8 @@
 # MewNotch - Make the Mac Notch Useful!
 
+[![GitHub License](https://img.shields.io/github/license/monuk7735/mew-notch)](LICENSE)
+[![Downloads](https://img.shields.io/github/downloads/monuk7735/mew-notch/total.svg)](https://github.com/monuk7735/mew-notch/releases)
+
 MewNotch is a macOS app that enhances the functionality of the notch on new MacBooks by displaying volume and brightness changes, replacing the default system HUD with a modern and seamless experience.
 
 ## Features
@@ -25,15 +28,17 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 ## Usage
 
 1. Launch **MewNotch**.
-2. Adjust the volume or brightness.
-3. Enjoy the sleek visual feedback right on the notch!
+2. Adjust settings, if required. Notch won't appear at first launch on non-notched devices.
+3. Adjust the volume or brightness using Keyboard or Touch Bar.
+4. Enjoy the sleek visual feedback right on the notch!
 
 ## Roadmap
 
-- [✓] Add support for different types of HUD UIs.
-- [✓] Allow users to toggle HUD usage.
-- [✓] Icon in Menu bar to show app's running status.
-- [ ] Explore Music player integeation and possible usage.
+- [x] Add support for different types of HUD UIs.
+- [x] Allow users to toggle HUD usage.
+- [x] Icon in Menu bar to show app's running status.
+- [x] Add Touch bar support.
+- [ ] Explore Music player integration and possible usage.
 - [ ] Explore additional notch-based utilities.
 
 ## Contributing
@@ -49,7 +54,6 @@ This project is licensed under the [GPLv3 License](LICENSE).
 - Inspired by the idea of making the Mac notch actually useful!
 - Built with ♥️ using Swift and SwiftUI.
 - Special thanks to the following GitHub repositories for their code and inspiration:
-  - [MediaKey](https://github.com/AlexPerathoner/MediaKeyTap)
   - [SlimHUD](https://github.com/AlexPerathoner/SlimHUD)
   - [boring.notch](https://github.com/TheBoredTeam/boring.notch)
 
