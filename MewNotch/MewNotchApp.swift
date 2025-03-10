@@ -42,55 +42,56 @@ struct MewNotchApp: App {
 
     var body: some Scene {
         MenuBarExtra(
-            "MewNotch",
-            image: ImageResource.menuBarIcon,
-            isInserted: $isMenuShown
-        ) {
-            Text("MewNotch")
-            
-            Button("Settings") {
-                openSettings()
-            }
-            .keyboardShortcut(
-                ",",
-                modifiers: .command
-            )
+            content: {
+                Text("MewNotch")
+                
+                Button("Settings") {
+                    openSettings()
+                }
+                .keyboardShortcut(
+                    ",",
+                    modifiers: .command
+                )
 
-            
-            Button("Restart") {
-                guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
-                    return
+                
+                Button("Restart") {
+                    guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
+                        return
+                    }
+                    
+                    let workspace = NSWorkspace.shared
+                    
+                    if let appURL = workspace.urlForApplication(
+                        withBundleIdentifier: bundleIdentifier
+                    ) {
+                        let configuration = NSWorkspace.OpenConfiguration()
+                        
+                        configuration.createsNewApplicationInstance = true
+                        
+                        workspace.openApplication(
+                            at: appURL,
+                            configuration: configuration
+                        )
+                    }
+                
+                   NSApplication.shared.terminate(nil)
                 }
+                .keyboardShortcut("R", modifiers: .command)
                 
-                let workspace = NSWorkspace.shared
-                
-                if let appURL = workspace.urlForApplication(
-                    withBundleIdentifier: bundleIdentifier
+                Button(
+                    "Quit",
+                    role: .destructive
                 ) {
-                    let configuration = NSWorkspace.OpenConfiguration()
-                    
-                    configuration.createsNewApplicationInstance = true
-                    
-                    workspace.openApplication(
-                        at: appURL,
-                        configuration: configuration
-                    )
+                    NSApplication.shared.terminate(nil)
                 }
-            
-               NSApplication.shared.terminate(nil)
+                .keyboardShortcut(
+                    "Q",
+                    modifiers: .command
+                )
             }
-            .keyboardShortcut("R", modifiers: .command)
-            
-            Button(
-                "Quit",
-                role: .destructive
-            ) {
-                NSApplication.shared.terminate(nil)
-            }
-            .keyboardShortcut(
-                "Q",
-                modifiers: .command
-            )
+        ) {
+            MewNotch.Assets.iconMenuBar
+                .renderingMode(.template)
         }
         .onChange(of: defaultsManager.showMenuIcon) { oldVal, newVal in
             if oldVal != newVal {
