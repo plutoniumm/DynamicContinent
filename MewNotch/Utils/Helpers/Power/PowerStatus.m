@@ -56,6 +56,42 @@ static void PowerStatusCallback(void *context)
     CFRunLoopRemoveSource(CFRunLoopGetCurrent(), _source, kCFRunLoopDefaultMode);
 }
 
+- (float)getBatteryLevel
+{
+    CFArrayRef list = IOPSCopyPowerSourcesList(IOPSCopyPowerSourcesInfo());
+    
+    CFIndex count = CFArrayGetCount(list);
+    
+    if (count == 0) {
+        return NAN;
+    }
+    
+    NSDictionary *battery = nil;
+
+    for(int i = 0; i < count; ++i  ) {
+        NSDictionary *source = CFArrayGetValueAtIndex(
+           list,
+           i
+        );
+        
+        if([source[@"Type"]  isEqual: @"InternalBattery"]) {
+            battery = source;
+            break;
+        }
+    }
+    
+    if(battery == nil) {
+        return NAN;
+    }
+    
+    NSNumber *currentCapacity = battery[@"Current Capacity"];
+    NSNumber *maxCapacity = battery[@"Max Capacity"];
+    
+    float percentage =  [currentCapacity floatValue] / [maxCapacity floatValue];
+
+    return percentage;
+}
+
 - (NSTimeInterval)remainingTime
 {
     NSTimeInterval time = IOPSGetTimeRemainingEstimate();

@@ -15,6 +15,7 @@
 
 @interface PowerStatus : NSObject
 + (PowerStatus *)sharedInstance;
+- (float) getBatteryLevel;
 - (NSTimeInterval)remainingTime;
 - (NSString *)providingSource;
 @end

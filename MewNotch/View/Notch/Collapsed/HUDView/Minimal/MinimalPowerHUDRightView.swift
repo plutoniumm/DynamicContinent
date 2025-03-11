@@ -1,13 +1,13 @@
 //
-//  MinimalHUDLeftView.swift
+//  MinimalPowerHUDRightView.swift
 //  MewNotch
 //
-//  Created by Monu Kumar on 11/03/25.
+//  Created by Monu Kumar on 12/03/25.
 //
 
 import SwiftUI
 
-struct MinimalHUDLeftView: View {
+struct MinimalPowerHUDRightView: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
     
@@ -24,17 +24,26 @@ struct MinimalHUDLeftView: View {
             )
             .opacity(0)
             .overlay {
-                hud
-                    .getIcon()
-                    .padding(8)
+                AnimatedTextView(
+                    value: Double(hud.value * 100)
+                ) { value in
+                    Text(
+                        String(
+                            format: "%02.0f",
+                            value
+                        )
+                    )
+                    .font(.title3.bold())
+                    .foregroundStyle(Color.white)
+                }
             }
             .padding(
-                .leading,
+                .trailing,
                 notchViewModel.extraNotchPadSize.width / 2
             )
             .transition(
                 .offset(
-                    x: notchViewModel.extraNotchPadSize.width / 2
+                    x: -notchViewModel.extraNotchPadSize.width / 2
                 )
                 .combined(
                     with: .opacity
@@ -45,7 +54,7 @@ struct MinimalHUDLeftView: View {
 }
 
 #Preview {
-    MinimalHUDLeftView(
+    MinimalPowerHUDLeftView(
         notchViewModel: .init()
     )
 }

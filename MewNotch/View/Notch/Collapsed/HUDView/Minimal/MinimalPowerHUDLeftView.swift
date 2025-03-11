@@ -1,13 +1,13 @@
 //
-//  MinimalHUDLeftView.swift
+//  MinimalPowerHUDLeftView.swift
 //  MewNotch
 //
-//  Created by Monu Kumar on 11/03/25.
+//  Created by Monu Kumar on 12/03/25.
 //
 
 import SwiftUI
 
-struct MinimalHUDLeftView: View {
+struct MinimalPowerHUDLeftView: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
     
@@ -45,7 +45,7 @@ struct MinimalHUDLeftView: View {
 }
 
 #Preview {
-    MinimalHUDLeftView(
+    MinimalPowerHUDLeftView(
         notchViewModel: .init()
     )
 }

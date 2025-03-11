@@ -27,6 +27,8 @@ class CollapsedNotchViewModel: ObservableObject {
     
     @Published var powerStatusHUD: HUDPropertyModel?
     
+    @Published var lastPowerStatus: String = ""
+    
     @Published var hudTimer: Timer?
     
     init() {
@@ -249,17 +251,25 @@ class CollapsedNotchViewModel: ObservableObject {
     }
     
     @objc private func handlePowerStatusChanges() {
-        if !MewDefaultsManager.shared.hudEnabled {
+        if lastPowerStatus == PowerStatus.sharedInstance().providingSource() {
             return
         }
         
+        self.lastPowerStatus = PowerStatus.sharedInstance().providingSource()
+        let isCharging = PowerStatus.sharedInstance().providingSource() == PowerStatusACPower
+        
+        var batteryLevelForIcon = Int(PowerStatus.sharedInstance().getBatteryLevel() * 100)
+        batteryLevelForIcon -= (batteryLevelForIcon % 25)
         
         withAnimation {
             self.powerStatusHUD = .init(
-                lottie: MewNotch.Lotties.brightness,
-                icon: MewNotch.Assets.iconBrightness,
-                name: "Power Source",
-                value: PowerStatus.sharedInstance().providingSource() == PowerStatusACPower ? 1.0 : 0.0,
+                lottie: nil,
+                icon: .init(
+                    systemName: isCharging
+                    ? "battery.100percent.bolt" : "battery.\(batteryLevelForIcon)percent"
+                ),
+                name: PowerStatus.sharedInstance().providingSource(),
+                value: PowerStatus.sharedInstance().getBatteryLevel(),
                 timer: powerStatusHUD?.timer
             )
         }
