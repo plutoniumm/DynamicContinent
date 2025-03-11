@@ -1,26 +1,22 @@
-/**
- * @file AudioControl.m
- *
- * @copyright 2018-2019 Bill Zissimopoulos
- */
-/*
- * This file is part of EnergyBar.
- *
- * You can redistribute it and/or modify it under the terms of the GNU
- * General Public License version 3 as published by the Free Software
- * Foundation.
- */
+//
+//  AudioInput.m
+//  MewNotch
+//
+//  Created by Monu Kumar on 11/03/25.
+//
 
-#include "AudioControl.h"
+
+#include "AudioInput.h"
 #include <CoreAudio/CoreAudio.h>
 #include <AudioToolbox/AudioServices.h>
 
-NSString *AudioControlNotification = @"AudioControl";
-NSString *AudioControlPropertyKey = @"AudioControlProperty";
 
-@interface AudioControl ()
+NSString *AudioInputVolumeNotification = @"AudioInputVolume";
+NSString *AudioInputDeviceNotification = @"AudioInputDevice";
+
+@interface AudioInput ()
 - (void)systemObjectPropertyDidChange;
-- (void)audioDevicePropertyDidChange:(NSString *)property;
+- (void)audioDevicePropertyDidChange;
 @end
 
 static OSStatus SystemObjectPropertyListener(
@@ -41,8 +37,8 @@ static OSStatus AudioDeviceMuteListener(
     UInt32 count, const AudioObjectPropertyAddress* addresses,
     void *data)
 {
-    [(__bridge AudioControl *)data
-        performSelectorOnMainThread:@selector(audioDevicePropertyDidChange:)
+    [(__bridge AudioInput *)data
+        performSelectorOnMainThread:@selector(audioDevicePropertyDidChange)
         withObject:@"mute"
         waitUntilDone:NO];
     return kAudioHardwareNoError;
@@ -53,45 +49,37 @@ static OSStatus AudioDeviceVolumeListener(
     UInt32 count, const AudioObjectPropertyAddress* addresses,
     void *data)
 {
-    [(__bridge AudioControl *)data
-        performSelectorOnMainThread:@selector(audioDevicePropertyDidChange:)
+    [(__bridge AudioInput *)data
+        performSelectorOnMainThread:@selector(audioDevicePropertyDidChange)
         withObject:@"volume"
         waitUntilDone:NO];
     return kAudioHardwareNoError;
 }
 
-@implementation AudioControl
+@implementation AudioInput
 {
     AudioObjectPropertySelector _selector;
     AudioObjectPropertyScope _scope;
-    AudioDeviceID _audiodev;
+    AudioDeviceID _device;
 }
 
-+ (AudioControl *)sharedInstanceOutput
++ (AudioInput *)sharedInstance
 {
-    static AudioControl *instance = 0;
+    static AudioInput *instance = 0;
     if (0 == instance)
-        instance = [[AudioControl alloc] init:TRUE];
+        instance = [[AudioInput alloc] init];
     return instance;
 }
 
-+ (AudioControl *)sharedInstanceInput
-{
-    static AudioControl *instance = 0;
-    if (0 == instance)
-        instance = [[AudioControl alloc] init:FALSE];
-    return instance;
-}
-
-- (id)init:(BOOL) output
+- (id)init
 {
     self = [super init];
     if (nil == self)
         return nil;
 
-    _audiodev = kAudioObjectUnknown;
-    _selector = output ? kAudioHardwarePropertyDefaultOutputDevice : kAudioHardwarePropertyDefaultInputDevice;
-    _scope = output ? kAudioDevicePropertyScopeOutput : kAudioDevicePropertyScopeInput;
+    _device = kAudioObjectUnknown;
+    _selector = kAudioHardwarePropertyDefaultInputDevice;
+    _scope = kAudioDevicePropertyScopeInput;
 
     [self registerSystemObjectListener:YES];
     [self getAudioDevice:YES];
@@ -105,7 +93,27 @@ static OSStatus AudioDeviceVolumeListener(
     [self registerSystemObjectListener:NO];
 }
 
-- (double)volume
+- (NSString *)deviceName
+{
+    AudioObjectPropertyAddress address =
+    {
+        .mSelector = kAudioObjectPropertyName,
+        .mScope = _scope,
+        .mElement = kAudioObjectPropertyElementMain,
+    };
+    
+    __block NSString * name = @"";
+    
+    [self _retry:^OSStatus(AudioDeviceID audiodev)
+    {
+        UInt32 size = sizeof name;
+        return AudioObjectGetPropertyData(audiodev, &address, 0, 0, &size, &name);
+    }];
+
+    return name;
+}
+
+- (float)volume
 {
     AudioObjectPropertyAddress address =
     {
@@ -129,7 +137,7 @@ static OSStatus AudioDeviceVolumeListener(
     return volume;
 }
 
-- (void)setVolume:(double)value
+- (void)setVolume:(float)value
 {
     AudioObjectPropertyAddress address =
     {
@@ -203,7 +211,7 @@ static OSStatus AudioDeviceVolumeListener(
 
 - (AudioDeviceID)getAudioDevice:(BOOL)init
 {
-    if (kAudioObjectUnknown == _audiodev || init)
+    if (kAudioObjectUnknown == _device || init)
     {
         AudioObjectPropertyAddress address =
         {
@@ -218,7 +226,7 @@ static OSStatus AudioDeviceVolumeListener(
         status = AudioObjectGetPropertyData(kAudioObjectSystemObject, &address, 0, 0, &size, &device);
         if (kAudioHardwareNoError == status)
         {
-            _audiodev = device;
+            _device = device;
 
             AudioObjectPropertyAddress muteAddress =
             {
@@ -246,12 +254,12 @@ static OSStatus AudioDeviceVolumeListener(
         }
     }
 
-    return _audiodev;
+    return _device;
 }
 
 - (void)resetAudioDevice
 {
-    if (kAudioObjectUnknown != _audiodev)
+    if (kAudioObjectUnknown != _device)
     {
         AudioObjectPropertyAddress muteAddress =
         {
@@ -261,7 +269,7 @@ static OSStatus AudioDeviceVolumeListener(
         };
         OSStatus status;
 
-        status = AudioObjectRemovePropertyListener(_audiodev, &muteAddress, AudioDeviceMuteListener, (__bridge void * _Nullable)(self));
+        status = AudioObjectRemovePropertyListener(_device, &muteAddress, AudioDeviceMuteListener, (__bridge void * _Nullable)(self));
 
         AudioObjectPropertyAddress volumeAddress =
         {
@@ -270,7 +278,7 @@ static OSStatus AudioDeviceVolumeListener(
             .mElement = kAudioObjectPropertyElementMain,
         };
         
-        status = AudioObjectRemovePropertyListener(_audiodev, &volumeAddress, AudioDeviceVolumeListener, (__bridge void * _Nullable)(self));
+        status = AudioObjectRemovePropertyListener(_device, &volumeAddress, AudioDeviceVolumeListener, (__bridge void * _Nullable)(self));
     }
 }
 
@@ -305,13 +313,20 @@ static OSStatus AudioDeviceVolumeListener(
 {
     [self resetAudioDevice];
     [self getAudioDevice:YES];
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:AudioInputDeviceNotification
+     object:self
+     userInfo: nil
+    ];
 }
 
-- (void)audioDevicePropertyDidChange:(NSString *)property
+- (void)audioDevicePropertyDidChange
 {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:AudioControlNotification
-        object:self
-        userInfo:property ? @{AudioControlPropertyKey: property} : nil];
+     postNotificationName:AudioInputVolumeNotification
+     object:self
+     userInfo:nil
+    ];
 }
 @end

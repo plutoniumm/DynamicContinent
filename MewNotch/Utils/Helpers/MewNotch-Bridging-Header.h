@@ -10,4 +10,9 @@
 #import <Foundation/Foundation.h>
 
 #import "Brightness/Brightness.h"
-#import "AudioControl/AudioControl.h"
+#import "AudioControl/AudioInput.h"
+#import "AudioControl/AudioOutput.h"
+#import "Power/PowerStatus.h"
+
+
+extern CFTypeRef IOPSCopyPowerSourcesInfo(void);

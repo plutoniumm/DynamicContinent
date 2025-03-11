@@ -13,23 +13,15 @@ struct NotchedHUDView: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
     
+    var hudModel: HUDPropertyModel?
+    
     var body: some View {
-        if let hudLottie = notchViewModel.hudIcon, let hudValue = notchViewModel.hudValue {
+        if let hud = hudModel {
             VStack {
                 Rectangle()
                     .opacity(0)
                     .overlay {
-                        LottieView(
-                            animation: hudLottie
-                        )
-                        .currentProgress(Double(hudValue))
-                        .configuration(
-                            .init(
-                                renderingEngine: .mainThread
-                            )
-                        )
-                        .colorInvert()
-                        .scaledToFit()
+                        hud.getIcon()
                     }
                 
                 RoundedRectangle(
@@ -52,7 +44,7 @@ struct NotchedHUDView: View {
                             Color.accentColor
                         )
                         .frame(
-                            width: CGFloat(hudValue) * geometry.size.width,
+                            width: CGFloat(hud.value) * geometry.size.width,
                             height: geometry.size.height
                         )
                         .frame(
@@ -63,8 +55,12 @@ struct NotchedHUDView: View {
                 }
             }
             .padding(
-                .init([.leading, .bottom, .trailing]),
-                16
+                .init(
+                    top: 0,
+                    leading: 16,
+                    bottom: 16,
+                    trailing: 16
+                )
             )
             .frame(
                 width: notchViewModel.notchSize.width - notchViewModel.extraNotchPadSize.width,
@@ -84,5 +80,6 @@ struct NotchedHUDView: View {
 
 #Preview {
     NotchedHUDView(
-        notchViewModel: .init())
+        notchViewModel: .init()
+    )
 }

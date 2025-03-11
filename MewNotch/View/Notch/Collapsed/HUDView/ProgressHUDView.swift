@@ -13,8 +13,10 @@ struct ProgressHUDView: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
     
+    var hudModel: HUDPropertyModel?
+    
     var body: some View {
-        if let hudLottie = notchViewModel.hudIcon, let hudValue = notchViewModel.hudValue {
+        if let hud = hudModel {
             VStack {
                 HStack {
                     Text(
@@ -23,17 +25,7 @@ struct ProgressHUDView: View {
                     .font(.title3.bold())
                     .opacity(0)
                     .overlay {
-                        LottieView(
-                            animation: hudLottie
-                        )
-                        .currentProgress(Double(hudValue))
-                        .configuration(
-                            .init(
-                                renderingEngine: .mainThread
-                            )
-                        )
-                        .colorInvert()
-                        .scaledToFit()
+                        hud.getIcon()
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
@@ -46,7 +38,7 @@ struct ProgressHUDView: View {
                     .opacity(0)
                     .overlay {
                         AnimatedTextView(
-                            value: Double(hudValue * 100)
+                            value: Double(hud.value * 100)
                         ) { value in
                             Text(
                                 String(
@@ -77,7 +69,7 @@ struct ProgressHUDView: View {
                         Rectangle()
                             .fill(Color.accentColor)
                             .frame(
-                                width: CGFloat(hudValue) * geometry.size.width,
+                                width: CGFloat(hud.value) * geometry.size.width,
                                 height: geometry.size.height
                             )
                             .frame(
@@ -106,11 +98,12 @@ struct ProgressHUDView: View {
                 }
             }
             .padding(
-                .horizontal, 10
-            )
-            .padding(
-                .bottom,
-                10
+                .init(
+                    top: 0,
+                    leading: 10,
+                    bottom: 10,
+                    trailing: 10
+                )
             )
             .padding(
                 .horizontal, notchViewModel.extraNotchPadSize.width / 2

@@ -36,8 +36,10 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
         }
         
         // Need to Initialise once to set system listeners
-        AudioControl.sharedInstanceOutput()
+        AudioInput.sharedInstance()
+        AudioOutput.sharedInstance()
         Brightness.sharedInstance()
+        PowerStatus.sharedInstance()
         
         guard let screen = NSScreen.main else { return }
         

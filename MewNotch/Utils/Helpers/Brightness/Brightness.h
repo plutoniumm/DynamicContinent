@@ -12,7 +12,7 @@
 
 @interface Brightness : NSObject
 + (Brightness*) sharedInstance;
-@property (getter=brightness, setter=setBrightness:) double brightness;
+@property (getter=brightness, setter=setBrightness:) float brightness;
 @end
 
 extern NSString *BrightnessNotification;

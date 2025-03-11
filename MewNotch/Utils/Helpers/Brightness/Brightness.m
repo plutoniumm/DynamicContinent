@@ -11,7 +11,6 @@
 #import <IOKit/IOKitLib.h>
 
 NSString *BrightnessNotification = @"Brightness";
-NSString *BrightnessPropertyKey = @"BrightnessProperty";
 
 int DisplayServicesRegisterForBrightnessChangeNotifications(
     CGDirectDisplayID display,
@@ -70,7 +69,7 @@ static void DisplayBrightnessListener(
     [self registerListener:NO];
 }
 
-- (double)brightness
+- (float)brightness
 {
     float brightness = NAN;
     
@@ -82,7 +81,7 @@ static void DisplayBrightnessListener(
     return brightness;
 }
 
-- (void)setBrightness:(double)value
+- (void)setBrightness:(float)value
 {
     DisplayServicesSetBrightness(
         CGMainDisplayID(),

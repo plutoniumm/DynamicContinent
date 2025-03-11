@@ -7,8 +7,9 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 
 ## Features
 
-- **Volume Display** - Shows volume changes directly on the notch.
 - **Brightness Display** - Displays brightness adjustments in real-time.
+- **Sound level Display** - Shows input/output volume changes directly on the notch.
+- **Sound Device** - Shows current input/output device on notch, when changed.
 - **Minimal & Non-Intrusive** - A clean, lightweight alternative to the default system HUD.
 - **SwiftUI-based UI** - Smooth animations and modern macOS styling.
 

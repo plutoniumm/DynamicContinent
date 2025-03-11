@@ -11,18 +11,40 @@ class VolumeManager {
     
     static let shared = VolumeManager()
     
-    var outputAudioControl: AudioControl = .sharedInstanceOutput()
-    var inputAudioControl: AudioControl = .sharedInstanceInput()
+    var outputAudio: AudioOutput = .sharedInstance()
+    var inputAudio: AudioInput = .sharedInstance()
     
     private init() {}
-
-    func isMuted() -> Bool {
-        return outputAudioControl.isMute
+    
+    func isInputMuted() -> Bool {
+        return inputAudio.isMute
     }
-
-    func getOutputVolume() -> Float {
-        let volume = AudioControl.sharedInstanceOutput().volume
+    
+    func isOutputMuted() -> Bool {
+        return outputAudio.isMute
+    }
+    
+    func getInputDeviceName() -> String {
+        return inputAudio.deviceName
+    }
+    
+    func getOutputDeviceName() -> String {
+        return outputAudio.deviceName
+    }
+    
+    func getInputVolume() -> Float {
+        if isInputMuted() {
+            return 0.0
+        }
         
-        return volume.isNaN ? 0.01 : Float(volume)
+        return inputAudio.volume
+    }
+    
+    func getOutputVolume() -> Float {
+        if isOutputMuted() {
+            return 0.0
+        }
+        
+        return outputAudio.volume
     }
 }

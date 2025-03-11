@@ -24,43 +24,25 @@ struct CollapsedNotchView: View {
             HStack(
                 spacing: 0
             ) {
-                if defaultsManager.hudStyle == .Minimal, let hudValue = notchViewModel.hudValue {
-                    if let hudLottie = notchViewModel.hudIcon {
-                        Text(
-                            "000 %"
-                        )
-                        .font(.title3.bold())
-                        .frame(
-                            height: notchViewModel.notchSize.height
-                        )
-                        .opacity(0)
-                        .overlay {
-                            LottieView(
-                                animation: hudLottie
-                            )
-                            .currentProgress(Double(hudValue))
-                            .configuration(
-                                .init(
-                                    renderingEngine: .mainThread
-                                )
-                            )
-                            .colorInvert()
-                            .scaledToFit()
-                            .padding(8)
-                        }
-                        .padding(
-                            .leading,
-                            notchViewModel.extraNotchPadSize.width / 2
-                        )
-                        .transition(
-                            .offset(
-                                x: notchViewModel.extraNotchPadSize.width / 2
-                            )
-                            .combined(
-                                with: .opacity
-                            )
-                        )
-                    }
+                if let brightnessHUD = notchViewModel.brightnessHUD {
+                    
+                }
+                
+                if defaultsManager.hudStyle == .Minimal {
+                    MinimalHUDLeftView(
+                        notchViewModel: notchViewModel,
+                        hudModel: notchViewModel.brightnessHUD
+                    )
+                    
+                    MinimalHUDLeftView(
+                        notchViewModel: notchViewModel,
+                        hudModel: notchViewModel.inputAudioVolumeHUD
+                    )
+                    
+                    MinimalHUDLeftView(
+                        notchViewModel: notchViewModel,
+                        hudModel: notchViewModel.outputAudioVolumeHUD
+                    )
                 }
                 
                 OnlyNotchView(
@@ -68,52 +50,64 @@ struct CollapsedNotchView: View {
                 )
                 
                 if defaultsManager.hudStyle == .Minimal {
-                    if let hudValue = notchViewModel.hudValue {
-                        Text(
-                            "000%"
-                        )
-                        .font(.title3.bold())
-                        .frame(
-                            height: notchViewModel.notchSize.height
-                        )
-                        .opacity(0)
-                        .overlay {
-                            AnimatedTextView(
-                                value: Double(hudValue * 100)
-                            ) { value in
-                                Text(
-                                    String(
-                                        format: "%02.0f",
-                                        value
-                                    )
-                                )
-                                .font(.title3.bold())
-                                .foregroundStyle(Color.white)
-                            }
-                        }
-                        .padding(
-                            .trailing,
-                            notchViewModel.extraNotchPadSize.width / 2
-                        )
-                        .transition(
-                            .offset(
-                                x: -notchViewModel.extraNotchPadSize.width / 2
-                            )
-                            .combined(
-                                with: .opacity
-                            )
-                        )
-                    }
+                    MinimalHUDRightView(
+                        notchViewModel: notchViewModel,
+                        hudModel: notchViewModel.outputAudioVolumeHUD
+                    )
+                    
+                    MinimalHUDRightView(
+                        notchViewModel: notchViewModel,
+                        hudModel: notchViewModel.inputAudioVolumeHUD
+                    )
+                    
+                    MinimalHUDRightView(
+                        notchViewModel: notchViewModel,
+                        hudModel: notchViewModel.brightnessHUD
+                    )
                 }
             }
             
+            AudioDeviceHUDView(
+                notchViewModel: notchViewModel,
+                deviceType: .Input,
+                hudModel: notchViewModel.inputAudioDeviceHUD
+            )
+            
+            AudioDeviceHUDView(
+                notchViewModel: notchViewModel,
+                deviceType: .Output,
+                hudModel: notchViewModel.outputAudioDeviceHUD
+            )
+            
             if defaultsManager.hudStyle == .Progress {
                 ProgressHUDView(
-                    notchViewModel: notchViewModel
+                    notchViewModel: notchViewModel,
+                    hudModel: notchViewModel.brightnessHUD
+                )
+                
+                ProgressHUDView(
+                    notchViewModel: notchViewModel,
+                    hudModel: notchViewModel.inputAudioVolumeHUD
+                )
+                
+                ProgressHUDView(
+                    notchViewModel: notchViewModel,
+                    hudModel: notchViewModel.outputAudioVolumeHUD
                 )
             } else if defaultsManager.hudStyle == .Notched {
                 NotchedHUDView(
-                    notchViewModel: notchViewModel
+                    notchViewModel: notchViewModel,
+                    hudModel: notchViewModel.brightnessHUD
+                )
+                
+                NotchedHUDView(
+                    notchViewModel: notchViewModel,
+                    hudModel: notchViewModel.inputAudioVolumeHUD
+                )
+                
+                NotchedHUDView(
+                    notchViewModel: notchViewModel,
+                    hudModel: notchViewModel.outputAudioVolumeHUD
                 )
             }
         }
@@ -122,8 +116,7 @@ struct CollapsedNotchView: View {
         ) {
             notchViewModel.hudTimer?.invalidate()
             
-            notchViewModel.hudIcon = nil
-            notchViewModel.hudValue = nil
+            notchViewModel.hideHUDs()
             
             if defaultsManager.hudEnabled {
                 OSDUIManager.shared.stop()
