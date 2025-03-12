@@ -41,37 +41,7 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
         Brightness.sharedInstance()
         PowerStatus.sharedInstance()
         
-        guard let screen = NSScreen.main else { return }
-        
-        var panel: NSWindow! = windows[screen]
-        
-        if panel == nil {
-            let view: NSView = NSHostingView(
-                rootView: NotchView()
-            )
-            
-            panel = MewPanel(
-                contentRect: .zero,
-                styleMask: [
-                    .borderless,
-                    .nonactivatingPanel
-                ],
-                backing: .buffered,
-                defer: true
-            )
-            
-            panel.contentView = view
-            
-            panel.orderFrontRegardless()
-            
-            panel.setFrame(
-                screen.frame,
-                display: true
-            )
-            
-            self.windows[screen] = panel
-            NotchSpaceManager.shared.notchSpace.windows.insert(panel)
-        }
+        NotchManager.shared.refreshNotches()
     }
     
     @objc func openSettings() {
