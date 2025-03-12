@@ -11,6 +11,8 @@ import Lottie
 
 class CollapsedNotchViewModel: ObservableObject {
     
+    var screen: NSScreen
+    
     @Published var notchSize: CGSize = .zero
     var extraNotchPadSize: CGSize = .init(
         width: 14,
@@ -31,9 +33,13 @@ class CollapsedNotchViewModel: ObservableObject {
     
     @Published var hudTimer: Timer?
     
-    init() {
+    init(
+        screen: NSScreen
+    ) {
+        self.screen = screen
+        
         self.notchSize = NotchUtils.shared.notchSize(
-            screen: NSScreen.main,
+            screen: self.screen,
             force: MewDefaultsManager.shared.notchForceEnabled
         )
         
@@ -51,7 +57,7 @@ class CollapsedNotchViewModel: ObservableObject {
     
     func refreshNotchSize() {
         self.notchSize = NotchUtils.shared.notchSize(
-            screen: NSScreen.main,
+            screen: self.screen,
             force: MewDefaultsManager.shared.notchForceEnabled
         )
         

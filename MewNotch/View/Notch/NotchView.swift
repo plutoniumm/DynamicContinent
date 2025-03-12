@@ -11,10 +11,22 @@ struct NotchView: View {
     
     @Namespace var nameSpace
     
+    @StateObject var collapsedNotchViewModel: CollapsedNotchViewModel
+    
     @State var isHovered: Bool = false
     @State var isExpanded: Bool = false
     
     @State var timer: Timer? = nil
+    
+    init(
+        screen: NSScreen
+    ) {
+        self._collapsedNotchViewModel = .init(
+            wrappedValue: .init(
+                screen: screen
+            )
+        )
+    }
     
     var body: some View {
         VStack {
@@ -22,6 +34,7 @@ struct NotchView: View {
                 Spacer()
                 
                 CollapsedNotchView(
+                    notchViewModel: collapsedNotchViewModel,
                     isHovered: isHovered
                 )
                 .background {
@@ -99,5 +112,7 @@ struct NotchView: View {
 }
 
 #Preview {
-    NotchView()
+    NotchView(
+        screen: .main!
+    )
 }

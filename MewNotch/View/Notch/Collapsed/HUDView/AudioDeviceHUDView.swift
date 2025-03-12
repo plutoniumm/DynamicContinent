@@ -58,6 +58,8 @@ struct AudioDeviceHUDView: View {
 
 #Preview {
     AudioDeviceHUDView(
-        notchViewModel: .init()
+        notchViewModel: .init(
+            screen: .main!
+        )
     )
 }

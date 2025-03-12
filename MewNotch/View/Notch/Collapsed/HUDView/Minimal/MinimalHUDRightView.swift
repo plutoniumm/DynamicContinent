@@ -55,6 +55,8 @@ struct MinimalHUDRightView: View {
 
 #Preview {
     MinimalHUDLeftView(
-        notchViewModel: .init()
+        notchViewModel: .init(
+            screen: .main!
+        )
     )
 }

@@ -125,6 +125,8 @@ struct ProgressHUDView: View {
 
 #Preview {
     ProgressHUDView(
-        notchViewModel: .init()
+        notchViewModel: .init(
+            screen: .main!
+        )
     )
 }

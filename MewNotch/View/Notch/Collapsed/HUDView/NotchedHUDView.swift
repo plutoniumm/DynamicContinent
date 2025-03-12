@@ -80,6 +80,8 @@ struct NotchedHUDView: View {
 
 #Preview {
     NotchedHUDView(
-        notchViewModel: .init()
+        notchViewModel: .init(
+            screen: .main!
+        )
     )
 }

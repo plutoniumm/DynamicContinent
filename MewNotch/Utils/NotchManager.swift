@@ -41,7 +41,9 @@ class NotchManager {
 
             if panel == nil {
                 let view: NSView = NSHostingView(
-                    rootView: NotchView()
+                    rootView: NotchView(
+                        screen: screen
+                    )
                 )
                 
                 panel = MewPanel(

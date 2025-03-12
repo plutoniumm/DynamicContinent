@@ -11,7 +11,7 @@ import Lottie
 
 struct CollapsedNotchView: View {
     
-    @StateObject private var notchViewModel = CollapsedNotchViewModel.init()
+    @ObservedObject var notchViewModel: CollapsedNotchViewModel
     
     @StateObject var defaultsManager = MewDefaultsManager.shared
     
@@ -143,5 +143,9 @@ struct CollapsedNotchView: View {
 }
 
 #Preview {
-    CollapsedNotchView()
+    CollapsedNotchView(
+        notchViewModel: .init(
+            screen: .main!
+        )
+    )
 }
