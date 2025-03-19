@@ -19,6 +19,8 @@ class CollapsedNotchViewModel: ObservableObject {
         height: 0
     )
     
+    @Published var nowPlayingMedia: NowPlayingMediaModel?
+    
     @Published var outputAudioVolumeHUD: HUDPropertyModel?
     @Published var outputAudioDeviceHUD: HUDPropertyModel?
     
@@ -133,11 +135,26 @@ class CollapsedNotchViewModel: ObservableObject {
             object: nil
         )
         
-        //MARK: Power Source Change Listener
+        // MARK: Power Source Change Listener
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handlePowerStatusChanges),
             name: NSNotification.Name.PowerStatus,
+            object: nil
+        )
+        
+        // MARK: Media Change Listeners
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleNowPlayingMediaChanges),
+            name: NSNotification.Name.NowPlayingInfo,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleNowPlayingMediaChanges),
+            name: NSNotification.Name.NowPlayingState,
             object: nil
         )
     }
@@ -284,6 +301,44 @@ class CollapsedNotchViewModel: ObservableObject {
             withAnimation {
                 self.powerStatusHUD = nil
             }
+        }
+    }
+    
+    @objc func handleNowPlayingMediaChanges() {
+        
+        if !NowPlaying.sharedInstance().playing {
+            DispatchQueue.main.asyncAfter(
+                deadline: .now() + 2
+            ) {
+                if NowPlaying.sharedInstance().playing {
+                    return
+                }
+                
+                withAnimation {
+                    self.nowPlayingMedia = nil
+                }
+            }
+        }
+        
+        guard let appName = NowPlaying.sharedInstance().appName,
+        let appIcon = NowPlaying.sharedInstance().appIcon,
+        let album = NowPlaying.sharedInstance().album,
+        let artist = NowPlaying.sharedInstance().artist,
+        let title = NowPlaying.sharedInstance().title else {
+            return
+        }
+        
+        withAnimation {
+            nowPlayingMedia = .init(
+                appName: appName,
+                appIcon: .init(
+                    nsImage: appIcon
+                ),
+                album: album,
+                artist: artist,
+                title: title,
+                isPlaying: NowPlaying.sharedInstance().playing
+            )
         }
     }
 }

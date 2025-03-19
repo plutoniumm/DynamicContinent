@@ -13,6 +13,7 @@
 #import "AudioControl/AudioInput.h"
 #import "AudioControl/AudioOutput.h"
 #import "Power/PowerStatus.h"
+#import "Media/NowPlaying.h"
 
 
 extern CFTypeRef IOPSCopyPowerSourcesInfo(void);

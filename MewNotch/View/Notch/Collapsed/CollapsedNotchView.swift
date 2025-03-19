@@ -46,9 +46,43 @@ struct CollapsedNotchView: View {
                     )
                 }
                 
+                if let nowPlayingMedia = notchViewModel.nowPlayingMedia {
+                    nowPlayingMedia.appIcon
+                        .resizable()
+                        .scaledToFit()
+                        .padding(2)
+                        .padding(.leading, notchViewModel.extraNotchPadSize.width)
+                        .frame(
+                            height: notchViewModel.notchSize.height
+                        )
+                }
+                
                 OnlyNotchView(
                     notchSize: notchViewModel.notchSize
                 )
+                
+                if let nowPlayingMedia = notchViewModel.nowPlayingMedia {
+                    nowPlayingMedia.appIcon
+                        .resizable()
+                        .scaledToFit()
+                        .opacity(0)
+                        .overlay {
+                            LottieView(
+                                animation: MewNotch.Lotties.visualizer
+                            )
+                            .animationSpeed(0.2)
+                            .playing(loopMode: .loop)
+                            .scaledToFit()
+                        }
+                        .padding(5)
+                        .padding(
+                            .trailing,
+                            notchViewModel.extraNotchPadSize.width
+                        )
+                        .frame(
+                            height: notchViewModel.notchSize.height
+                        )
+                }
                 
                 if defaultsManager.hudStyle == .Minimal {
                     MinimalHUDRightView(

@@ -25,6 +25,7 @@ class MewNotch {
     class Lotties {
         static let brightness = LottieAnimation.named("Brightness.json")
         static let speaker = LottieAnimation.named("Speaker.json")
+        static let visualizer = LottieAnimation.named("Visualizer.json")
     }
     
 }

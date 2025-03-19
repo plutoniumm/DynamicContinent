@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9E05AB292D7DA46800980012 /* DisplayServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E05A76E2D7D93A900980012 /* DisplayServices.framework */; };
 		9E05AB2A2D7DA46800980012 /* DisplayServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E05A76E2D7D93A900980012 /* DisplayServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E284D442D8B2E8000ED8E89 /* MediaRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E284D432D8B2E8000ED8E89 /* MediaRemote.framework */; };
+		9E284D452D8B2E8000ED8E89 /* MediaRemote.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E284D432D8B2E8000ED8E89 /* MediaRemote.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9E36AFAA2D78EB2100D53482 /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -20,6 +22,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				9E05AB2A2D7DA46800980012 /* DisplayServices.framework in Embed Frameworks */,
+				9E284D452D8B2E8000ED8E89 /* MediaRemote.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -28,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		9E05A76E2D7D93A900980012 /* DisplayServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DisplayServices.framework; path = ../../../../System/Library/PrivateFrameworks/DisplayServices.framework; sourceTree = "<group>"; };
+		9E284D432D8B2E8000ED8E89 /* MediaRemote.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaRemote.framework; path = ../../../../System/Library/PrivateFrameworks/MediaRemote.framework; sourceTree = "<group>"; };
 		9EA41D872D6DEACA00817679 /* MewNotch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MewNotch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -46,6 +50,7 @@
 			files = (
 				9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */,
 				9E05AB292D7DA46800980012 /* DisplayServices.framework in Frameworks */,
+				9E284D442D8B2E8000ED8E89 /* MediaRemote.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +60,7 @@
 		9E05A76B2D7D935F00980012 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9E284D432D8B2E8000ED8E89 /* MediaRemote.framework */,
 				9E05A76E2D7D93A900980012 /* DisplayServices.framework */,
 			);
 			name = Frameworks;

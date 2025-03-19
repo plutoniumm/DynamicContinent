@@ -91,7 +91,6 @@ static void DisplayBrightnessListener(
 
 - (void)registerListener:(BOOL)add
 {
-
     if (add) {
         DisplayServicesRegisterForBrightnessChangeNotifications(
             CGMainDisplayID(),

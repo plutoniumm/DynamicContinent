@@ -40,6 +40,7 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
         AudioOutput.sharedInstance()
         Brightness.sharedInstance()
         PowerStatus.sharedInstance()
+        NowPlaying.sharedInstance()
         
         NotchManager.shared.refreshNotches()
     }
