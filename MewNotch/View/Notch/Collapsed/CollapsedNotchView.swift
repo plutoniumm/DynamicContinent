@@ -24,11 +24,6 @@ struct CollapsedNotchView: View {
             HStack(
                 spacing: 0
             ) {
-                MinimalPowerHUDLeftView(
-                    notchViewModel: notchViewModel,
-                    hudModel: notchViewModel.powerStatusHUD
-                )
-                
                 if defaultsManager.hudStyle == .Minimal {
                     MinimalHUDLeftView(
                         notchViewModel: notchViewModel,
@@ -100,12 +95,12 @@ struct CollapsedNotchView: View {
                         hudModel: notchViewModel.brightnessHUD
                     )
                 }
-                
-                MinimalPowerHUDRightView(
-                    notchViewModel: notchViewModel,
-                    hudModel: notchViewModel.powerStatusHUD
-                )
             }
+            
+            PowerHUDView(
+                notchViewModel: notchViewModel,
+                hudModel: notchViewModel.powerStatusHUD
+            )
             
             AudioDeviceHUDView(
                 notchViewModel: notchViewModel,
