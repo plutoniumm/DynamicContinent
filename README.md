@@ -39,7 +39,8 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 - [x] Allow users to toggle HUD usage.
 - [x] Icon in Menu bar to show app's running status.
 - [x] Add Touch bar support.
-- [ ] Explore Music player integration and possible usage.
+- [x] Now playing music HUD.
+- [ ] Explore expanded notch UI and possible usage. 
 - [ ] Explore additional notch-based utilities.
 
 ## Contributing
