@@ -21,8 +21,10 @@ struct HUDPropertyModel {
     @ViewBuilder
     func getIcon() -> some View {
         icon
+            .renderingMode(.template)
             .resizable()
             .scaledToFit()
+            .foregroundStyle(Color.white)
             .opacity(lottie == nil ? 1 : 0)
             .overlay {
                 if let lottieAnimation = lottie {
