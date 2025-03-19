@@ -320,7 +320,8 @@ class CollapsedNotchViewModel: ObservableObject {
             }
         }
         
-        guard let appName = NowPlaying.sharedInstance().appName,
+        guard let appBundleIdentifier = NowPlaying.sharedInstance().appBundleIdentifier,
+        let appName = NowPlaying.sharedInstance().appName,
         let appIcon = NowPlaying.sharedInstance().appIcon,
         let album = NowPlaying.sharedInstance().album,
         let artist = NowPlaying.sharedInstance().artist,
@@ -330,6 +331,7 @@ class CollapsedNotchViewModel: ObservableObject {
         
         withAnimation {
             nowPlayingMedia = .init(
+                appBundleIdentifier: appBundleIdentifier,
                 appName: appName,
                 appIcon: .init(
                     nsImage: appIcon

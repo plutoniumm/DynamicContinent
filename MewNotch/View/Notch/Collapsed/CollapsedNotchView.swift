@@ -42,14 +42,33 @@ struct CollapsedNotchView: View {
                 }
                 
                 if let nowPlayingMedia = notchViewModel.nowPlayingMedia {
-                    nowPlayingMedia.appIcon
-                        .resizable()
-                        .scaledToFit()
-                        .padding(2)
-                        .padding(.leading, notchViewModel.extraNotchPadSize.width)
-                        .frame(
-                            height: notchViewModel.notchSize.height
-                        )
+                    Button(
+                        action: {
+                            guard let url = NSWorkspace.shared.urlForApplication(
+                                withBundleIdentifier: nowPlayingMedia.appBundleIdentifier
+                            ) else {
+                                return
+                            }
+                            
+                            NSWorkspace.shared.openApplication(
+                                at: url,
+                                configuration: .init()
+                            )
+                        }
+                    ) {
+                        nowPlayingMedia.appIcon
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .buttonStyle(.plain)
+                    .padding(2)
+                    .padding(
+                        .leading,
+                        notchViewModel.extraNotchPadSize.width
+                    )
+                    .frame(
+                        height: notchViewModel.notchSize.height
+                    )
                 }
                 
                 OnlyNotchView(
