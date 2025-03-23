@@ -69,7 +69,7 @@ struct HUDAudioSettingsView: View {
                                 .font(.footnote)
                         }
                     }
-                    .disabled(!audioInputDefaults.isEnabled)
+                    .disabled(!audioOutputDefaults.isEnabled)
                 },
                 header: {
                     Text("Output")
