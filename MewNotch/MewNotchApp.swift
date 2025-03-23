@@ -42,6 +42,7 @@ struct MewNotchApp: App {
 
     var body: some Scene {
         MenuBarExtra(
+            isInserted: $isMenuShown,
             content: {
                 Text("MewNotch")
                 
