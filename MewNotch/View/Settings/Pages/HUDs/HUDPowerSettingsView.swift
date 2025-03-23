@@ -22,6 +22,9 @@ struct HUDPowerSettingsView: View {
                             alignment: .leading
                         ) {
                             Text("Enabled")
+                            
+                            Text("Shows power state when plugged in/out")
+                                .font(.footnote)
                         }
                     }
                 }

@@ -23,7 +23,7 @@ struct HUDMediaSettingsView: View {
                         ) {
                             Text("Enabled")
                             
-                            Text("Shows media playing app and an animation")
+                            Text("Shows media playing app with animation")
                                 .font(.footnote)
                         }
                     }
