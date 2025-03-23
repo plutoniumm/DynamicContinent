@@ -9,14 +9,15 @@ import SwiftUI
 
 import Lottie
 
-struct NotchedHUDView: View {
+struct NotchedHUDView<T: HUDDefaultsProtocol>: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
+    @ObservedObject var defaults: T
     
     var hudModel: HUDPropertyModel?
     
     var body: some View {
-        if let hud = hudModel {
+        if let hud = hudModel, defaults.isEnabled, defaults.style == .Notched {
             VStack {
                 Rectangle()
                     .opacity(0)
@@ -76,12 +77,4 @@ struct NotchedHUDView: View {
             )
         }
     }
-}
-
-#Preview {
-    NotchedHUDView(
-        notchViewModel: .init(
-            screen: .main!
-        )
-    )
 }

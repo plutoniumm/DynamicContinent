@@ -1,38 +1,69 @@
 //
-//  GeneraSettingsView.swift
+//  NotchSettingsView.swift
 //  MewNotch
 //
-//  Created by Monu Kumar on 27/02/25.
+//  Created by Monu Kumar on 23/03/25.
 //
 
 import SwiftUI
 
-struct GeneraSettingsView: View {
+struct NotchSettingsView: View {
     
-    @StateObject var appDefaults = AppDefaults.shared
     @StateObject var notchDefaults = NotchDefaults.shared
-    
-    @ObservedObject var settingsViewModel: SettingsViewModel = .init()
     
     var body: some View {
         Form {
             Section(
                 content: {
                     Toggle(
-                        isOn: $appDefaults.showMenuIcon
+                        isOn: $notchDefaults.forceEnabled
                     ) {
                         VStack(
                             alignment: .leading
                         ) {
-                            Text("Status Icon")
+                            Text("Force Enable")
                             
-                            Text("Shown in Menu Bar for easy access")
+                            Text("Enable Notch on Non-notched Displays")
                                 .font(.footnote)
+                        }
+                    }
+                    
+                    Picker(
+                        selection: $notchDefaults.heightMode,
+                        content: {
+                            Text(
+                                NotchHeightMode.Match_Notch.rawValue.replacingOccurrences(
+                                    of: "_",
+                                    with: " "
+                                )
+                            )
+                            .tag(
+                                NotchHeightMode.Match_Notch
+                            )
+                            
+                            Text(
+                                NotchHeightMode.Match_Menu_Bar.rawValue.replacingOccurrences(
+                                    of: "_",
+                                    with: " "
+                                )
+                            )
+                            .tag(
+                                NotchHeightMode.Match_Menu_Bar
+                            )
+                        }
+                    ) {
+                        VStack(
+                            alignment: .leading
+                        ) {
+                            Text("Height")
+                            
+//                            Text("Design to be used for HUD")
+//                                .font(.footnote)
                         }
                     }
                 },
                 header: {
-                    Text("App")
+                    Text("Notch")
                 }
             )
             
@@ -45,12 +76,12 @@ struct GeneraSettingsView: View {
 //                            alignment: .leading
 //                        ) {
 //                            Text("Enabled")
-//                            
+//
 //                            Text("Show Volume and Brightness changes on Notch and turn off system HUD")
 //                                .font(.footnote)
 //                        }
 //                    }
-//                    
+//
 //                    Picker(
 //                        selection: $defaultsManager.hudStyle,
 //                        content: {
@@ -66,7 +97,7 @@ struct GeneraSettingsView: View {
 //                            alignment: .leading
 //                        ) {
 //                            Text("Style")
-//                            
+//
 //                            Text("Design to be used for HUD")
 //                                .font(.footnote)
 //                        }
@@ -79,10 +110,11 @@ struct GeneraSettingsView: View {
 //            )
         }
         .formStyle(.grouped)
-        .navigationTitle("General")
+        .navigationTitle("Notch")
+        .toolbarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    GeneraSettingsView()
+    NotchSettingsView()
 }

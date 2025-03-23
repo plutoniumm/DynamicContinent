@@ -31,9 +31,7 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(
         _ notification: Notification
     ) {
-        if MewDefaultsManager.shared.hudEnabled {
-            OSDUIManager.shared.stop()
-        }
+        OSDUIManager.shared.stop()
         
         // Need to Initialise once to set system listeners
         AudioInput.sharedInstance()
@@ -45,23 +43,10 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
         NotchManager.shared.refreshNotches()
     }
     
-    @objc func openSettings() {
-        openSettingsWindow()
-    }
-    
-    @objc func quitApp() {
-        if MewDefaultsManager.shared.hudEnabled {
-            OSDUIManager.shared.start()
-        }
-        NSApplication.shared.terminate(self)
-    }
-    
     func applicationShouldTerminate(
         _ sender: NSApplication
     ) -> NSApplication.TerminateReply {
-        if MewDefaultsManager.shared.hudEnabled {
-            OSDUIManager.shared.start()
-        }
+        OSDUIManager.shared.start()
         
         return .terminateNow
     }

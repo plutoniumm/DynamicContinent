@@ -10,10 +10,21 @@ import SwiftUI
 struct MewSettingsView: View {
     
     @Environment(\.scenePhase) var scenePhase
+    
     enum SettingsPages: String, CaseIterable, Identifiable {
         var id: String { rawValue }
         
         case General
+        case Notch
+        
+        case Brightness
+        
+        case Audio
+//        case AudioOutput
+//        case AudioInput
+        
+        case Media
+        case Power
         
         case About
     }
@@ -30,11 +41,8 @@ struct MewSettingsView: View {
                 List(
                     selection: $selectedPage
                 ) {
-                    ForEach(
-                        SettingsPages.allCases
-                    ) { page in
-                        switch page {
-                        case .General:
+                    Section(
+                        content: {
                             NavigationLink(
                                 destination: {
                                     GeneraSettingsView(
@@ -49,22 +57,97 @@ struct MewSettingsView: View {
                             }
                             .id(SettingsPages.General)
                             
-                        case .About:
+                            
                             NavigationLink(
                                 destination: {
-                                    AboutAppView(
-                                        settingsViewModel: settingsViewModel
-                                    )
+                                    NotchSettingsView()
                                 }
                             ) {
                                 Label(
-                                    "About",
-                                    systemImage: "info.circle"
+                                    title: {
+                                        Text("Notch")
+                                    },
+                                    icon: {
+                                        MewNotch.Assets.iconMenuBar
+                                            .renderingMode(.template)
+                                    }
                                 )
                             }
-                            .id(SettingsPages.About)
+                            .id(SettingsPages.Notch)
                         }
+                    )
+                    
+                    Section(
+                        content: {
+                            NavigationLink(
+                                destination: {
+                                    HUDBrightnessSettingsView()
+                                }
+                            ) {
+                                Label(
+                                    "Brightness",
+                                    systemImage: "rays"
+                                )
+                            }
+                            .id(SettingsPages.Brightness)
+                            
+                            NavigationLink(
+                                destination: {
+                                    HUDAudioSettingsView()
+                                }
+                            ) {
+                                Label(
+                                    "Audio",
+                                    systemImage: "waveform"
+                                )
+                            }
+                            .id(SettingsPages.Audio)
+                            
+                            NavigationLink(
+                                destination: {
+                                    HUDPowerSettingsView()
+                                }
+                            ) {
+                                Label(
+                                    "Power",
+                                    systemImage: "powerplug"
+                                )
+                            }
+                            .id(SettingsPages.Power)
+                            
+                            NavigationLink(
+                                destination: {
+                                    HUDMediaSettingsView()
+                                }
+                            ) {
+                                Label(
+                                    "Media",
+                                    systemImage: "music.note.list"
+                                )
+                            }
+                            .id(SettingsPages.Media)
+                        },
+                        header: {
+                            Text("HUD")
+                        }
+                    )
+                    
+                    Section {
+                        NavigationLink(
+                            destination: {
+                                AboutAppView(
+                                    settingsViewModel: settingsViewModel
+                                )
+                            }
+                        ) {
+                            Label(
+                                "About",
+                                systemImage: "info.circle"
+                            )
+                        }
+                        .id(SettingsPages.About)
                     }
+                    
                 }
             },
             detail: {

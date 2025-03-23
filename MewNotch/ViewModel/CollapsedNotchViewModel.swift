@@ -33,8 +33,6 @@ class CollapsedNotchViewModel: ObservableObject {
     
     @Published var lastPowerStatus: String = ""
     
-    @Published var hudTimer: Timer?
-    
     init(
         screen: NSScreen
     ) {
@@ -42,7 +40,7 @@ class CollapsedNotchViewModel: ObservableObject {
         
         self.notchSize = NotchUtils.shared.notchSize(
             screen: self.screen,
-            force: MewDefaultsManager.shared.notchForceEnabled
+            force: NotchDefaults.shared.forceEnabled
         )
         
         withAnimation {
@@ -60,7 +58,7 @@ class CollapsedNotchViewModel: ObservableObject {
     func refreshNotchSize() {
         self.notchSize = NotchUtils.shared.notchSize(
             screen: self.screen,
-            force: MewDefaultsManager.shared.notchForceEnabled
+            force: NotchDefaults.shared.forceEnabled
         )
         
         withAnimation {
@@ -164,7 +162,7 @@ class CollapsedNotchViewModel: ObservableObject {
     }
     
     @objc private func handleAudioInputDeviceChanges() {
-        if !MewDefaultsManager.shared.hudEnabled {
+        if !HUDAudioInputDefaults.shared.isEnabled {
             return
         }
         
@@ -186,7 +184,7 @@ class CollapsedNotchViewModel: ObservableObject {
     }
     
     @objc private func handleAudioInputVolumeChanges() {
-        if !MewDefaultsManager.shared.hudEnabled {
+        if !HUDAudioInputDefaults.shared.isEnabled {
             return
         }
         
@@ -208,7 +206,7 @@ class CollapsedNotchViewModel: ObservableObject {
     }
     
     @objc private func handleAudioOutputDeviceChanges() {
-        if !MewDefaultsManager.shared.hudEnabled {
+        if !HUDAudioOutputDefaults.shared.isEnabled {
             return
         }
         
@@ -230,7 +228,7 @@ class CollapsedNotchViewModel: ObservableObject {
     }
     
     @objc private func handleAudioOutputVolumeChanges() {
-        if !MewDefaultsManager.shared.hudEnabled {
+        if !HUDAudioOutputDefaults.shared.isEnabled {
             return
         }
         
@@ -252,7 +250,7 @@ class CollapsedNotchViewModel: ObservableObject {
     }
     
     @objc private func handleBrightnessChanges() {
-        if !MewDefaultsManager.shared.hudEnabled {
+        if !HUDBrightnessDefaults.shared.isEnabled {
             return
         }
         

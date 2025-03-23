@@ -9,14 +9,15 @@ import SwiftUI
 
 import Lottie
 
-struct ProgressHUDView: View {
+struct ProgressHUDView<T: HUDDefaultsProtocol>: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
+    @ObservedObject var defaults: T
     
     var hudModel: HUDPropertyModel?
     
     var body: some View {
-        if let hud = hudModel {
+        if let hud = hudModel, defaults.isEnabled, defaults.style == .Progress {
             VStack {
                 HStack {
                     Text(
@@ -121,12 +122,4 @@ struct ProgressHUDView: View {
             )
         }
     }
-}
-
-#Preview {
-    ProgressHUDView(
-        notchViewModel: .init(
-            screen: .main!
-        )
-    )
 }

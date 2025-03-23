@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-struct MinimalHUDLeftView: View {
+struct MinimalHUDLeftView<T: HUDDefaultsProtocol>: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
+    @ObservedObject var defaults: T
     
     var hudModel: HUDPropertyModel?
     
     var body: some View {
-        if let hud = hudModel {
+        if let hud = hudModel, defaults.isEnabled, defaults.style == .Minimal {
             Text(
                 "000%"
             )
@@ -42,12 +43,4 @@ struct MinimalHUDLeftView: View {
             )
         }
     }
-}
-
-#Preview {
-    MinimalHUDLeftView(
-        notchViewModel: .init(
-            screen: .main!
-        )
-    )
 }

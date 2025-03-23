@@ -16,7 +16,7 @@ struct MewNotchApp: App {
     @Environment(\.openWindow) private var openWindow
     @Environment(\.openSettings) private var openSettings
     
-    @StateObject private var defaultsManager = MewDefaultsManager.shared
+    @StateObject private var appDefaults = AppDefaults.shared
     
     @State private var isMenuShown: Bool = true
     
@@ -94,7 +94,9 @@ struct MewNotchApp: App {
             MewNotch.Assets.iconMenuBar
                 .renderingMode(.template)
         }
-        .onChange(of: defaultsManager.showMenuIcon) { oldVal, newVal in
+        .onChange(
+            of: appDefaults.showMenuIcon
+        ) { oldVal, newVal in
             if oldVal != newVal {
                 isMenuShown = newVal
             }

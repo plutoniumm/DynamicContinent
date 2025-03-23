@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-struct PowerHUDView: View {
+struct PowerHUDView<T: HUDDefaultsProtocol>: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
+    @ObservedObject var defaults: T
     
     var hudModel: HUDPropertyModel?
     
     var body: some View {
-        if let hud = hudModel {
+        if let hud = hudModel, defaults.isEnabled {
             HStack {
                 hud.getIcon()
                     .padding(5)
@@ -52,12 +53,4 @@ struct PowerHUDView: View {
             )
         }
     }
-}
-
-#Preview {
-    PowerHUDView(
-        notchViewModel: .init(
-            screen: .main!
-        )
-    )
 }

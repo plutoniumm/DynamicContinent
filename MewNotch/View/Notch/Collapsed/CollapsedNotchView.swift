@@ -13,7 +13,9 @@ struct CollapsedNotchView: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
     
-    @StateObject var defaultsManager = MewDefaultsManager.shared
+    @StateObject var notchDefaults = NotchDefaults.shared
+    
+    @StateObject var mediaDefaults = HUDMediaDefaults.shared
     
     var isHovered: Bool = false
     
@@ -24,22 +26,23 @@ struct CollapsedNotchView: View {
             HStack(
                 spacing: 0
             ) {
-                if defaultsManager.hudStyle == .Minimal {
-                    MinimalHUDLeftView(
-                        notchViewModel: notchViewModel,
-                        hudModel: notchViewModel.brightnessHUD
-                    )
-                    
-                    MinimalHUDLeftView(
-                        notchViewModel: notchViewModel,
-                        hudModel: notchViewModel.inputAudioVolumeHUD
-                    )
-                    
-                    MinimalHUDLeftView(
-                        notchViewModel: notchViewModel,
-                        hudModel: notchViewModel.outputAudioVolumeHUD
-                    )
-                }
+                MinimalHUDLeftView(
+                    notchViewModel: notchViewModel,
+                    defaults: HUDBrightnessDefaults.shared,
+                    hudModel: notchViewModel.brightnessHUD
+                )
+                
+                MinimalHUDLeftView(
+                    notchViewModel: notchViewModel,
+                    defaults: HUDAudioInputDefaults.shared,
+                    hudModel: notchViewModel.inputAudioVolumeHUD
+                )
+                
+                MinimalHUDLeftView(
+                    notchViewModel: notchViewModel,
+                    defaults: HUDAudioOutputDefaults.shared,
+                    hudModel: notchViewModel.outputAudioVolumeHUD
+                )
                 
                 if let nowPlayingMedia = notchViewModel.nowPlayingMedia {
                     Button(
@@ -69,6 +72,9 @@ struct CollapsedNotchView: View {
                     .frame(
                         height: notchViewModel.notchSize.height
                     )
+                    .hide(
+                        when: !mediaDefaults.isEnabled
+                    )
                 }
                 
                 OnlyNotchView(
@@ -96,28 +102,33 @@ struct CollapsedNotchView: View {
                         .frame(
                             height: notchViewModel.notchSize.height
                         )
+                        .hide(
+                            when: !mediaDefaults.isEnabled
+                        )
                 }
                 
-                if defaultsManager.hudStyle == .Minimal {
-                    MinimalHUDRightView(
-                        notchViewModel: notchViewModel,
-                        hudModel: notchViewModel.outputAudioVolumeHUD
-                    )
-                    
-                    MinimalHUDRightView(
-                        notchViewModel: notchViewModel,
-                        hudModel: notchViewModel.inputAudioVolumeHUD
-                    )
-                    
-                    MinimalHUDRightView(
-                        notchViewModel: notchViewModel,
-                        hudModel: notchViewModel.brightnessHUD
-                    )
-                }
+                MinimalHUDRightView(
+                    notchViewModel: notchViewModel,
+                    defaults: HUDAudioOutputDefaults.shared,
+                    hudModel: notchViewModel.outputAudioVolumeHUD
+                )
+                
+                MinimalHUDRightView(
+                    notchViewModel: notchViewModel,
+                    defaults: HUDAudioInputDefaults.shared,
+                    hudModel: notchViewModel.inputAudioVolumeHUD
+                )
+                
+                MinimalHUDRightView(
+                    notchViewModel: notchViewModel,
+                    defaults: HUDBrightnessDefaults.shared,
+                    hudModel: notchViewModel.brightnessHUD
+                )
             }
             
             PowerHUDView(
                 notchViewModel: notchViewModel,
+                defaults: HUDPowerDefaults.shared,
                 hudModel: notchViewModel.powerStatusHUD
             )
             
@@ -133,59 +144,64 @@ struct CollapsedNotchView: View {
                 hudModel: notchViewModel.outputAudioDeviceHUD
             )
             
-            if defaultsManager.hudStyle == .Progress {
-                ProgressHUDView(
-                    notchViewModel: notchViewModel,
-                    hudModel: notchViewModel.brightnessHUD
-                )
-                
-                ProgressHUDView(
-                    notchViewModel: notchViewModel,
-                    hudModel: notchViewModel.inputAudioVolumeHUD
-                )
-                
-                ProgressHUDView(
-                    notchViewModel: notchViewModel,
-                    hudModel: notchViewModel.outputAudioVolumeHUD
-                )
-            } else if defaultsManager.hudStyle == .Notched {
-                NotchedHUDView(
-                    notchViewModel: notchViewModel,
-                    hudModel: notchViewModel.brightnessHUD
-                )
-                
-                NotchedHUDView(
-                    notchViewModel: notchViewModel,
-                    hudModel: notchViewModel.inputAudioVolumeHUD
-                )
-                
-                NotchedHUDView(
-                    notchViewModel: notchViewModel,
-                    hudModel: notchViewModel.outputAudioVolumeHUD
-                )
-            }
+            // MARK: Progress Style Views
+            ProgressHUDView(
+                notchViewModel: notchViewModel,
+                defaults: HUDBrightnessDefaults.shared,
+                hudModel: notchViewModel.brightnessHUD
+            )
+            
+            ProgressHUDView(
+                notchViewModel: notchViewModel,
+                defaults: HUDAudioInputDefaults.shared,
+                hudModel: notchViewModel.inputAudioVolumeHUD
+            )
+            
+            ProgressHUDView(
+                notchViewModel: notchViewModel,
+                defaults: HUDAudioOutputDefaults.shared,
+                hudModel: notchViewModel.outputAudioVolumeHUD
+            )
+            
+            // MARK: Notched Style View
+            
+            NotchedHUDView(
+                notchViewModel: notchViewModel,
+                defaults: HUDBrightnessDefaults.shared,
+                hudModel: notchViewModel.brightnessHUD
+            )
+            
+            NotchedHUDView(
+                notchViewModel: notchViewModel,
+                defaults: HUDAudioInputDefaults.shared,
+                hudModel: notchViewModel.inputAudioVolumeHUD
+            )
+            
+            NotchedHUDView(
+                notchViewModel: notchViewModel,
+                defaults: HUDAudioOutputDefaults.shared,
+                hudModel: notchViewModel.outputAudioVolumeHUD
+            )
         }
         .onReceive(
-            defaultsManager.objectWillChange
+            notchDefaults.objectWillChange
         ) {
-            notchViewModel.hudTimer?.invalidate()
-            
             notchViewModel.hideHUDs()
             
-            if defaultsManager.hudEnabled {
-                OSDUIManager.shared.stop()
-            } else {
-                OSDUIManager.shared.start()
-            }
+//            if defaultsManager.hudEnabled {
+//                OSDUIManager.shared.stop()
+//            } else {
+//                OSDUIManager.shared.start()
+//            }
             
             notchViewModel.refreshNotchSize()
         }
         .onAppear {
-            if defaultsManager.hudEnabled {
-                OSDUIManager.shared.stop()
-            } else {
-                OSDUIManager.shared.start()
-            }
+//            if defaultsManager.hudEnabled {
+//                OSDUIManager.shared.stop()
+//            } else {
+//                OSDUIManager.shared.start()
+//            }
         }
     }
 }
