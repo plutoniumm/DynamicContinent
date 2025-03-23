@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MewSettingsView: View {
     
+    @Environment(\.scenePhase) var scenePhase
     enum SettingsPages: String, CaseIterable, Identifiable {
         var id: String { rawValue }
         
@@ -72,6 +73,24 @@ struct MewSettingsView: View {
                 )
             }
         )
+        .onChange(
+            of: scenePhase
+        ) {
+            if scenePhase == .active {
+                NSApp.setActivationPolicy(.regular)
+                NSApp.activate(
+                    ignoringOtherApps: true
+                )
+            }
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: NSApplication.willResignActiveNotification
+            )
+        ) { _ in
+            NSApp.setActivationPolicy(.accessory)
+            NSApp.deactivate()
+        }
         .task {
             guard let window = NSApp.windows.first(
                 where: {
@@ -82,7 +101,6 @@ struct MewSettingsView: View {
             }
             
             window.toolbarStyle = .unified
-            window.level = .mainMenu
             window.styleMask.insert(.resizable)
         }
     }
