@@ -44,68 +44,23 @@ struct CollapsedNotchView: View {
                     hudModel: notchViewModel.outputAudioVolumeHUD
                 )
                 
-                if let nowPlayingMedia = notchViewModel.nowPlayingMedia {
-                    Button(
-                        action: {
-                            guard let url = NSWorkspace.shared.urlForApplication(
-                                withBundleIdentifier: nowPlayingMedia.appBundleIdentifier
-                            ) else {
-                                return
-                            }
-                            
-                            NSWorkspace.shared.openApplication(
-                                at: url,
-                                configuration: .init()
-                            )
-                        }
-                    ) {
-                        nowPlayingMedia.appIcon
-                            .resizable()
-                            .scaledToFit()
-                    }
-                    .buttonStyle(.plain)
-                    .padding(2)
-                    .padding(
-                        .leading,
-                        notchViewModel.extraNotchPadSize.width
-                    )
-                    .frame(
-                        height: notchViewModel.notchSize.height
-                    )
-                    .hide(
-                        when: !mediaDefaults.isEnabled
-                    )
-                }
+                NowPlayingHUDLeftView(
+                    notchViewModel: notchViewModel
+                )
+                .hide(
+                    when: !mediaDefaults.isEnabled
+                )
                 
                 OnlyNotchView(
                     notchSize: notchViewModel.notchSize
                 )
                 
-                if let nowPlayingMedia = notchViewModel.nowPlayingMedia {
-                    nowPlayingMedia.appIcon
-                        .resizable()
-                        .scaledToFit()
-                        .opacity(0)
-                        .overlay {
-                            LottieView(
-                                animation: MewNotch.Lotties.visualizer
-                            )
-                            .animationSpeed(0.2)
-                            .playing(loopMode: .loop)
-                            .scaledToFit()
-                        }
-                        .padding(5)
-                        .padding(
-                            .trailing,
-                            notchViewModel.extraNotchPadSize.width
-                        )
-                        .frame(
-                            height: notchViewModel.notchSize.height
-                        )
-                        .hide(
-                            when: !mediaDefaults.isEnabled
-                        )
-                }
+                NowPlayingHUDRightView(
+                    notchViewModel: notchViewModel
+                )
+                .hide(
+                    when: !mediaDefaults.isEnabled
+                )
                 
                 MinimalHUDRightView(
                     notchViewModel: notchViewModel,

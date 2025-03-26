@@ -18,10 +18,21 @@
 @property (retain) NSString *appBundleIdentifier;
 @property (retain) NSString *appName;
 @property (retain) NSImage *appIcon;
+
+@property (retain) NSImage *albumArt;
+
 @property (retain) NSString *album;
 @property (retain) NSString *artist;
 @property (retain) NSString *title;
+
+@property (retain) NSNumber *totalDuration;
+@property (retain) NSNumber *elapsedTime;
+
+@property (retain) NSNumber *playbackRate;
+
 @property (assign) BOOL playing;
+
+- (void)updateInfo;
 @end
 
 extern NSString *NowPlayingInfoNotification;

@@ -321,9 +321,13 @@ class CollapsedNotchViewModel: ObservableObject {
         guard let appBundleIdentifier = NowPlaying.sharedInstance().appBundleIdentifier,
         let appName = NowPlaying.sharedInstance().appName,
         let appIcon = NowPlaying.sharedInstance().appIcon,
+        let albumArt = NowPlaying.sharedInstance().albumArt,
         let album = NowPlaying.sharedInstance().album,
         let artist = NowPlaying.sharedInstance().artist,
         let title = NowPlaying.sharedInstance().title else {
+            if NowPlaying.sharedInstance().playing {
+                NowPlaying.sharedInstance().updateInfo()
+            }
             return
         }
         
@@ -333,6 +337,9 @@ class CollapsedNotchViewModel: ObservableObject {
                 appName: appName,
                 appIcon: .init(
                     nsImage: appIcon
+                ),
+                albumArt: .init(
+                    nsImage: albumArt
                 ),
                 album: album,
                 artist: artist,

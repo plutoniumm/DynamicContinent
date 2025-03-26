@@ -12,6 +12,8 @@ struct NowPlayingMediaModel {
     var appName: String
     var appIcon: Image
     
+    var albumArt: Image
+    
     var album: String
     var artist: String
     var title: String

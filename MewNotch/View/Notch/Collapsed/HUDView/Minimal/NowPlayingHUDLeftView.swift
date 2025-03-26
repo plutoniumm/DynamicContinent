@@ -1,23 +1,27 @@
 //
-//  MinimalHUDLeftView.swift
+//  NowPlayingHUDLeftView.swift
 //  MewNotch
 //
-//  Created by Monu Kumar on 11/03/25.
+//  Created by Monu Kumar on 26/03/25.
 //
 
 import SwiftUI
 
-struct MinimalHUDLeftView<T: HUDDefaultsProtocol>: View {
+struct NowPlayingHUDLeftView: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
-    @ObservedObject var defaults: T
-    
-    var hudModel: HUDPropertyModel?
     
     var body: some View {
-        if let hud = hudModel, defaults.isEnabled, defaults.style == .Minimal {
-            hud.getIcon()
-                .padding(8)
+        if let nowPlayingModel = notchViewModel.nowPlayingMedia {
+            nowPlayingModel.albumArt
+                .resizable()
+                .scaledToFit()
+                .clipShape(
+                    RoundedRectangle(
+                        cornerRadius: 8
+                    )
+                )
+                .padding(4)
                 .frame(
                     width: notchViewModel.notchSize.height,
                     height: notchViewModel.notchSize.height

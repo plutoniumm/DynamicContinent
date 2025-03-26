@@ -1,39 +1,37 @@
 //
-//  MinimalHUDRightView.swift
+//  NowPlayingHUDRightView.swift
 //  MewNotch
 //
-//  Created by Monu Kumar on 11/03/25.
+//  Created by Monu Kumar on 26/03/25.
 //
 
 import SwiftUI
 
-struct MinimalHUDRightView<T: HUDDefaultsProtocol>: View {
+import Lottie
+
+struct NowPlayingHUDRightView: View {
     
     @ObservedObject var notchViewModel: CollapsedNotchViewModel
-    @ObservedObject var defaults: T
-    
-    var hudModel: HUDPropertyModel?
     
     var body: some View {
-        if let hud = hudModel, defaults.isEnabled, defaults.style == .Minimal {
-            AnimatedTextView(
-                value: Double(hud.value * 100)
-            ) { value in
-                Text(
-                    String(
-                        format: "%02.0f",
-                        value
+        if let nowPlayingModel = notchViewModel.nowPlayingMedia {
+            LottieView(
+                animation: MewNotch.Lotties.visualizer
+            )
+            .animationSpeed(0.2)
+            .playbackMode(
+                nowPlayingModel.isPlaying
+                ? .playing(
+                    .fromProgress(
+                        0,
+                        toProgress: 1,
+                        loopMode: .loop
                     )
                 )
-                .minimumScaleFactor(0.4)
-                .font(
-                    .title2.weight(
-                        .medium
-                    )
-                )
-                .foregroundStyle(Color.white)
-                .padding(4)
-            }
+                : .paused
+            )
+            .scaledToFit()
+            .padding(8)
             .frame(
                 width: notchViewModel.notchSize.height,
                 height: notchViewModel.notchSize.height

@@ -33,14 +33,22 @@ extern NSString *kMRNowPlayingPlaybackQueueChangedNotification;
 extern NSString *kMRPlaybackQueueContentItemsChangedNotification;
 extern NSString *kMRMediaRemoteNowPlayingApplicationDidChangeNotification;
 
+
 extern NSString *kMRMediaRemoteNowPlayingInfoAlbum;
 extern NSString *kMRMediaRemoteNowPlayingInfoArtist;
 extern NSString *kMRMediaRemoteNowPlayingInfoTitle;
+
+extern NSString *kMRMediaRemoteNowPlayingInfoArtworkData;
+
+extern NSString *kMRMediaRemoteNowPlayingInfoDuration;
+extern NSString *kMRMediaRemoteNowPlayingInfoElapsedTime;
+extern NSString *kMRMediaRemoteNowPlayingInfoPlaybackRate;
 
 @implementation NowPlaying
 + (void)load
 {
     MRMediaRemoteRegisterForNowPlayingNotifications(dispatch_get_main_queue());
+    
 }
 
 + (NowPlaying *)sharedInstance
@@ -153,18 +161,28 @@ extern NSString *kMRMediaRemoteNowPlayingInfoTitle;
             NSString *album = [info objectForKey:kMRMediaRemoteNowPlayingInfoAlbum];
             NSString *artist = [info objectForKey:kMRMediaRemoteNowPlayingInfoArtist];
             NSString *title = [info objectForKey:kMRMediaRemoteNowPlayingInfoTitle];
-
-            if (self.album != album || self.artist != artist || self.title != title)
-            {
-                self.album = album;
-                self.artist = artist;
-                self.title = title;
-
-                [[NSNotificationCenter defaultCenter]
-                    postNotificationName:NowPlayingInfoNotification
-                    object:self];
-            }
-        });
+        
+            NSNumber *totalDuration = [info objectForKey:kMRMediaRemoteNowPlayingInfoDuration];
+            NSNumber *elapsedTime = [info objectForKey:kMRMediaRemoteNowPlayingInfoElapsedTime];
+        
+            NSNumber *playbackRate = [info objectForKey:kMRMediaRemoteNowPlayingInfoPlaybackRate];
+        
+            NSData *albumArtData = [info objectForKey:kMRMediaRemoteNowPlayingInfoArtworkData];
+            
+            self.album = album;
+            self.artist = artist;
+            self.title = title;
+        
+            self.elapsedTime = elapsedTime;
+            self.totalDuration = totalDuration;
+            self.playbackRate = playbackRate;
+            
+            self.albumArt = [[NSImage alloc] initWithData:albumArtData];
+            
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:NowPlayingInfoNotification
+             object:self];
+            });
 }
 
 - (void)updateState
@@ -186,6 +204,7 @@ extern NSString *kMRMediaRemoteNowPlayingInfoTitle;
 - (void)appDidChange:(NSNotification *)notification
 {
     [self updateApp];
+    [self updateInfo];
 }
 
 - (void)infoDidChange:(NSNotification *)notification
@@ -196,6 +215,7 @@ extern NSString *kMRMediaRemoteNowPlayingInfoTitle;
 - (void)playingDidChange:(NSNotification *)notification
 {
     [self updateState];
+    [self updateInfo];
 }
 @end
 
