@@ -22,11 +22,30 @@ struct PowerHUDView<T: HUDDefaultsProtocol>: View {
                 
                 Spacer()
                 
-                Text(
-                    hud.name
-                )
-                .font(.title3.bold())
-                .foregroundStyle(Color.white)
+                if hud.value.isFinite {
+                    let value = Int(hud.value)
+                    
+                    let hour = value / 3600
+                    let min = (value % 3600) / 60
+                    
+                    (
+                        Text(hour > 0 ? "\(hour)" : "")
+                        +
+                        Text(hour > 0 ? "h " : "")
+                        +
+                        Text(min > 0 ? "\(min)" : "")
+                        +
+                        Text(min > 0 ? "m " : "")
+                        +
+                        Text("Left")
+                    )
+                } else {
+                    Text(
+                        hud.name
+                    )
+                    .font(.title3.bold())
+                    .foregroundStyle(Color.white)
+                }
             }
             .padding(
                 .init(

@@ -256,7 +256,7 @@ class CollapsedNotchViewModel: ObservableObject {
                     ? "battery.100percent.bolt" : "battery.\(batteryLevelForIcon)percent"
                 ),
                 name: PowerStatus.sharedInstance().providingSource(),
-                value: PowerStatus.sharedInstance().getBatteryLevel(),
+                value: Float(PowerStatus.sharedInstance().remainingTime()),
                 timer: powerStatusHUD?.timer
             )
         }
