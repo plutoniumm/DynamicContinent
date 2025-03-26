@@ -11,7 +11,9 @@ struct NotchView: View {
     
     @Namespace var nameSpace
     
-    @StateObject var collapsedNotchViewModel: CollapsedNotchViewModel
+    @StateObject var notchViewModel: NotchViewModel
+    
+    @StateObject var collapsedNotchViewModel: CollapsedNotchViewModel = .init()
     
     @State var isHovered: Bool = false
     @State var isExpanded: Bool = false
@@ -21,7 +23,7 @@ struct NotchView: View {
     init(
         screen: NSScreen
     ) {
-        self._collapsedNotchViewModel = .init(
+        self._notchViewModel = .init(
             wrappedValue: .init(
                 screen: screen
             )
@@ -34,7 +36,7 @@ struct NotchView: View {
                 Spacer()
                 
                 CollapsedNotchView(
-                    notchViewModel: collapsedNotchViewModel,
+                    notchViewModel: notchViewModel,
                     isHovered: isHovered
                 )
                 .background {

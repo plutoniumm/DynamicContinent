@@ -11,14 +11,6 @@ import Lottie
 
 class CollapsedNotchViewModel: ObservableObject {
     
-    var screen: NSScreen
-    
-    @Published var notchSize: CGSize = .zero
-    var extraNotchPadSize: CGSize = .init(
-        width: 14,
-        height: 0
-    )
-    
     @Published var nowPlayingMedia: NowPlayingMediaModel?
     
     @Published var outputAudioVolumeHUD: HUDPropertyModel?
@@ -33,38 +25,12 @@ class CollapsedNotchViewModel: ObservableObject {
     
     @Published var lastPowerStatus: String = ""
     
-    init(
-        screen: NSScreen
-    ) {
-        self.screen = screen
-        
-        self.notchSize = NotchUtils.shared.notchSize(
-            screen: self.screen,
-            force: NotchDefaults.shared.forceEnabled
-        )
-        
-        withAnimation {
-            notchSize.width += extraNotchPadSize.width
-            notchSize.height += extraNotchPadSize.height
-        }
-        
+    init() {
         self.startListeners()
     }
     
     deinit {
         self.stopListeners()
-    }
-    
-    func refreshNotchSize() {
-        self.notchSize = NotchUtils.shared.notchSize(
-            screen: self.screen,
-            force: NotchDefaults.shared.forceEnabled
-        )
-        
-        withAnimation {
-            notchSize.width += extraNotchPadSize.width
-            notchSize.height += extraNotchPadSize.height
-        }
     }
     
     func resetHUDTimer(

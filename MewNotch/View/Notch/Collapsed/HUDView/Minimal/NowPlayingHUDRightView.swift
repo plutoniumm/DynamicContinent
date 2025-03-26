@@ -11,10 +11,12 @@ import Lottie
 
 struct NowPlayingHUDRightView: View {
     
-    @ObservedObject var notchViewModel: CollapsedNotchViewModel
+    @ObservedObject var notchViewModel: NotchViewModel
+    
+    var nowPlayingModel: NowPlayingMediaModel?
     
     var body: some View {
-        if let nowPlayingModel = notchViewModel.nowPlayingMedia {
+        if let nowPlayingModel {
             LottieView(
                 animation: MewNotch.Lotties.visualizer
             )

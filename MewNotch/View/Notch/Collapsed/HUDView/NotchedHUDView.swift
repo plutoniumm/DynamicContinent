@@ -11,7 +11,7 @@ import Lottie
 
 struct NotchedHUDView<T: HUDDefaultsProtocol>: View {
     
-    @ObservedObject var notchViewModel: CollapsedNotchViewModel
+    @ObservedObject var notchViewModel: NotchViewModel
     @ObservedObject var defaults: T
     
     var hudModel: HUDPropertyModel?

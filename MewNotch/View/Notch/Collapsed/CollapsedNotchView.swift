@@ -11,7 +11,9 @@ import Lottie
 
 struct CollapsedNotchView: View {
     
-    @ObservedObject var notchViewModel: CollapsedNotchViewModel
+    @ObservedObject var notchViewModel: NotchViewModel
+    
+    @StateObject var collapsedNotchViewModel: CollapsedNotchViewModel = .init()
     
     @StateObject var notchDefaults = NotchDefaults.shared
     
@@ -29,23 +31,24 @@ struct CollapsedNotchView: View {
                 MinimalHUDLeftView(
                     notchViewModel: notchViewModel,
                     defaults: HUDBrightnessDefaults.shared,
-                    hudModel: notchViewModel.brightnessHUD
+                    hudModel: collapsedNotchViewModel.brightnessHUD
                 )
                 
                 MinimalHUDLeftView(
                     notchViewModel: notchViewModel,
                     defaults: HUDAudioInputDefaults.shared,
-                    hudModel: notchViewModel.inputAudioVolumeHUD
+                    hudModel: collapsedNotchViewModel.inputAudioVolumeHUD
                 )
                 
                 MinimalHUDLeftView(
                     notchViewModel: notchViewModel,
                     defaults: HUDAudioOutputDefaults.shared,
-                    hudModel: notchViewModel.outputAudioVolumeHUD
+                    hudModel: collapsedNotchViewModel.outputAudioVolumeHUD
                 )
                 
                 NowPlayingHUDLeftView(
-                    notchViewModel: notchViewModel
+                    notchViewModel: notchViewModel,
+                    nowPlayingModel: collapsedNotchViewModel.nowPlayingMedia
                 )
                 .hide(
                     when: !mediaDefaults.isEnabled
@@ -56,7 +59,8 @@ struct CollapsedNotchView: View {
                 )
                 
                 NowPlayingHUDRightView(
-                    notchViewModel: notchViewModel
+                    notchViewModel: notchViewModel,
+                    nowPlayingModel: collapsedNotchViewModel.nowPlayingMedia
                 )
                 .hide(
                     when: !mediaDefaults.isEnabled
@@ -65,57 +69,57 @@ struct CollapsedNotchView: View {
                 MinimalHUDRightView(
                     notchViewModel: notchViewModel,
                     defaults: HUDAudioOutputDefaults.shared,
-                    hudModel: notchViewModel.outputAudioVolumeHUD
+                    hudModel: collapsedNotchViewModel.outputAudioVolumeHUD
                 )
                 
                 MinimalHUDRightView(
                     notchViewModel: notchViewModel,
                     defaults: HUDAudioInputDefaults.shared,
-                    hudModel: notchViewModel.inputAudioVolumeHUD
+                    hudModel: collapsedNotchViewModel.inputAudioVolumeHUD
                 )
                 
                 MinimalHUDRightView(
                     notchViewModel: notchViewModel,
                     defaults: HUDBrightnessDefaults.shared,
-                    hudModel: notchViewModel.brightnessHUD
+                    hudModel: collapsedNotchViewModel.brightnessHUD
                 )
             }
             
             PowerHUDView(
                 notchViewModel: notchViewModel,
                 defaults: HUDPowerDefaults.shared,
-                hudModel: notchViewModel.powerStatusHUD
+                hudModel: collapsedNotchViewModel.powerStatusHUD
             )
             
             AudioDeviceHUDView(
                 notchViewModel: notchViewModel,
                 deviceType: .Input,
-                hudModel: notchViewModel.inputAudioDeviceHUD
+                hudModel: collapsedNotchViewModel.inputAudioDeviceHUD
             )
             
             AudioDeviceHUDView(
                 notchViewModel: notchViewModel,
                 deviceType: .Output,
-                hudModel: notchViewModel.outputAudioDeviceHUD
+                hudModel: collapsedNotchViewModel.outputAudioDeviceHUD
             )
             
             // MARK: Progress Style Views
             ProgressHUDView(
                 notchViewModel: notchViewModel,
                 defaults: HUDBrightnessDefaults.shared,
-                hudModel: notchViewModel.brightnessHUD
+                hudModel: collapsedNotchViewModel.brightnessHUD
             )
             
             ProgressHUDView(
                 notchViewModel: notchViewModel,
                 defaults: HUDAudioInputDefaults.shared,
-                hudModel: notchViewModel.inputAudioVolumeHUD
+                hudModel: collapsedNotchViewModel.inputAudioVolumeHUD
             )
             
             ProgressHUDView(
                 notchViewModel: notchViewModel,
                 defaults: HUDAudioOutputDefaults.shared,
-                hudModel: notchViewModel.outputAudioVolumeHUD
+                hudModel: collapsedNotchViewModel.outputAudioVolumeHUD
             )
             
             // MARK: Notched Style View
@@ -123,25 +127,25 @@ struct CollapsedNotchView: View {
             NotchedHUDView(
                 notchViewModel: notchViewModel,
                 defaults: HUDBrightnessDefaults.shared,
-                hudModel: notchViewModel.brightnessHUD
+                hudModel: collapsedNotchViewModel.brightnessHUD
             )
             
             NotchedHUDView(
                 notchViewModel: notchViewModel,
                 defaults: HUDAudioInputDefaults.shared,
-                hudModel: notchViewModel.inputAudioVolumeHUD
+                hudModel: collapsedNotchViewModel.inputAudioVolumeHUD
             )
             
             NotchedHUDView(
                 notchViewModel: notchViewModel,
                 defaults: HUDAudioOutputDefaults.shared,
-                hudModel: notchViewModel.outputAudioVolumeHUD
+                hudModel: collapsedNotchViewModel.outputAudioVolumeHUD
             )
         }
         .onReceive(
             notchDefaults.objectWillChange
         ) {
-            notchViewModel.hideHUDs()
+            collapsedNotchViewModel.hideHUDs()
             
 //            if defaultsManager.hudEnabled {
 //                OSDUIManager.shared.stop()

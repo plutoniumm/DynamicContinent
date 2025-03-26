@@ -14,7 +14,7 @@ struct AudioDeviceHUDView: View {
         case Output = "Output Device"
     }
     
-    @ObservedObject var notchViewModel: CollapsedNotchViewModel
+    @ObservedObject var notchViewModel: NotchViewModel
     
     var deviceType: DeviceType = .Output
     
