@@ -19,4 +19,18 @@ struct NowPlayingMediaModel {
     var title: String
     
     var isPlaying: Bool
+    
+    static var Placeholder: NowPlayingMediaModel {
+        return .init(
+            appBundleIdentifier: "<App Bundle Identifier Here>",
+            appName: "<App Name Here>",
+            appIcon: Image(systemName: "app.fill"),
+            albumArt: Image(systemName: "square.fill"),
+            album: "<Album Here>",
+            artist: "<Artist Here>",
+            title: "<Music Title Here>",
+            isPlaying: false
+        )
+    }
+        
 }

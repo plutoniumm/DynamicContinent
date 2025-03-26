@@ -11,6 +11,8 @@ import Lottie
 
 struct CollapsedNotchView: View {
     
+    var namespace: Namespace.ID
+    
     @ObservedObject var notchViewModel: NotchViewModel
     
     @StateObject var collapsedNotchViewModel: CollapsedNotchViewModel = .init()
@@ -18,8 +20,6 @@ struct CollapsedNotchView: View {
     @StateObject var notchDefaults = NotchDefaults.shared
     
     @StateObject var mediaDefaults = HUDMediaDefaults.shared
-    
-    var isHovered: Bool = false
     
     var body: some View {
         VStack(
@@ -47,11 +47,15 @@ struct CollapsedNotchView: View {
                 )
                 
                 NowPlayingHUDLeftView(
+                    namespace: namespace,
                     notchViewModel: notchViewModel,
                     nowPlayingModel: collapsedNotchViewModel.nowPlayingMedia
                 )
                 .hide(
                     when: !mediaDefaults.isEnabled
+                )
+                .hide(
+                    when: notchViewModel.isExpanded
                 )
                 
                 OnlyNotchView(
@@ -64,6 +68,9 @@ struct CollapsedNotchView: View {
                 )
                 .hide(
                     when: !mediaDefaults.isEnabled
+                )
+                .hide(
+                    when: notchViewModel.isExpanded
                 )
                 
                 MinimalHUDRightView(
@@ -163,12 +170,4 @@ struct CollapsedNotchView: View {
 //            }
         }
     }
-}
-
-#Preview {
-    CollapsedNotchView(
-        notchViewModel: .init(
-            screen: .main!
-        )
-    )
 }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct NowPlayingHUDLeftView: View {
     
+    var namespace: Namespace.ID = Namespace().wrappedValue
+    
     @ObservedObject var notchViewModel: NotchViewModel
     
     var nowPlayingModel: NowPlayingMediaModel?
@@ -17,24 +19,23 @@ struct NowPlayingHUDLeftView: View {
         if let nowPlayingModel {
             nowPlayingModel.albumArt
                 .resizable()
-                .scaledToFit()
+                .aspectRatio(
+                    1,
+                    contentMode: .fit
+                )
                 .clipShape(
                     RoundedRectangle(
                         cornerRadius: 8
                     )
                 )
+                .matchedGeometryEffect(
+                    id: "NowPlayingAlbumArt",
+                    in: namespace
+                )
                 .padding(4)
                 .frame(
                     width: notchViewModel.notchSize.height,
                     height: notchViewModel.notchSize.height
-                )
-                .transition(
-                    .move(
-                        edge: .trailing
-                    )
-                    .combined(
-                        with: .opacity
-                    )
                 )
                 .padding(
                     .init(
