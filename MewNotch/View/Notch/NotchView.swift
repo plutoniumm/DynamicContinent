@@ -68,6 +68,7 @@ struct NotchView: View {
             
             Spacer()
         }
+        .preferredColorScheme(.dark)
         .contextMenu(
             menuItems: {
                 

@@ -48,9 +48,6 @@ class ExpandedNotchViewModel: ObservableObject {
         let album = NowPlaying.sharedInstance().album,
         let artist = NowPlaying.sharedInstance().artist,
         let title = NowPlaying.sharedInstance().title else {
-            if NowPlaying.sharedInstance().playing {
-                NowPlaying.sharedInstance().updateInfo()
-            }
             return
         }
         
