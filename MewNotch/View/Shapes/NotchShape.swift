@@ -9,19 +9,15 @@ import SwiftUI
 
 struct NotchShape: Shape {
     
-    var topRadius: CGFloat {
-        return max(
-            bottomRadius - 5,
-            5
-        )
-    }
-    
+    var topRadius: CGFloat
     var bottomRadius: CGFloat
     
     init(
-        cornerRadius: CGFloat = 13
+        topRadius: CGFloat = 8,
+        bottomRadius: CGFloat = 13
     ) {
-        self.bottomRadius = cornerRadius
+        self.bottomRadius = bottomRadius
+        self.topRadius = topRadius
     }
     
     var animatableData: CGFloat {

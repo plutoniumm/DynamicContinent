@@ -13,6 +13,14 @@ class NotchViewModel: ObservableObject {
     
     @Published var notchSize: CGSize = .zero
     
+    var cornerRadius: (
+        top: CGFloat,
+        bottom: CGFloat
+    ) = (
+        top: 8,
+        bottom: 13
+    )
+    
     var extraNotchPadSize: CGSize = .init(
         width: 16,
         height: 0
@@ -64,6 +72,12 @@ class NotchViewModel: ObservableObject {
         } else {
             withAnimation {
                 self.isExpanded = false
+                
+                self.cornerRadius = NotchUtils.shared.collapsedCornerRadius
+                self.extraNotchPadSize = .init(
+                    width: self.cornerRadius.top * 2,
+                    height: 0
+                )
             }
         }
         
@@ -73,6 +87,10 @@ class NotchViewModel: ObservableObject {
     }
     
     func onTap() {
+        HapticsManager.shared.feedback(
+            pattern: .generic
+        )
+        
         withAnimation(
             .spring(
                 .bouncy(
@@ -82,6 +100,14 @@ class NotchViewModel: ObservableObject {
             )
         ) {
             self.isExpanded = true
+        }
+        
+        withAnimation {
+            self.cornerRadius = NotchUtils.shared.expandedCornerRadius
+            self.extraNotchPadSize = .init(
+                width: self.cornerRadius.top * 2,
+                height: 0
+            )
         }
     }
 }

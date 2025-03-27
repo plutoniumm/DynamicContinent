@@ -47,7 +47,10 @@ struct NotchView: View {
                     Color.black
                 }
                 .mask {
-                    NotchShape()
+                    NotchShape(
+                        topRadius: notchViewModel.cornerRadius.top,
+                        bottomRadius: notchViewModel.cornerRadius.bottom
+                    )
                 }
                 .scaleEffect(
                     notchViewModel.isHovered ? 1.05 : 1.0,

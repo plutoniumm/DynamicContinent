@@ -5,11 +5,31 @@
 //  Created by Monu Kumar on 25/02/25.
 //
 
-import AppKit
+import SwiftUI
 
 class NotchUtils {
     
     static let shared = NotchUtils()
+    
+    var collapsedCornerRadius: (
+        top: CGFloat,
+        bottom: CGFloat
+    ) {
+        return (
+            top: 8,
+            bottom: 13
+        )
+    }
+    
+    var expandedCornerRadius: (
+        top: CGFloat,
+        bottom: CGFloat
+    ) {
+        return (
+            top: 19,
+            bottom: 24
+        )
+    }
     
     private init() { }
     
