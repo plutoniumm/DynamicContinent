@@ -9,11 +9,19 @@ import SwiftUI
 
 struct NowPlayingDetailView: View {
     
+    enum ButtonType {
+        case togglePlayPause
+        case next
+        case previous
+    }
+    
     var namespace: Namespace.ID = Namespace().wrappedValue
     
     @ObservedObject var notchViewModel: NotchViewModel
     
     var nowPlayingModel: NowPlayingMediaModel
+    
+    @State private var hoveredItem: ButtonType? = nil
     
     var body: some View {
         HStack(
@@ -27,7 +35,7 @@ struct NowPlayingDetailView: View {
                 )
                 .clipShape(
                     RoundedRectangle(
-                        cornerRadius: 8
+                        cornerRadius: notchViewModel.cornerRadius.bottom - 10
                     )
                 )
                 .overlay {
@@ -59,6 +67,12 @@ struct NowPlayingDetailView: View {
                     id: "NowPlayingAlbumArt",
                     in: namespace
                 )
+                .scaleEffect(
+                    nowPlayingModel.isPlaying ? 1.0 : 0.9
+                )
+                .opacity(
+                    nowPlayingModel.isPlaying ? 1.0 : 0.5
+                )
             
             VStack(
                 alignment: .leading,
@@ -69,10 +83,10 @@ struct NowPlayingDetailView: View {
                     .lineLimit(1)
                     .font(.title3.bold())
                 
-                Text(nowPlayingModel.album)
-                    .minimumScaleFactor(0.4)
-                    .lineLimit(1)
-                    .font(.footnote)
+//                Text(nowPlayingModel.album)
+//                    .minimumScaleFactor(0.4)
+//                    .lineLimit(1)
+//                    .font(.footnote)
                 
                 Text(nowPlayingModel.artist)
                     .minimumScaleFactor(0.4)
@@ -94,10 +108,24 @@ struct NowPlayingDetailView: View {
                         .scaledToFit()
                     }
                     .buttonStyle(.plain)
+                    .padding(6)
                     .frame(
-                        maxWidth: 16,
-                        maxHeight: 16
+                        width: 24,
+                        height: 24
                     )
+                    .background {
+                        if hoveredItem == .previous {
+                            Circle()
+                                .fill(
+                                    Color.white.opacity(0.1)
+                                )
+                        }
+                    }
+                    .onHover { isHovered in
+                        withAnimation {
+                            hoveredItem = isHovered ? .previous : nil
+                        }
+                    }
                     .frame(
                         maxWidth: .infinity
                     )
@@ -114,10 +142,24 @@ struct NowPlayingDetailView: View {
                         .scaledToFit()
                     }
                     .buttonStyle(.plain)
+                    .padding(6)
                     .frame(
-                        maxWidth: 16,
-                        maxHeight: 16
+                        width: 24,
+                        height: 24
                     )
+                    .background {
+                        if hoveredItem == .togglePlayPause {
+                            Circle()
+                                .fill(
+                                    Color.white.opacity(0.1)
+                                )
+                        }
+                    }
+                    .onHover { isHovered in
+                        withAnimation {
+                            hoveredItem = isHovered ? .togglePlayPause : nil
+                        }
+                    }
                     .frame(
                         maxWidth: .infinity
                     )
@@ -134,10 +176,24 @@ struct NowPlayingDetailView: View {
                         .scaledToFit()
                     }
                     .buttonStyle(.plain)
+                    .padding(6)
                     .frame(
-                        maxWidth: 16,
-                        maxHeight: 16
+                        width: 24,
+                        height: 24
                     )
+                    .background {
+                        if hoveredItem == .next {
+                            Circle()
+                                .fill(
+                                    Color.white.opacity(0.1)
+                                )
+                        }
+                    }
+                    .onHover { isHovered in
+                        withAnimation {
+                            hoveredItem = isHovered ? .next : nil
+                        }
+                    }
                     .frame(
                         maxWidth: .infinity
                     )
