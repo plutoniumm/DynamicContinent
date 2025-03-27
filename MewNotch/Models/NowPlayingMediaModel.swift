@@ -18,6 +18,9 @@ struct NowPlayingMediaModel {
     var artist: String
     var title: String
     
+    var elapsedTime: Double
+    var totalDuration: Double
+    
     var isPlaying: Bool
     
     static var Placeholder: NowPlayingMediaModel {
@@ -29,6 +32,8 @@ struct NowPlayingMediaModel {
             album: "<Album Here>",
             artist: "<Artist Here>",
             title: "<Music Title Here>",
+            elapsedTime: 0,
+            totalDuration: 0,
             isPlaying: false
         )
     }

@@ -47,7 +47,9 @@ class ExpandedNotchViewModel: ObservableObject {
         let albumArt = NowPlaying.sharedInstance().albumArt,
         let album = NowPlaying.sharedInstance().album,
         let artist = NowPlaying.sharedInstance().artist,
-        let title = NowPlaying.sharedInstance().title else {
+        let title = NowPlaying.sharedInstance().title,
+        let elapsedTime = NowPlaying.sharedInstance().elapsedTime,
+        let totalDuration = NowPlaying.sharedInstance().totalDuration else {
             return
         }
         
@@ -64,6 +66,8 @@ class ExpandedNotchViewModel: ObservableObject {
                 album: album,
                 artist: artist,
                 title: title,
+                elapsedTime: elapsedTime.doubleValue,
+                totalDuration: totalDuration.doubleValue,
                 isPlaying: NowPlaying.sharedInstance().playing
             )
         }

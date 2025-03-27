@@ -93,7 +93,35 @@ struct NowPlayingDetailView: View {
                     .lineLimit(1)
                     .font(.body.weight(.medium))
                 
-                Spacer()
+                Rectangle()
+                .fill(
+                    .white.opacity(0.2)
+                )
+                .frame(
+                    height: 4
+                )
+                .overlay {
+                    GeometryReader { geometry in
+                        Rectangle()
+                            .fill(
+                                .white
+                            )
+                            .frame(
+                                width: geometry.size.width * (nowPlayingModel.elapsedTime / nowPlayingModel.totalDuration),
+                                height: geometry.size.height
+                            )
+                            .frame(
+                                width: geometry.size.width,
+                                alignment: .leading
+                            )
+                    }
+                }
+                .clipShape(
+                    Capsule()
+                )
+                .frame(
+                    maxHeight: .infinity
+                )
                 
                 HStack {
                     Button(
