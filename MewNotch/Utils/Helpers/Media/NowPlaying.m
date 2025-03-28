@@ -28,9 +28,12 @@ NSString *MRNowPlayingClientGetBundleIdentifier(id clientObj);
 NSString *MRNowPlayingClientGetParentAppBundleIdentifier(id clientObj);
 
 extern NSString *kMRMediaRemoteNowPlayingApplicationIsPlayingDidChangeNotification;
+
 extern NSString *kMRMediaRemoteNowPlayingApplicationClientStateDidChange;
+
 extern NSString *kMRNowPlayingPlaybackQueueChangedNotification;
 extern NSString *kMRPlaybackQueueContentItemsChangedNotification;
+extern NSString *kMRPlaybackQueueContentItemArtworkChangedNotification;
 extern NSString *kMRMediaRemoteNowPlayingApplicationDidChangeNotification;
 
 
@@ -89,6 +92,11 @@ extern NSString *kMRMediaRemoteNowPlayingInfoPlaybackRate;
         addObserver:self
         selector:@selector(playingDidChange:)
         name:kMRMediaRemoteNowPlayingApplicationIsPlayingDidChangeNotification
+        object:nil];
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+        selector:@selector(infoDidChange:)
+        name:kMRPlaybackQueueContentItemArtworkChangedNotification
         object:nil];
 
     [self updateApp];
@@ -204,7 +212,6 @@ extern NSString *kMRMediaRemoteNowPlayingInfoPlaybackRate;
 - (void)appDidChange:(NSNotification *)notification
 {
     [self updateApp];
-    [self updateInfo];
 }
 
 - (void)infoDidChange:(NSNotification *)notification
@@ -215,7 +222,6 @@ extern NSString *kMRMediaRemoteNowPlayingInfoPlaybackRate;
 - (void)playingDidChange:(NSNotification *)notification
 {
     [self updateState];
-    [self updateInfo];
 }
 @end
 

@@ -293,9 +293,6 @@ class CollapsedNotchViewModel: ObservableObject {
         let title = NowPlaying.sharedInstance().title,
         let elapsedTime = NowPlaying.sharedInstance().elapsedTime,
         let totalDuration = NowPlaying.sharedInstance().totalDuration else {
-            if NowPlaying.sharedInstance().playing {
-                NowPlaying.sharedInstance().updateInfo()
-            }
             return
         }
         
