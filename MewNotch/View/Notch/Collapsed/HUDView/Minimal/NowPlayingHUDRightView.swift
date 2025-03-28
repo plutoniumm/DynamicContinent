@@ -15,6 +15,8 @@ struct NowPlayingHUDRightView: View {
     
     var nowPlayingModel: NowPlayingMediaModel?
     
+    @State private var isHovered: Bool = false
+    
     var body: some View {
         if let nowPlayingModel {
             LottieView(
@@ -33,11 +35,34 @@ struct NowPlayingHUDRightView: View {
                 : .paused
             )
             .scaledToFit()
+            .opacity(self.isHovered ? 0 : 1)
+            .overlay {
+                if self.isHovered {
+                    Button(
+                        action: {
+                            MediaController.sharedInstance().togglePlayPause()
+                        }
+                    ) {
+                        Image(
+                            systemName: nowPlayingModel.isPlaying ? "pause.fill" : "play.fill"
+                        )
+                        .resizable()
+                        .scaledToFit()
+                    }
+                    .buttonStyle(.plain)
+                    .padding(2)
+                }
+            }
             .padding(8)
             .frame(
                 width: notchViewModel.notchSize.height,
                 height: notchViewModel.notchSize.height
             )
+            .onHover { isHovered in
+                withAnimation {
+                    self.isHovered = isHovered
+                }
+            }
             .transition(
                 .move(
                     edge: .leading
