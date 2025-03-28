@@ -79,7 +79,7 @@ struct NowPlayingDetailView: View {
                 spacing: 0
             ) {
                 Text(nowPlayingModel.title)
-                    .minimumScaleFactor(0.4)
+                    .minimumScaleFactor(0.8)
                     .lineLimit(1)
                     .font(.title3.bold())
                 
@@ -89,36 +89,75 @@ struct NowPlayingDetailView: View {
 //                    .font(.footnote)
                 
                 Text(nowPlayingModel.artist)
-                    .minimumScaleFactor(0.4)
+                    .minimumScaleFactor(0.8)
                     .lineLimit(1)
                     .font(.body.weight(.medium))
                 
-                Rectangle()
-                .fill(
-                    .white.opacity(0.2)
-                )
-                .frame(
-                    height: 4
-                )
-                .overlay {
-                    GeometryReader { geometry in
-                        Rectangle()
-                            .fill(
-                                .white
+                VStack(
+                    spacing: 2
+                ) {
+                    HStack {
+                        let elapsedTime = Int(nowPlayingModel.elapsedTime)
+                        let elapsedHours = elapsedTime / 3600
+                        let elapsedMinutes = (elapsedTime % 3600) / 60
+                        let elapsedSeconds = elapsedTime % 60
+                        
+                        Text(
+                            elapsedHours > 0 ? "\(elapsedHours):" : ""
+                            +
+                            String(
+                                format: "%02d:%02d",
+                                elapsedMinutes,
+                                elapsedSeconds
                             )
-                            .frame(
-                                width: geometry.size.width * (nowPlayingModel.elapsedTime / nowPlayingModel.totalDuration),
-                                height: geometry.size.height
+                        )
+                        
+                        Spacer()
+                        
+                        let totalDuration = Int(nowPlayingModel.totalDuration)
+                        let totalHours = totalDuration / 3600
+                        let totalMinutes = (totalDuration % 3600) / 60
+                        let totalSeconds = totalDuration % 60
+                        
+                        Text(
+                            totalHours > 0 ? "\(totalHours):" : ""
+                            +
+                            String(
+                                format: "%02d:%02d",
+                                totalMinutes,
+                                totalSeconds
                             )
-                            .frame(
-                                width: geometry.size.width,
-                                alignment: .leading
-                            )
+                        )
                     }
+                    .font(.footnote)
+                    
+                    Rectangle()
+                        .fill(
+                            .white.opacity(0.2)
+                        )
+                        .frame(
+                            height: 4
+                        )
+                        .overlay {
+                            GeometryReader { geometry in
+                                Rectangle()
+                                    .fill(
+                                        .white
+                                    )
+                                    .frame(
+                                        width: geometry.size.width * (nowPlayingModel.elapsedTime / nowPlayingModel.totalDuration),
+                                        height: geometry.size.height
+                                    )
+                                    .frame(
+                                        width: geometry.size.width,
+                                        alignment: .leading
+                                    )
+                            }
+                        }
+                        .clipShape(
+                            Capsule()
+                        )
                 }
-                .clipShape(
-                    Capsule()
-                )
                 .frame(
                     maxHeight: .infinity
                 )
@@ -134,21 +173,21 @@ struct NowPlayingDetailView: View {
                         )
                         .resizable()
                         .scaledToFit()
-                    }
-                    .buttonStyle(.plain)
-                    .padding(6)
-                    .frame(
-                        width: 24,
-                        height: 24
-                    )
-                    .background {
-                        if hoveredItem == .previous {
-                            Circle()
-                                .fill(
-                                    Color.white.opacity(0.1)
-                                )
+                        .padding(6)
+                        .frame(
+                            width: 24,
+                            height: 24
+                        )
+                        .background {
+                            if hoveredItem == .previous {
+                                Circle()
+                                    .fill(
+                                        Color.white.opacity(0.1)
+                                    )
+                            }
                         }
                     }
+                    .buttonStyle(.plain)
                     .onHover { isHovered in
                         withAnimation {
                             hoveredItem = isHovered ? .previous : nil
@@ -168,21 +207,21 @@ struct NowPlayingDetailView: View {
                         )
                         .resizable()
                         .scaledToFit()
-                    }
-                    .buttonStyle(.plain)
-                    .padding(6)
-                    .frame(
-                        width: 24,
-                        height: 24
-                    )
-                    .background {
-                        if hoveredItem == .togglePlayPause {
-                            Circle()
-                                .fill(
-                                    Color.white.opacity(0.1)
-                                )
+                        .padding(6)
+                        .frame(
+                            width: 24,
+                            height: 24
+                        )
+                        .background {
+                            if hoveredItem == .togglePlayPause {
+                                Circle()
+                                    .fill(
+                                        Color.white.opacity(0.1)
+                                    )
+                            }
                         }
                     }
+                    .buttonStyle(.plain)
                     .onHover { isHovered in
                         withAnimation {
                             hoveredItem = isHovered ? .togglePlayPause : nil
@@ -202,21 +241,21 @@ struct NowPlayingDetailView: View {
                         )
                         .resizable()
                         .scaledToFit()
-                    }
-                    .buttonStyle(.plain)
-                    .padding(6)
-                    .frame(
-                        width: 24,
-                        height: 24
-                    )
-                    .background {
-                        if hoveredItem == .next {
-                            Circle()
-                                .fill(
-                                    Color.white.opacity(0.1)
-                                )
+                        .padding(6)
+                        .frame(
+                            width: 24,
+                            height: 24
+                        )
+                        .background {
+                            if hoveredItem == .next {
+                                Circle()
+                                    .fill(
+                                        Color.white.opacity(0.1)
+                                    )
+                            }
                         }
                     }
+                    .buttonStyle(.plain)
                     .onHover { isHovered in
                         withAnimation {
                             hoveredItem = isHovered ? .next : nil
@@ -239,7 +278,7 @@ struct NowPlayingDetailView: View {
         )
         .frame(
             width: notchViewModel.notchSize.width * 1.5,
-            height: notchViewModel.notchSize.height * 2.5
+            height: notchViewModel.notchSize.height * 3
         )
     }
 }

@@ -23,6 +23,8 @@ struct NowPlayingMediaModel {
     
     var isPlaying: Bool
     
+    var refreshedAt: Date = .now
+    
     static var Placeholder: NowPlayingMediaModel {
         return .init(
             appBundleIdentifier: "<App Bundle Identifier Here>",
