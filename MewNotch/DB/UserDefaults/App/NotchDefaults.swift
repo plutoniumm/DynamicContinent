@@ -35,4 +35,13 @@ class NotchDefaults: ObservableObject {
         }
     }
     
+    @PrimitiveUserDefault(
+        PREFIX + "ExpandOnHover",
+        defaultValue: false
+    )
+    var expandOnHover: Bool {
+        didSet {
+            self.objectWillChange.send()
+        }
+    }
 }

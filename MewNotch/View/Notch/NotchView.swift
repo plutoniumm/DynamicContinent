@@ -11,6 +11,8 @@ struct NotchView: View {
     
     @Namespace var namespace
     
+    @StateObject var notchDefaults = NotchDefaults.shared
+    
     @StateObject var notchViewModel: NotchViewModel
     
     @State var isExpanded: Bool = false
@@ -59,9 +61,12 @@ struct NotchView: View {
                 .shadow(
                     radius: notchViewModel.isHovered ? 5 : 0
                 )
-                .onHover(
-                    perform: notchViewModel.onHover
-                )
+                .onHover {
+                    notchViewModel.onHover(
+                        $0,
+                        shouldExpand: notchDefaults.expandOnHover
+                    )
+                }
                 .onTapGesture(
                     perform: notchViewModel.onTap
                 )

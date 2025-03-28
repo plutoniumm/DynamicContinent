@@ -59,15 +59,25 @@ class NotchViewModel: ObservableObject {
         }
     }
     
-    func onHover(_ isHovered: Bool) {
+    func onHover(
+        _ isHovered: Bool,
+        shouldExpand: Bool = true
+    ) {
         hoverTimer?.invalidate()
         
         if isHovered {
-            hoverTimer = .scheduledTimer(
-                withTimeInterval: 0.7,
-                repeats: false
-            ) { _ in
-                self.onTap()
+            if shouldExpand {
+                hoverTimer = .scheduledTimer(
+                    withTimeInterval: 0.4,
+                    repeats: false
+                ) { _ in
+                    
+                    HapticsManager.shared.feedback(
+                        pattern: .generic
+                    )
+                    
+                    self.onTap()
+                }
             }
         } else {
             withAnimation {
@@ -87,10 +97,6 @@ class NotchViewModel: ObservableObject {
     }
     
     func onTap() {
-        HapticsManager.shared.feedback(
-            pattern: .generic
-        )
-        
         withAnimation(
             .spring(
                 .bouncy(

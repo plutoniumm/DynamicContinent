@@ -11,6 +11,8 @@ import Lottie
 
 struct NowPlayingHUDRightView: View {
     
+    @StateObject var notchDefaults = NotchDefaults.shared
+    
     @ObservedObject var notchViewModel: NotchViewModel
     
     var nowPlayingModel: NowPlayingMediaModel?
@@ -50,7 +52,7 @@ struct NowPlayingHUDRightView: View {
                         .scaledToFit()
                     }
                     .buttonStyle(.plain)
-                    .padding(2)
+                    .padding(4)
                 }
             }
             .padding(8)
@@ -60,7 +62,7 @@ struct NowPlayingHUDRightView: View {
             )
             .onHover { isHovered in
                 withAnimation {
-                    self.isHovered = isHovered
+                    self.isHovered = isHovered && !notchDefaults.expandOnHover
                 }
             }
             .transition(
