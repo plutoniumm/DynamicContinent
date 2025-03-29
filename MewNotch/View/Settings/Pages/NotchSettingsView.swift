@@ -69,6 +69,9 @@ struct NotchSettingsView: View {
                             alignment: .leading
                         ) {
                             Text("Expand on Hover")
+                            
+                            Text("Expand notch when hovered for more than 500ms.\nDisables click interactions in all HUDs")
+                                .font(.footnote)
                         }
                     }
                 },
