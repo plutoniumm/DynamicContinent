@@ -25,7 +25,7 @@ struct NowPlayingHUDLeftView: View {
                 .resizable()
                 .aspectRatio(
                     1,
-                    contentMode: .fit
+                    contentMode: .fill
                 )
                 .clipShape(
                     RoundedRectangle(
@@ -36,7 +36,12 @@ struct NowPlayingHUDLeftView: View {
                     id: "NowPlayingAlbumArt",
                     in: namespace
                 )
-                .scaledToFit()
+                .scaleEffect(
+                    nowPlayingModel.isPlaying ? 1.0 : 0.9
+                )
+                .opacity(
+                    nowPlayingModel.isPlaying ? 1.0 : 0.5
+                )
                 .opacity(self.isHovered ? 0 : 1)
                 .overlay {
                     if self.isHovered {
