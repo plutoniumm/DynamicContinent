@@ -9,11 +9,15 @@ import SwiftUI
 
 struct NowPlayingHUDLeftView: View {
     
+    @StateObject var notchDefaults = NotchDefaults.shared
+    
     var namespace: Namespace.ID = Namespace().wrappedValue
     
     @ObservedObject var notchViewModel: NotchViewModel
     
     var nowPlayingModel: NowPlayingMediaModel?
+    
+    @State private var isHovered: Bool = false
     
     var body: some View {
         if let nowPlayingModel {
@@ -32,6 +36,34 @@ struct NowPlayingHUDLeftView: View {
                     id: "NowPlayingAlbumArt",
                     in: namespace
                 )
+                .scaledToFit()
+                .opacity(self.isHovered ? 0 : 1)
+                .overlay {
+                    if self.isHovered {
+                        Button(
+                            action: {
+                                guard let url = NSWorkspace.shared.urlForApplication(
+                                    withBundleIdentifier: nowPlayingModel.appBundleIdentifier
+                                ) else {
+                                    return
+                                }
+                                
+                                NSWorkspace.shared.openApplication(
+                                    at: url,
+                                    configuration: .init()
+                                )
+                            }
+                        ) {
+                            nowPlayingModel.appIcon
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .onHover { isHovered in
+                    withAnimation {
+                        self.isHovered = isHovered && !notchDefaults.expandOnHover
+                    }
+                }
                 .padding(4)
                 .frame(
                     width: notchViewModel.notchSize.height,
