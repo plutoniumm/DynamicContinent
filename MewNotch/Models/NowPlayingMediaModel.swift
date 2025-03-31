@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct NowPlayingMediaModel {
+struct NowPlayingMediaModel: Hashable {
+    
     var appBundleIdentifier: String
     var appName: String
     var appIcon: Image
@@ -21,9 +22,10 @@ struct NowPlayingMediaModel {
     var elapsedTime: Double
     var totalDuration: Double
     
+    var playbackRate: Double
     var isPlaying: Bool
     
-    var refreshedAt: Date = .now
+    var refreshedAt: Date
     
     static var Placeholder: NowPlayingMediaModel {
         return .init(
@@ -36,8 +38,25 @@ struct NowPlayingMediaModel {
             title: "<Music Title Here>",
             elapsedTime: 0,
             totalDuration: 0,
-            isPlaying: false
+            playbackRate: 1,
+            isPlaying: false,
+            refreshedAt: .now
         )
     }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(appBundleIdentifier)
+        hasher.combine(appName)
         
+        hasher.combine(album)
+        hasher.combine(artist)
+        hasher.combine(title)
+        
+        hasher.combine(elapsedTime)
+        hasher.combine(totalDuration)
+        
+        hasher.combine(isPlaying)
+        
+        hasher.combine(refreshedAt)
+    }
 }

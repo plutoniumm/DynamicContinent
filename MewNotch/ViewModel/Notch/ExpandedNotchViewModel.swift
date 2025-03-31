@@ -42,14 +42,16 @@ class ExpandedNotchViewModel: ObservableObject {
     
     @objc func handleNowPlayingMediaChanges() {
         guard let appBundleIdentifier = NowPlaying.sharedInstance().appBundleIdentifier,
-        let appName = NowPlaying.sharedInstance().appName,
-        let appIcon = NowPlaying.sharedInstance().appIcon,
-        let albumArt = NowPlaying.sharedInstance().albumArt,
-        let album = NowPlaying.sharedInstance().album,
-        let artist = NowPlaying.sharedInstance().artist,
-        let title = NowPlaying.sharedInstance().title,
-        let elapsedTime = NowPlaying.sharedInstance().elapsedTime,
-        let totalDuration = NowPlaying.sharedInstance().totalDuration else {
+              let appName = NowPlaying.sharedInstance().appName,
+              let appIcon = NowPlaying.sharedInstance().appIcon,
+              let albumArt = NowPlaying.sharedInstance().albumArt,
+              let album = NowPlaying.sharedInstance().album,
+              let artist = NowPlaying.sharedInstance().artist,
+              let title = NowPlaying.sharedInstance().title,
+              let elapsedTime = NowPlaying.sharedInstance().elapsedTime,
+              let totalDuration = NowPlaying.sharedInstance().totalDuration,
+              let playbackRate = NowPlaying.sharedInstance().playbackRate,
+              let refreshedAt = NowPlaying.sharedInstance().refreshedAt else {
             return
         }
         
@@ -68,7 +70,9 @@ class ExpandedNotchViewModel: ObservableObject {
                 title: title,
                 elapsedTime: elapsedTime.doubleValue,
                 totalDuration: totalDuration.doubleValue,
-                isPlaying: NowPlaying.sharedInstance().playing
+                playbackRate: playbackRate.doubleValue,
+                isPlaying: NowPlaying.sharedInstance().playing,
+                refreshedAt: refreshedAt
             )
         }
     }

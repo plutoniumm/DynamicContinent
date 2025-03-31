@@ -184,6 +184,8 @@ extern NSString *kMRMediaRemoteNowPlayingInfoPlaybackRate;
             self.elapsedTime = elapsedTime;
             self.totalDuration = totalDuration;
             self.playbackRate = playbackRate;
+        
+            self.refreshedAt = NSDate.now;
             
             self.albumArt = [[NSImage alloc] initWithData:albumArtData];
             

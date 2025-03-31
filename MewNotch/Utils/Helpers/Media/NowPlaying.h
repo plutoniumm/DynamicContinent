@@ -29,6 +29,7 @@
 @property (retain) NSNumber *elapsedTime;
 
 @property (retain) NSNumber *playbackRate;
+@property (retain) NSDate *refreshedAt;
 
 @property (assign) BOOL playing;
 

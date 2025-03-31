@@ -23,6 +23,28 @@ struct NowPlayingDetailView: View {
     
     @State private var hoveredItem: ButtonType? = nil
     
+    @State private var distanceTimer: Timer? = nil
+    @State private var elapsedTime: TimeInterval = 0
+    
+    func resetElapsedTimeTimer(
+        restart: Bool = true
+    ) {
+        distanceTimer?.invalidate()
+        
+        guard restart else {
+            return
+        }
+        
+        distanceTimer = .scheduledTimer(
+            withTimeInterval: 1,
+            repeats: true
+        ) { _ in
+            self.elapsedTime = nowPlayingModel.elapsedTime + nowPlayingModel.refreshedAt.distance(
+                to: .now
+            )
+        }
+    }
+    
     var body: some View {
         HStack(
             spacing: 8
@@ -97,7 +119,12 @@ struct NowPlayingDetailView: View {
                     spacing: 2
                 ) {
                     HStack {
-                        let elapsedTime = Int(nowPlayingModel.elapsedTime)
+                        let elapsedTime = Int(
+                            min(
+                                self.elapsedTime,
+                                nowPlayingModel.totalDuration
+                            )
+                        )
                         let elapsedHours = elapsedTime / 3600
                         let elapsedMinutes = (elapsedTime % 3600) / 60
                         let elapsedSeconds = elapsedTime % 60
@@ -145,7 +172,11 @@ struct NowPlayingDetailView: View {
                                         .white
                                     )
                                     .frame(
-                                        width: geometry.size.width * (nowPlayingModel.elapsedTime / nowPlayingModel.totalDuration),
+                                        width: geometry.size.width * (
+                                            (
+                                                self.elapsedTime
+                                            ) / nowPlayingModel.totalDuration
+                                        ),
                                         height: geometry.size.height
                                     )
                                     .frame(
@@ -280,5 +311,28 @@ struct NowPlayingDetailView: View {
             width: notchViewModel.notchSize.width * 1.5,
             height: notchViewModel.notchSize.height * 3
         )
+        .onChange(
+            of: self.nowPlayingModel
+        ) {
+            self.elapsedTime = $1.elapsedTime
+            
+            self.resetElapsedTimeTimer(
+                restart: $1.isPlaying
+            )
+        }
+        .onAppear {
+            self.resetElapsedTimeTimer(
+                restart: nowPlayingModel.isPlaying
+            )
+            
+            self.elapsedTime = nowPlayingModel.elapsedTime + nowPlayingModel.refreshedAt.distance(
+                to: .now
+            )
+        }
+        .onDisappear {
+            self.resetElapsedTimeTimer(
+                restart: false
+            )
+        }
     }
 }
