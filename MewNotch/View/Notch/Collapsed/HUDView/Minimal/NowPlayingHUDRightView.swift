@@ -52,10 +52,10 @@ struct NowPlayingHUDRightView: View {
                         .scaledToFit()
                     }
                     .buttonStyle(.plain)
-                    .padding(4)
+                    .padding(6)
                 }
             }
-            .padding(8)
+            .padding(4)
             .frame(
                 width: notchViewModel.notchSize.height,
                 height: notchViewModel.notchSize.height

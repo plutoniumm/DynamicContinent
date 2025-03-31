@@ -17,7 +17,7 @@ struct MinimalHUDLeftView<T: HUDDefaultsProtocol>: View {
     var body: some View {
         if let hud = hudModel, defaults.isEnabled, defaults.style == .Minimal {
             hud.getIcon()
-                .padding(8)
+                .padding(4)
                 .frame(
                     width: notchViewModel.notchSize.height,
                     height: notchViewModel.notchSize.height

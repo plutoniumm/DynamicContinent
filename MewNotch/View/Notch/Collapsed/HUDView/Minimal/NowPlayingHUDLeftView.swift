@@ -60,6 +60,11 @@ struct NowPlayingHUDLeftView: View {
                             }
                         ) {
                             nowPlayingModel.appIcon
+                                .resizable()
+                                .aspectRatio(
+                                    1,
+                                    contentMode: .fill
+                                )
                         }
                         .buttonStyle(.plain)
                     }
