@@ -36,7 +36,7 @@ struct NowPlayingDetailView: View {
         }
         
         distanceTimer = .scheduledTimer(
-            withTimeInterval: 1,
+            withTimeInterval: 0.5,
             repeats: true
         ) { _ in
             self.elapsedTime = nowPlayingModel.elapsedTime + nowPlayingModel.refreshedAt.distance(

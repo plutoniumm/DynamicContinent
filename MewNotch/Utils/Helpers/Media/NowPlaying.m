@@ -47,6 +47,8 @@ extern NSString *kMRMediaRemoteNowPlayingInfoDuration;
 extern NSString *kMRMediaRemoteNowPlayingInfoElapsedTime;
 extern NSString *kMRMediaRemoteNowPlayingInfoPlaybackRate;
 
+extern NSString *kMRMediaRemoteNowPlayingInfoTimestamp;
+
 @implementation NowPlaying
 + (void)load
 {
@@ -176,6 +178,8 @@ extern NSString *kMRMediaRemoteNowPlayingInfoPlaybackRate;
             NSNumber *playbackRate = [info objectForKey:kMRMediaRemoteNowPlayingInfoPlaybackRate];
         
             NSData *albumArtData = [info objectForKey:kMRMediaRemoteNowPlayingInfoArtworkData];
+        
+            NSDate *refreshedAt = [info objectForKey:kMRMediaRemoteNowPlayingInfoTimestamp];
             
             self.album = album;
             self.artist = artist;
@@ -185,7 +189,7 @@ extern NSString *kMRMediaRemoteNowPlayingInfoPlaybackRate;
             self.totalDuration = totalDuration;
             self.playbackRate = playbackRate;
         
-            self.refreshedAt = NSDate.now;
+            self.refreshedAt = refreshedAt;
             
             self.albumArt = [[NSImage alloc] initWithData:albumArtData];
             
