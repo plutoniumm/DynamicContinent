@@ -80,8 +80,11 @@ struct NotchView: View {
         .contextMenu(
             menuItems: {
                 
-                SettingsLink {
-                    Text("Settings")
+                Button("Settings") {
+                    /// Restarting app instead of calling `openSettings()` helps bring the window forward
+                    AppManager.shared.restartApp(
+                        killPreviousInstance: false
+                    )
                 }
                 .keyboardShortcut(
                     ",",
@@ -89,39 +92,11 @@ struct NotchView: View {
                 )
                 
                 Button("Restart") {
-                    guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
-                        return
-                    }
-                    
-                    let workspace = NSWorkspace.shared
-                    
-                    if let appURL = workspace.urlForApplication(
-                        withBundleIdentifier: bundleIdentifier
-                    ) {
-                        let configuration = NSWorkspace.OpenConfiguration()
-                        
-                        configuration.createsNewApplicationInstance = true
-                        
-                        workspace.openApplication(
-                            at: appURL,
-                            configuration: configuration
-                        )
-                    }
-                
-                   NSApplication.shared.terminate(nil)
+                    AppManager.shared.restartApp(
+                        killPreviousInstance: true
+                    )
                 }
                 .keyboardShortcut("R", modifiers: .command)
-                
-                Button(
-                    "Quit",
-                    role: .destructive
-                ) {
-                    NSApplication.shared.terminate(nil)
-                }
-                .keyboardShortcut(
-                    "Q",
-                    modifiers: .command
-                )
             }
         )
     }

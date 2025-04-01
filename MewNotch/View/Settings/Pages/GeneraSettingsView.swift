@@ -35,51 +35,18 @@ struct GeneraSettingsView: View {
                     Text("App")
                 }
             )
-            
-//            Section(
-//                content: {
-//                    Toggle(
-//                        isOn: $defaultsManager.hudEnabled
-//                    ) {
-//                        VStack(
-//                            alignment: .leading
-//                        ) {
-//                            Text("Enabled")
-//                            
-//                            Text("Show Volume and Brightness changes on Notch and turn off system HUD")
-//                                .font(.footnote)
-//                        }
-//                    }
-//                    
-//                    Picker(
-//                        selection: $defaultsManager.hudStyle,
-//                        content: {
-//                            ForEach(
-//                                MewDefaultsManager.HUDStyle.allCases
-//                            ) { style in
-//                                Text(style.rawValue.capitalized)
-//                                    .tag(style)
-//                            }
-//                        }
-//                    ) {
-//                        VStack(
-//                            alignment: .leading
-//                        ) {
-//                            Text("Style")
-//                            
-//                            Text("Design to be used for HUD")
-//                                .font(.footnote)
-//                        }
-//                    }
-//                    .disabled(!defaultsManager.hudEnabled)
-//                },
-//                header: {
-//                    Text("HUD")
-//                }
-//            )
         }
         .formStyle(.grouped)
         .navigationTitle("General")
+        .toolbar {
+            ToolbarItem(
+                placement: .automatic
+            ) {
+                Button("Quit") {
+                    NSApplication.shared.terminate(nil)
+                }
+            }
+        }
     }
 }
 

@@ -43,6 +43,17 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
         NotchManager.shared.refreshNotches()
     }
     
+    func applicationShouldHandleReopen(
+        _ sender: NSApplication,
+        hasVisibleWindows: Bool
+    ) -> Bool {
+        if !hasVisibleWindows {
+            openSettingsWindow.callAsFunction()
+        }
+        
+        return !hasVisibleWindows
+    }
+    
     func applicationShouldTerminate(
         _ sender: NSApplication
     ) -> NSApplication.TerminateReply {
