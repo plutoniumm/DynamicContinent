@@ -10,7 +10,10 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 - **Brightness Display** - Displays brightness adjustments in real-time.
 - **Sound level Display** - Shows input/output volume changes directly on the notch.
 - **Sound Device** - Shows current input/output device on notch, when changed.
+- **Power State** - Show current power source as well as left time on battery when available.
+- **Now Playing** -  Control now playing media directly from notch. Expand notch for additional controls.
 - **Minimal & Non-Intrusive** - A clean, lightweight alternative to the default system HUD.
+- **Heavily Customizable** - Each HUD can be customised to have different styling.
 - **SwiftUI-based UI** - Smooth animations and modern macOS styling.
 
 ## Installation
@@ -29,18 +32,22 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 ## Usage
 
 1. Launch **MewNotch**.
-2. Adjust settings, if required. Notch won't appear at first launch on non-notched devices.
+2. Re-launch to open settings, if required. Notch won't appear at first launch on non-notched devices.
 3. Adjust the volume or brightness using Keyboard or Touch Bar.
 4. Enjoy the sleek visual feedback right on the notch!
 
 ## Roadmap
 
-- [x] Add support for different types of HUD UIs.
-- [x] Allow users to toggle usage of each HUD variant.
-- [x] Icon in Menu bar to show app's running status.
-- [x] Add Touch bar support.
-- [x] Now playing music HUD.
-- [ ] Explore expanded notch UI and possible usage. 
+- [x] ~~Add support for different types of HUD UIs.~~
+- [x] ~~Allow users to toggle usage of each HUD variant.~~
+- [x] ~~Icon in Menu bar to show app's running status.~~
+- [x] ~~Add Touch bar support.~~
+- [x] ~~Now playing music HUD.~~
+- [x] ~~Actions on Now Playing HUD. Hover to see magic.~~
+- [x] ~~Now Playing Detail on Expanded Notch View.~~
+- [x] ~~Expand notch on hover.~~
+- [ ] Add seek option to expanded now playing view.
+- [ ] Make longer texts marquee in expanded now playing view.
 - [ ] Explore additional notch-based utilities.
 
 ## Contributing
