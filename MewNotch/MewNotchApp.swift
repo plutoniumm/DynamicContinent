@@ -39,6 +39,12 @@ struct MewNotchApp: App {
             )
         }
     }()
+    
+    init() {
+        self._isMenuShown = .init(
+            initialValue: self.appDefaults.showMenuIcon
+        )
+    }
 
     var body: some Scene {
         MenuBarExtra(
