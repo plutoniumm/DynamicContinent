@@ -325,9 +325,13 @@ struct NowPlayingDetailView: View {
                 restart: nowPlayingModel.isPlaying
             )
             
-            self.elapsedTime = nowPlayingModel.elapsedTime + nowPlayingModel.refreshedAt.distance(
-                to: .now
-            )
+            if nowPlayingModel.isPlaying {
+                self.elapsedTime = nowPlayingModel.elapsedTime + nowPlayingModel.refreshedAt.distance(
+                    to: .now
+                )
+            } else {
+                self.elapsedTime = nowPlayingModel.elapsedTime
+            }
         }
         .onDisappear {
             self.resetElapsedTimeTimer(
