@@ -16,7 +16,7 @@ struct MewNotchApp: App {
     @Environment(\.openWindow) private var openWindow
     @Environment(\.openSettings) private var openSettings
     
-    @StateObject private var appDefaults = AppDefaults.shared
+    @ObservedObject private var appDefaults = AppDefaults.shared
     
     @State private var isMenuShown: Bool = true
     

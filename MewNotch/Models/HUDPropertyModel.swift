@@ -16,6 +16,7 @@ struct HUDPropertyModel {
     var name: String
     var value: Float
     
+    var timeout: TimeInterval = 1
     var timer: Timer? = nil
     
     @ViewBuilder

@@ -38,8 +38,10 @@ class CollapsedNotchViewModel: ObservableObject {
         onComplete: @escaping () -> Void
     ) {
         hud?.timer?.invalidate()
+        let timeout = hud?.timeout ?? 1.0
+        
         hud?.timer = .scheduledTimer(
-            withTimeInterval: 1.0,
+            withTimeInterval: timeout,
             repeats: false
         ) { _ in
             onComplete()
@@ -257,6 +259,7 @@ class CollapsedNotchViewModel: ObservableObject {
                 ),
                 name: PowerStatus.sharedInstance().providingSource(),
                 value: Float(PowerStatus.sharedInstance().remainingTime()),
+                timeout: PowerStatus.sharedInstance().remainingTime().isFinite ? 3.0 : 1.0,
                 timer: powerStatusHUD?.timer
             )
         }
