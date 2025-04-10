@@ -8,26 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		9E05AB292D7DA46800980012 /* DisplayServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E05A76E2D7D93A900980012 /* DisplayServices.framework */; };
-		9E05AB2A2D7DA46800980012 /* DisplayServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E05A76E2D7D93A900980012 /* DisplayServices.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E284D442D8B2E8000ED8E89 /* MediaRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E284D432D8B2E8000ED8E89 /* MediaRemote.framework */; };
-		9E284D452D8B2E8000ED8E89 /* MediaRemote.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E284D432D8B2E8000ED8E89 /* MediaRemote.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9E36AFAA2D78EB2100D53482 /* Lottie */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9E05AB2B2D7DA46800980012 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				9E05AB2A2D7DA46800980012 /* DisplayServices.framework in Embed Frameworks */,
-				9E284D452D8B2E8000ED8E89 /* MediaRemote.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9E05A76E2D7D93A900980012 /* DisplayServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DisplayServices.framework; path = ../../../../System/Library/PrivateFrameworks/DisplayServices.framework; sourceTree = "<group>"; };
@@ -93,7 +76,6 @@
 				9EA41D832D6DEACA00817679 /* Sources */,
 				9EA41D842D6DEACA00817679 /* Frameworks */,
 				9EA41D852D6DEACA00817679 /* Resources */,
-				9E05AB2B2D7DA46800980012 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
