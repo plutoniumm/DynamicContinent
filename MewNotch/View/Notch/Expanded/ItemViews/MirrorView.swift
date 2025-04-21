@@ -45,28 +45,35 @@ struct MirrorView: View {
     
     var body: some View {
         ZStack {
-            Color.white.opacity(0.2)
-            
             if cameraAuthStatus == .authorized {
-//                VStack {
+                if isCameraViewShown {
+                    CameraPreviewView()
+                        .clipShape(
+                            Circle()
+                        )
+                        .transition(
+                            .scale
+                                .combined(
+                                    with: .opacity
+                                )
+                        )
+                } else {
                     Image(
                         systemName: "person.crop.circle.fill"
                     )
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(.white.opacity(0.7))
-                    
-//                    Text("Mirror")
-//                        .font(
-//                            .body.bold()
-//                        )
-//                }
-//                .padding(8)
-                
-                if isCameraViewShown {
-                    CameraPreviewView()
+                    .transition(
+                        .scale
+                            .combined(
+                                with: .opacity
+                            )
+                    )
                 }
             } else {
+                Color.white.opacity(0.2)
+                
                 VStack(
                     spacing: 6
                 ) {
@@ -98,8 +105,7 @@ struct MirrorView: View {
             Circle()
         )
         .frame(
-            width: notchViewModel.notchSize.height * 3,
-            height: notchViewModel.notchSize.height * 3
+            width: notchViewModel.notchSize.height * 3
         )
         .onTapGesture {
             if cameraAuthStatus == .authorized {

@@ -300,8 +300,7 @@ struct NowPlayingDetailView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(
-            width: notchViewModel.notchSize.width * 1.5,
-            height: notchViewModel.notchSize.height * 3
+            width: notchViewModel.notchSize.width * 1.5
         )
         .onChange(
             of: self.nowPlayingModel

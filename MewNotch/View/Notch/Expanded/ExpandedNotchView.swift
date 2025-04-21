@@ -22,17 +22,24 @@ struct ExpandedNotchView: View {
                     notchSize: notchViewModel.notchSize
                 )
                 
-                HStack {
+                HStack(
+                    spacing: 12
+                ) {
                     NowPlayingDetailView(
                         namespace: namespace,
                         notchViewModel: notchViewModel,
                         nowPlayingModel: expandedNotchViewModel.nowPlayingMedia ?? .Placeholder
                     )
                     
+                    Divider()
+                    
                     MirrorView(
                         notchViewModel: notchViewModel
                     )
                 }
+                .frame(
+                    height: notchViewModel.notchSize.height * 3
+                )
             }
             .padding(
                 .init(
