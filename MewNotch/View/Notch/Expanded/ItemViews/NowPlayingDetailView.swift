@@ -299,14 +299,6 @@ struct NowPlayingDetailView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(
-            .init(
-                top: 0,
-                leading: 8 + notchViewModel.extraNotchPadSize.width / 2,
-                bottom: 8,
-                trailing: 8 + notchViewModel.extraNotchPadSize.width / 2
-            )
-        )
         .frame(
             width: notchViewModel.notchSize.width * 1.5,
             height: notchViewModel.notchSize.height * 3

@@ -18,18 +18,30 @@ struct ExpandedNotchView: View {
     var body: some View {
         if notchViewModel.isExpanded {
             VStack {
+                OnlyNotchView(
+                    notchSize: notchViewModel.notchSize
+                )
+                
                 HStack {
-                    OnlyNotchView(
-                        notchSize: notchViewModel.notchSize
+                    NowPlayingDetailView(
+                        namespace: namespace,
+                        notchViewModel: notchViewModel,
+                        nowPlayingModel: expandedNotchViewModel.nowPlayingMedia ?? .Placeholder
+                    )
+                    
+                    MirrorView(
+                        notchViewModel: notchViewModel
                     )
                 }
-                
-                NowPlayingDetailView(
-                    namespace: namespace,
-                    notchViewModel: notchViewModel,
-                    nowPlayingModel: expandedNotchViewModel.nowPlayingMedia ?? .Placeholder
-                )
             }
+            .padding(
+                .init(
+                    top: 0,
+                    leading: 8 + notchViewModel.extraNotchPadSize.width / 2,
+                    bottom: 8,
+                    trailing: 8 + notchViewModel.extraNotchPadSize.width / 2
+                )
+            )
         }
     }
 }

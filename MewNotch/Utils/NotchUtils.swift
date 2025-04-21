@@ -26,7 +26,7 @@ class NotchUtils {
         bottom: CGFloat
     ) {
         return (
-            top: 19,
+            top: 8,
             bottom: 24
         )
     }

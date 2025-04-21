@@ -18,9 +18,22 @@
 		9EA41D872D6DEACA00817679 /* MewNotch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MewNotch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9E71E3BB2DB38C0D0086C25E /* Exceptions for "MewNotch" folder in "MewNotch" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9EA41D862D6DEACA00817679 /* MewNotch */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9EA41D892D6DEACA00817679 /* MewNotch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9E71E3BB2DB38C0D0086C25E /* Exceptions for "MewNotch" folder in "MewNotch" target */,
+			);
 			path = MewNotch;
 			sourceTree = "<group>";
 		};
@@ -284,9 +297,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MewNotch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mew Notch";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSBackgroundOnly = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Used for Mirror in expanded notch";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,9 +335,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MewNotch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mew Notch";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSBackgroundOnly = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Used for Mirror in expanded notch";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
