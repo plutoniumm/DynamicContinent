@@ -11,7 +11,8 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 - **Sound level Display** - Shows input/output volume changes directly on the notch.
 - **Sound Device** - Shows current input/output device on notch, when changed.
 - **Power State** - Show current power source as well as left time on battery when available.
-- **Now Playing** -  Control now playing media directly from notch. Expand notch for additional controls.
+- ~~**Now Playing** -  Control now playing media directly from notch. Expand notch for additional controls.~~ _Not Working on macOS 15.4+_
+- **Mirror** - Get a quick peek on how you're looking by using the mirror in expanded notch.
 - **Minimal & Non-Intrusive** - A clean, lightweight alternative to the default system HUD.
 - **Heavily Customizable** - Each HUD can be customised to have different styling.
 - **SwiftUI-based UI** - Smooth animations and modern macOS styling.
@@ -46,8 +47,8 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 - [x] ~~Actions on Now Playing HUD. Hover to see magic.~~
 - [x] ~~Now Playing Detail on Expanded Notch View.~~
 - [x] ~~Expand notch on hover.~~
-- [ ] Add seek option to expanded now playing view.
-- [ ] Make longer texts marquee in expanded now playing view.
+- [x] ~~Mirror View~~
+- [ ] Explore different options for Now Playing media support on macOS 15.4 and above.
 - [ ] Explore additional notch-based utilities.
 
 ## Dependency
