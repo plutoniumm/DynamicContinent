@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import LaunchAtLogin
 
 struct GeneraSettingsView: View {
     
@@ -18,6 +19,8 @@ struct GeneraSettingsView: View {
         Form {
             Section(
                 content: {
+                    LaunchAtLogin.Toggle()
+                    
                     Toggle(
                         isOn: $appDefaults.showMenuIcon
                     ) {

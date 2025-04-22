@@ -50,6 +50,10 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 - [ ] Make longer texts marquee in expanded now playing view.
 - [ ] Explore additional notch-based utilities.
 
+## Dependency
+- [Lottie](https://github.com/airbnb/lottie-ios)
+- [LaunchAtLogin-Modern](https://github.com/sindresorhus/LaunchAtLogin-Modern)
+
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests.

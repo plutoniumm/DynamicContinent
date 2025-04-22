@@ -10,6 +10,7 @@
 		9E05AB292D7DA46800980012 /* DisplayServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E05A76E2D7D93A900980012 /* DisplayServices.framework */; };
 		9E284D442D8B2E8000ED8E89 /* MediaRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E284D432D8B2E8000ED8E89 /* MediaRemote.framework */; };
 		9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9E36AFAA2D78EB2100D53482 /* Lottie */; };
+		9ECA5C6B2DB7E65300EEE02C /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 9ECA5C6A2DB7E65300EEE02C /* LaunchAtLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 			files = (
 				9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */,
 				9E05AB292D7DA46800980012 /* DisplayServices.framework in Frameworks */,
+				9ECA5C6B2DB7E65300EEE02C /* LaunchAtLogin in Frameworks */,
 				9E284D442D8B2E8000ED8E89 /* MediaRemote.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,6 +102,7 @@
 			name = MewNotch;
 			packageProductDependencies = (
 				9E36AFAA2D78EB2100D53482 /* Lottie */,
+				9ECA5C6A2DB7E65300EEE02C /* LaunchAtLogin */,
 			);
 			productName = MewNotch;
 			productReference = 9EA41D872D6DEACA00817679 /* MewNotch.app */;
@@ -132,6 +135,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				9ECA5C692DB7E65300EEE02C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9EA41D882D6DEACA00817679 /* Products */;
@@ -389,6 +393,14 @@
 				minimumVersion = 4.5.1;
 			};
 		};
+		9ECA5C692DB7E65300EEE02C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -396,6 +408,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		9ECA5C6A2DB7E65300EEE02C /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9ECA5C692DB7E65300EEE02C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
