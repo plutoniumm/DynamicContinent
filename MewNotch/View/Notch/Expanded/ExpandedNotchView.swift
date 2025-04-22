@@ -25,13 +25,13 @@ struct ExpandedNotchView: View {
                 HStack(
                     spacing: 12
                 ) {
-                    NowPlayingDetailView(
-                        namespace: namespace,
-                        notchViewModel: notchViewModel,
-                        nowPlayingModel: expandedNotchViewModel.nowPlayingMedia ?? .Placeholder
-                    )
-                    
-                    Divider()
+//                    NowPlayingDetailView(
+//                        namespace: namespace,
+//                        notchViewModel: notchViewModel,
+//                        nowPlayingModel: expandedNotchViewModel.nowPlayingMedia ?? .Placeholder
+//                    )
+//                    
+//                    Divider()
                     
                     MirrorView(
                         notchViewModel: notchViewModel
