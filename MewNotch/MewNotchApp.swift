@@ -53,10 +53,7 @@ struct MewNotchApp: App {
                 Text("MewNotch")
                 
                 Button("Settings") {
-                    /// Restarting app instead of calling `openSettings()` helps bring the window forward
-                    AppManager.shared.restartApp(
-                        killPreviousInstance: false
-                    )
+                    openSettings()
                 }
                 .keyboardShortcut(
                     ",",

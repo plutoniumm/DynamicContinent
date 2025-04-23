@@ -11,6 +11,8 @@ struct NotchView: View {
     
     @Namespace var namespace
     
+    @Environment(\.openSettings) private var openSettings
+    
     @StateObject var notchDefaults = NotchDefaults.shared
     
     @StateObject var notchViewModel: NotchViewModel
@@ -81,10 +83,7 @@ struct NotchView: View {
             menuItems: {
                 
                 Button("Settings") {
-                    /// Restarting app instead of calling `openSettings()` helps bring the window forward
-                    AppManager.shared.restartApp(
-                        killPreviousInstance: false
-                    )
+                    openSettings()
                 }
                 .keyboardShortcut(
                     ",",

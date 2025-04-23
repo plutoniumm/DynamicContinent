@@ -161,9 +161,7 @@ struct MewSettingsView: View {
         ) {
             if scenePhase == .active {
                 NSApp.setActivationPolicy(.regular)
-                NSApp.activate(
-                    ignoringOtherApps: true
-                )
+                NSApp.activate()
             }
         }
         .onReceive(
