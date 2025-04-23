@@ -29,6 +29,8 @@ class NotchViewModel: ObservableObject {
     @Published var isHovered: Bool = false
     @Published var isExpanded: Bool = false
     
+    @Published var isPinned: Bool = false
+    
     private var hoverTimer: Timer? = nil
     
     init(
@@ -79,7 +81,7 @@ class NotchViewModel: ObservableObject {
                     self.onTap()
                 }
             }
-        } else {
+        } else if !isPinned {
             withAnimation {
                 self.isExpanded = false
                 

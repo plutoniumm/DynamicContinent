@@ -18,9 +18,19 @@ struct ExpandedNotchView: View {
     var body: some View {
         if notchViewModel.isExpanded {
             VStack {
-                OnlyNotchView(
-                    notchSize: notchViewModel.notchSize
-                )
+                HStack {
+                    SettingsControlView(
+                        notchViewModel: notchViewModel
+                    )
+                    
+                    OnlyNotchView(
+                        notchSize: notchViewModel.notchSize
+                    )
+                    
+                    PinControlView(
+                        notchViewModel: notchViewModel
+                    )
+                }
                 
                 HStack(
                     spacing: 12
