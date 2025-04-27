@@ -9,24 +9,6 @@ import Foundation
 
 class NotchDefaults: ObservableObject {
     
-    enum ExpandedNotchItems: String, CaseIterable, Codable, Identifiable {
-        var id: String {
-            self.rawValue
-        }
-        
-        case Mirror
-        case NowPlaying
-        
-        func displayName() -> String {
-            switch self {
-            case .Mirror:
-                return "Mirror"
-            case .NowPlaying:
-                return "Now Playing"
-            }
-        }
-    }
-    
     private static var PREFIX: String = "Notch_"
     
     static let shared = NotchDefaults()
@@ -76,10 +58,10 @@ class NotchDefaults: ObservableObject {
     @CodableUserDefault(
         PREFIX + "ExpandedNotchItems",
         defaultValue: [
-            ExpandedNotchItems.Mirror
+            ExpandedNotchItem.Mirror
         ]
     )
-    var expandedNotchItems: Set<ExpandedNotchItems> {
+    var expandedNotchItems: Set<ExpandedNotchItem> {
         didSet {
             self.objectWillChange.send()
         }

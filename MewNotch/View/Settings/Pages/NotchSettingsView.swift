@@ -85,7 +85,7 @@ struct NotchSettingsView: View {
                     Toggle(
                         isOn: $notchDefaults.showDividers
                     ) {
-                        Text("Separator between Item")
+                        Text("Separator between Items")
                     }
                 },
                 header: {
@@ -96,7 +96,7 @@ struct NotchSettingsView: View {
             Section(
                 content: {
                     ForEach(
-                        NotchDefaults.ExpandedNotchItems.allCases
+                        ExpandedNotchItem.allCases
                     ) { item in
                         Toggle(
                             isOn: .init(
@@ -110,7 +110,7 @@ struct NotchSettingsView: View {
                                 }
                             )
                         ) {
-                            Text(item.displayName())
+                            Text(item.displayName)
                         }
                     }
                 },
