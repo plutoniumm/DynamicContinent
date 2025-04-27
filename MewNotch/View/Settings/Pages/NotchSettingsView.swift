@@ -79,6 +79,45 @@ struct NotchSettingsView: View {
                     Text("Interaction")
                 }
             )
+            
+            Section(
+                content: {
+                    Toggle(
+                        isOn: $notchDefaults.showDividers
+                    ) {
+                        Text("Separator between Item")
+                    }
+                },
+                header: {
+                    Text("Expanded Notch")
+                }
+            )
+            
+            Section(
+                content: {
+                    ForEach(
+                        NotchDefaults.ExpandedNotchItems.allCases
+                    ) { item in
+                        Toggle(
+                            isOn: .init(
+                                get: { notchDefaults.expandedNotchItems.contains(item) },
+                                set: { isEnabled in
+                                    if isEnabled {
+                                        notchDefaults.expandedNotchItems.insert(item)
+                                    } else {
+                                        notchDefaults.expandedNotchItems.remove(item)
+                                    }
+                                }
+                            )
+                        ) {
+                            Text(item.displayName())
+                        }
+                    }
+                },
+                header: {
+                    Text("Expanded Notch Items")
+                }
+            )
         }
         .formStyle(.grouped)
         .navigationTitle("Notch")

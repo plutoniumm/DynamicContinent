@@ -61,29 +61,44 @@ struct NowPlayingDetailView: View {
                     )
                 )
                 .overlay {
-                    nowPlayingModel.appIcon
-                        .resizable()
-                        .aspectRatio(
-                            1,
-                            contentMode: .fit
-                        )
-                        .frame(
-                            width: 32,
-                            height: 32
-                        )
-                        .frame(
-                            maxWidth: .infinity,
-                            maxHeight: .infinity,
-                            alignment: .bottomTrailing
-                        )
-                        .padding(
-                            .bottom,
-                            -4
-                        )
-                        .padding(
-                            .trailing,
-                            -4
-                        )
+                    Button(
+                        action: {
+                            guard let url = NSWorkspace.shared.urlForApplication(
+                                withBundleIdentifier: nowPlayingModel.appBundleIdentifier
+                            ) else {
+                                return
+                            }
+                            
+                            NSWorkspace.shared.openApplication(
+                                at: url,
+                                configuration: .init()
+                            )
+                        }
+                    ) {
+                        nowPlayingModel.appIcon
+                            .resizable()
+                            .aspectRatio(
+                                1,
+                                contentMode: .fit
+                            )
+                            .frame(
+                                width: 32,
+                                height: 32
+                            )
+                    }
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .bottomTrailing
+                    )
+                    .padding(
+                        .bottom,
+                        -4
+                    )
+                    .padding(
+                        .trailing,
+                        -4
+                    )
                 }
                 .matchedGeometryEffect(
                     id: "NowPlayingAlbumArt",
@@ -173,9 +188,7 @@ struct NowPlayingDetailView: View {
                                     )
                                     .frame(
                                         width: geometry.size.width * (
-                                            (
-                                                self.elapsedTime
-                                            ) / nowPlayingModel.totalDuration
+                                            self.elapsedTime / max(1, nowPlayingModel.totalDuration)
                                         ),
                                         height: geometry.size.height
                                     )

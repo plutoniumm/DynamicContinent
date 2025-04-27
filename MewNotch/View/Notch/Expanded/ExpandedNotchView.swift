@@ -11,6 +11,8 @@ struct ExpandedNotchView: View {
     
     var namespace: Namespace.ID
     
+    @StateObject private var notchDefaults = NotchDefaults.shared
+    
     @ObservedObject var notchViewModel: NotchViewModel
     
     @StateObject private var expandedNotchViewModel: ExpandedNotchViewModel = .init()
@@ -35,17 +37,36 @@ struct ExpandedNotchView: View {
                 HStack(
                     spacing: 12
                 ) {
-//                    NowPlayingDetailView(
-//                        namespace: namespace,
-//                        notchViewModel: notchViewModel,
-//                        nowPlayingModel: expandedNotchViewModel.nowPlayingMedia ?? .Placeholder
-//                    )
-//                    
-//                    Divider()
-                    
-                    MirrorView(
-                        notchViewModel: notchViewModel
+                    let items = Array(
+                        notchDefaults.expandedNotchItems.sorted {
+                            $0.rawValue < $1.rawValue
+                        }
                     )
+                    
+                    ForEach(
+                        0..<items.count,
+                        id: \.self
+                    ) { index in
+                        
+                        let item = items[index]
+                        
+                        switch item {
+                        case .Mirror:
+                            MirrorView(
+                                notchViewModel: notchViewModel
+                            )
+                        case .NowPlaying:
+                            NowPlayingDetailView(
+                                namespace: namespace,
+                                notchViewModel: notchViewModel,
+                                nowPlayingModel: expandedNotchViewModel.nowPlayingMedia ?? .Placeholder
+                            )
+                        }
+                        
+                        if notchDefaults.showDividers && index != items.count - 1 {
+                            Divider()
+                        }
+                    }
                 }
                 .frame(
                     height: notchViewModel.notchSize.height * 3
