@@ -64,30 +64,32 @@ struct NotchSettingsView: View {
                                             self.screens,
                                             id: \.self
                                         ) { screen in
-                                            Text(screen.localizedName)
-                                                .padding(16)
-                                                .frame(
-                                                    minHeight: 100
-                                                )
-                                                .background {
-                                                    if notchDefaults.shownOnDisplay[screen.localizedName] == true {
-                                                        Color.gray.opacity(0.5)
-                                                    } else {
-                                                        Color.gray.opacity(0.1)
-                                                    }
+                                            Text(
+                                                screen.localizedName
+                                            )
+                                            .padding(16)
+                                            .frame(
+                                                minHeight: 100
+                                            )
+                                            .background {
+                                                if notchDefaults.shownOnDisplay[screen.localizedName] == true {
+                                                    Color.gray.opacity(0.5)
+                                                } else {
+                                                    Color.gray.opacity(0.1)
                                                 }
-                                                .clipShape(
-                                                    RoundedRectangle(
-                                                        cornerRadius: 16
-                                                    )
+                                            }
+                                            .clipShape(
+                                                RoundedRectangle(
+                                                    cornerRadius: 16
                                                 )
-                                                .onTapGesture {
-                                                    let oldValue = notchDefaults.shownOnDisplay[screen.localizedName] ?? false
-                                                    
-                                                    withAnimation {
-                                                        notchDefaults.shownOnDisplay[screen.localizedName] = !oldValue
-                                                    }
+                                            )
+                                            .onTapGesture {
+                                                let oldValue = notchDefaults.shownOnDisplay[screen.localizedName] ?? false
+                                                
+                                                withAnimation {
+                                                    notchDefaults.shownOnDisplay[screen.localizedName] = !oldValue
                                                 }
+                                            }
                                         }
                                     }
                                 }

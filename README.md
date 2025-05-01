@@ -14,6 +14,7 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 - ~~**Now Playing** -  Control now playing media directly from notch. Expand notch for additional controls.~~ _Not Working on macOS 15.4+_
 - **Mirror** - Get a quick peek on how you're looking by using the mirror in expanded notch.
 - **Minimal & Non-Intrusive** - A clean, lightweight alternative to the default system HUD.
+- **Fully Custom Notch Experience** - Choose the displays you want to see the notch on.
 - **Heavily Customizable** - Each HUD can be customised to have different styling.
 - **SwiftUI-based UI** - Smooth animations and modern macOS styling.
 
@@ -35,7 +36,8 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 1. Launch **MewNotch**.
 2. Re-launch to open settings, if required. Notch won't appear at first launch on non-notched devices.
 3. Adjust the volume or brightness using Keyboard or Touch Bar.
-4. Enjoy the sleek visual feedback right on the notch!
+4. Customise the settings to have notch on different or all monitors.
+5. Enjoy the sleek visual feedback right on the notch!
 
 ## Roadmap
 
@@ -48,6 +50,7 @@ MewNotch is a macOS app that enhances the functionality of the notch on new MacB
 - [x] ~~Now Playing Detail on Expanded Notch View.~~
 - [x] ~~Expand notch on hover.~~
 - [x] ~~Mirror View~~
+- [x] ~~Complete Control over which monitor shows the notch~~
 - [ ] Explore different options for Now Playing media support on macOS 15.4 and above.
 - [ ] Explore additional notch-based utilities.
 
