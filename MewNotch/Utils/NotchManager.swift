@@ -11,6 +11,8 @@ class NotchManager {
     
     static let shared = NotchManager()
     
+    var notchDefaults: NotchDefaults = .shared
+    
     var windows: [NSScreen: NSWindow] = [:]
     
     private init() {
@@ -22,23 +24,42 @@ class NotchManager {
     }
     
     @objc func refreshNotches() {
+        
+        let shownOnDisplays = Set(notchDefaults.shownOnDisplay.filter { $1 }.keys)
+        
+        let shouldShowOnScreen: (NSScreen) -> Bool = { [weak self] screen in
+            guard let self else { return false }
+            
+            if self.notchDefaults.notchDisplayVisibility != .Custom {
+                return true
+            }
+            
+            return shownOnDisplays.contains(screen.localizedName)
+        }
+        
         windows.forEach { screen, window in
             if !NSScreen.screens.contains(
                 where: { $0 == screen}
-            ) {
-                window.performClose(self)
+            ) || !shouldShowOnScreen(screen) {
+                window.close()
+                
                 NotchSpaceManager.shared.notchSpace.windows
                     .remove(
                         window
                     )
-                windows.removeValue(forKey: screen)
+                
+                windows.removeValue(
+                    forKey: screen
+                )
             }
-            
         }
         
-        NSScreen.screens.forEach { screen in
+        NSScreen.screens.filter {
+            shouldShowOnScreen($0)
+        }.forEach { screen in
+            
             var panel: NSWindow! = windows[screen]
-
+            
             if panel == nil {
                 let view: NSView = NSHostingView(
                     rootView: NotchView(

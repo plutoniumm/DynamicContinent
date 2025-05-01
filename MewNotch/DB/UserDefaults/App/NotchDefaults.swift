@@ -15,11 +15,21 @@ class NotchDefaults: ObservableObject {
     
     private init() {}
     
-    @PrimitiveUserDefault(
-        PREFIX + "ForceEnabled",
-        defaultValue: false
+    @CodableUserDefault(
+        PREFIX + "NotchDisplayVisibility",
+        defaultValue: NotchDisplayVisibility.NotchedDisplayOnly
     )
-    var forceEnabled: Bool {
+    var notchDisplayVisibility: NotchDisplayVisibility {
+        didSet {
+            self.objectWillChange.send()
+        }
+    }
+    
+    @CodableUserDefault(
+        PREFIX + "ShownOnDisplay",
+        defaultValue: [:]
+    )
+    var shownOnDisplay: [String: Bool] {
         didSet {
             self.objectWillChange.send()
         }

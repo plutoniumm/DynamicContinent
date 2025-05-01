@@ -38,9 +38,11 @@ class NotchViewModel: ObservableObject {
     ) {
         self.screen = screen
         
+        var shouldForce = NotchDefaults.shared.notchDisplayVisibility != .NotchedDisplayOnly
+        
         self.notchSize = NotchUtils.shared.notchSize(
             screen: self.screen,
-            force: NotchDefaults.shared.forceEnabled
+            force: shouldForce
         )
         
         withAnimation {
@@ -50,9 +52,11 @@ class NotchViewModel: ObservableObject {
     }
     
     func refreshNotchSize() {
+        var shouldForce = NotchDefaults.shared.notchDisplayVisibility != .NotchedDisplayOnly
+        
         self.notchSize = NotchUtils.shared.notchSize(
             screen: self.screen,
-            force: NotchDefaults.shared.forceEnabled
+            force: shouldForce
         )
         
         withAnimation {

@@ -9,25 +9,99 @@ import SwiftUI
 
 struct NotchSettingsView: View {
     
+    @Environment(\.scenePhase) private var scenePhase
+    
     @StateObject var notchDefaults = NotchDefaults.shared
+    
+    @State var screens: [NSScreen] = []
+    
+    func refreshNSScreens() {
+        withAnimation {
+            self.screens = NSScreen.screens
+        }
+    }
     
     var body: some View {
         Form {
             Section(
                 content: {
-                    Toggle(
-                        isOn: $notchDefaults.forceEnabled
-                    ) {
-                        VStack(
-                            alignment: .leading
-                        ) {
-                            Text("Force Enable")
-                            
-                            Text("Enable Notch on Non-notched Displays")
-                                .font(.footnote)
+                    Picker(
+                        selection: $notchDefaults.notchDisplayVisibility,
+                        content: {
+                            ForEach(
+                                NotchDisplayVisibility.allCases
+                            ) { item in
+                                Text(item.displayName)
+                                .tag(item)
+                            }
                         }
+                    ) {
+                        Text("Show Notch On")
                     }
                     
+                    if notchDefaults.notchDisplayVisibility == .Custom {
+                        VStack {
+                            HStack {
+                                Text("Choose Displays to show notch on")
+                                Spacer()
+                                Button(
+                                    action: {
+                                        self.refreshNSScreens()
+                                    }
+                                ) {
+                                    Text("Refresh List")
+                                }
+                            }
+                            
+                            HStack {
+                                ScrollView(
+                                    .horizontal
+                                ) {
+                                    LazyHStack(
+                                        spacing: 16
+                                    ) {
+                                        ForEach(
+                                            NSScreen.screens,
+                                            id: \.self
+                                        ) { screen in
+                                            Text(screen.localizedName)
+                                                .padding(16)
+                                                .frame(
+                                                    minHeight: 100
+                                                )
+                                                .background {
+                                                    if notchDefaults.shownOnDisplay[screen.localizedName] == true {
+                                                        Color.gray.opacity(0.5)
+                                                    } else {
+                                                        Color.gray.opacity(0.1)
+                                                    }
+                                                }
+                                                .clipShape(
+                                                    RoundedRectangle(
+                                                        cornerRadius: 16
+                                                    )
+                                                )
+                                                .onTapGesture {
+                                                    let oldValue = notchDefaults.shownOnDisplay[screen.localizedName] ?? false
+                                                    
+                                                    withAnimation {
+                                                        notchDefaults.shownOnDisplay[screen.localizedName] = !oldValue
+                                                    }
+                                                }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                header: {
+                    Text("Displays")
+                }
+            )
+            
+            Section(
+                content: {
                     Picker(
                         selection: $notchDefaults.heightMode,
                         content: {
@@ -122,6 +196,24 @@ struct NotchSettingsView: View {
         .formStyle(.grouped)
         .navigationTitle("Notch")
         .toolbarTitleDisplayMode(.inline)
+        .onChange(
+            of: notchDefaults.notchDisplayVisibility
+        ) {
+            NotchManager.shared.refreshNotches()
+        }
+        .onChange(
+            of: notchDefaults.shownOnDisplay
+        ) {
+            NotchManager.shared.refreshNotches()
+        }
+        .onChange(
+            of: scenePhase
+        ) {
+            self.refreshNSScreens()
+        }
+        .onAppear {
+            self.refreshNSScreens()
+        }
     }
 }
 
