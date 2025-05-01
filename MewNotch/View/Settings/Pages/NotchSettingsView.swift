@@ -61,7 +61,7 @@ struct NotchSettingsView: View {
                                         spacing: 16
                                     ) {
                                         ForEach(
-                                            NSScreen.screens,
+                                            self.screens,
                                             id: \.self
                                         ) { screen in
                                             Text(screen.localizedName)
