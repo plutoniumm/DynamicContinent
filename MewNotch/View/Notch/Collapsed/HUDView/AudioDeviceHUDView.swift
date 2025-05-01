@@ -55,11 +55,3 @@ struct AudioDeviceHUDView: View {
         }
     }
 }
-
-#Preview {
-    AudioDeviceHUDView(
-        notchViewModel: .init(
-            screen: .main!
-        )
-    )
-}

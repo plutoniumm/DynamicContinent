@@ -39,7 +39,7 @@ class OSDUIManager {
             try kickstart.run()
             kickstart.waitUntilExit()
             
-            usleep(500000) // Make sure it started
+            usleep(1000000) // Make sure it started
             
             let task = Process()
             
@@ -49,6 +49,14 @@ class OSDUIManager {
             try task.run()
         } catch {
             NSLog("Error while trying to hide OSDUIHelper. Please create an issue on GitHub. Error: \(error)")
+        }
+    }
+    
+    public func reset() {
+        start()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.stop()
         }
     }
 }

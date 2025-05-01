@@ -82,6 +82,10 @@ struct NotchView: View {
         .contextMenu(
             menuItems: {
                 
+                Button("Fix System HUD") {
+                    OSDUIManager.shared.reset()
+                }
+                
                 Button("Settings") {
                     openSettings()
                 }
@@ -99,10 +103,4 @@ struct NotchView: View {
             }
         )
     }
-}
-
-#Preview {
-    NotchView(
-        screen: .main!
-    )
 }

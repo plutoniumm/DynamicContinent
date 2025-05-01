@@ -86,6 +86,7 @@ struct NowPlayingDetailView: View {
                                 height: 32
                             )
                     }
+                    .buttonStyle(.plain)
                     .frame(
                         maxWidth: .infinity,
                         maxHeight: .infinity,
