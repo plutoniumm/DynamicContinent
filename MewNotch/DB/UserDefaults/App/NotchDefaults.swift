@@ -1,11 +1,5 @@
-//
-//  NotchDefaults.swift
-//  MewNotch
-//
-//  Created by Monu Kumar on 23/03/25.
-//
-
 import Foundation
+import DotEnv
 
 class NotchDefaults: ObservableObject {
     
@@ -13,8 +7,12 @@ class NotchDefaults: ObservableObject {
     
     static let shared = NotchDefaults()
     
-    private init() {}
+    private init() {
+      try? DotEnv.load(path: ".env");
+    }
     
+    var Bahamut_auth: String = ProcessInfo.processInfo.environment["BAHAMUT_AUTH"] ?? ""
+  
     @CodableUserDefault(
         PREFIX + "NotchDisplayVisibility",
         defaultValue: NotchDisplayVisibility.NotchedDisplayOnly
@@ -40,16 +38,6 @@ class NotchDefaults: ObservableObject {
         defaultValue: NotchHeightMode.Match_Menu_Bar
     )
     var heightMode: NotchHeightMode {
-        didSet {
-            self.objectWillChange.send()
-        }
-    }
-    
-    @PrimitiveUserDefault(
-        PREFIX + "ExpandOnHover",
-        defaultValue: false
-    )
-    var expandOnHover: Bool {
         didSet {
             self.objectWillChange.send()
         }

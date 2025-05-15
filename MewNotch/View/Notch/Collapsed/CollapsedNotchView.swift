@@ -22,12 +22,8 @@ struct CollapsedNotchView: View {
     @StateObject var mediaDefaults = HUDMediaDefaults.shared
     
     var body: some View {
-        VStack(
-            spacing: 0
-        ) {
-            HStack(
-                spacing: 0
-            ) {
+        VStack( spacing: 0 ) {
+            HStack( spacing: 0 ) {
                 MinimalHUDLeftView(
                     notchViewModel: notchViewModel,
                     defaults: HUDBrightnessDefaults.shared,
@@ -46,32 +42,7 @@ struct CollapsedNotchView: View {
                     hudModel: collapsedNotchViewModel.outputAudioVolumeHUD
                 )
                 
-                NowPlayingHUDLeftView(
-                    namespace: namespace,
-                    notchViewModel: notchViewModel,
-                    nowPlayingModel: collapsedNotchViewModel.nowPlayingMedia
-                )
-                .hide(
-                    when: !mediaDefaults.isEnabled
-                )
-                .hide(
-                    when: notchViewModel.isExpanded
-                )
-                
-                OnlyNotchView(
-                    notchSize: notchViewModel.notchSize
-                )
-                
-                NowPlayingHUDRightView(
-                    notchViewModel: notchViewModel,
-                    nowPlayingModel: collapsedNotchViewModel.nowPlayingMedia
-                )
-                .hide(
-                    when: !mediaDefaults.isEnabled
-                )
-                .hide(
-                    when: notchViewModel.isExpanded
-                )
+                OnlyNotchView( notchSize: notchViewModel.notchSize )
                 
                 MinimalHUDRightView(
                     notchViewModel: notchViewModel,
@@ -110,7 +81,6 @@ struct CollapsedNotchView: View {
                 hudModel: collapsedNotchViewModel.outputAudioDeviceHUD
             )
             
-            // MARK: Progress Style Views
             ProgressHUDView(
                 notchViewModel: notchViewModel,
                 defaults: HUDBrightnessDefaults.shared,
@@ -128,8 +98,6 @@ struct CollapsedNotchView: View {
                 defaults: HUDAudioOutputDefaults.shared,
                 hudModel: collapsedNotchViewModel.outputAudioVolumeHUD
             )
-            
-            // MARK: Notched Style View
             
             NotchedHUDView(
                 notchViewModel: notchViewModel,
@@ -149,16 +117,8 @@ struct CollapsedNotchView: View {
                 hudModel: collapsedNotchViewModel.outputAudioVolumeHUD
             )
         }
-        .onReceive(
-            notchDefaults.objectWillChange
-        ) {
+        .onReceive( notchDefaults.objectWillChange ) {
             collapsedNotchViewModel.hideHUDs()
-            
-//            if defaultsManager.hudEnabled {
-//                OSDUIManager.shared.stop()
-//            } else {
-//                OSDUIManager.shared.start()
-//            }
             
             notchViewModel.refreshNotchSize()
         }

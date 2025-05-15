@@ -33,12 +33,10 @@ class MewAppDelegate: NSObject, NSApplicationDelegate {
     ) {
         OSDUIManager.shared.stop()
         
-        // Need to Initialise once to set system listeners
         AudioInput.sharedInstance()
         AudioOutput.sharedInstance()
         Brightness.sharedInstance()
         PowerStatus.sharedInstance()
-        NowPlaying.sharedInstance()
         
         NotchManager.shared.refreshNotches()
     }

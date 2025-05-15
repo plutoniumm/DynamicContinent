@@ -8,10 +8,10 @@ struct MirrorView: View {
     @State private var stories: [HNStory] = []
     @State private var currentStory: HNStory?
 
-    let refreshInterval: TimeInterval = 43200 // 12 hours
+    let refreshInterval: TimeInterval = 43200
     private let cachedStoriesKey = "cachedHNSnapshot"
 
-    func loadCachedStories() {
+    func loadCached() {
         guard let data = UserDefaults.standard.data(forKey: cachedStoriesKey),
               let decoded = try? JSONDecoder().decode([HNStory].self, from: data)
         else { return }
@@ -20,13 +20,13 @@ struct MirrorView: View {
         currentStory = decoded.randomElement()
     }
 
-    func saveCachedStories(_ stories: [HNStory]) {
+    func saveCached(_ stories: [HNStory]) {
         if let data = try? JSONEncoder().encode(stories) {
             UserDefaults.standard.set(data, forKey: cachedStoriesKey)
         }
     }
 
-    func fetchTopHackerNewsStories() {
+    func fetchHN() {
         guard let url = URL(string: "https://hacker-news.firebaseio.com/v0/beststories.json") else { return }
 
         URLSession.shared.dataTask(with: url) { data, _, _ in
@@ -54,7 +54,7 @@ struct MirrorView: View {
             group.notify(queue: .main) {
                 self.stories = fetchedStories
                 self.currentStory = fetchedStories.randomElement()
-                self.saveCachedStories(fetchedStories)
+                self.saveCached(fetchedStories)
             }
         }.resume()
     }
@@ -81,8 +81,8 @@ struct MirrorView: View {
         }
         .frame(width: notchViewModel.notchSize.height * 3)
         .onAppear {
-            loadCachedStories()
-            fetchTopHackerNewsStories()
+            loadCached()
+            fetchHN()
         }
         .onChange(of: scenePhase) {
             if scenePhase == .active {
@@ -92,7 +92,7 @@ struct MirrorView: View {
         .task {
             while true {
                 try? await Task.sleep(nanoseconds: UInt64(refreshInterval * 1_000_000_000))
-                fetchTopHackerNewsStories()
+                fetchHN()
             }
         }
     }

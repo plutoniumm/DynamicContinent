@@ -11,6 +11,7 @@
 		9E284D442D8B2E8000ED8E89 /* MediaRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E284D432D8B2E8000ED8E89 /* MediaRemote.framework */; };
 		9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9E36AFAA2D78EB2100D53482 /* Lottie */; };
 		9ECA5C6B2DB7E65300EEE02C /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 9ECA5C6A2DB7E65300EEE02C /* LaunchAtLogin */; };
+		F69717AE2DD624EC008E675B /* DotEnv in Frameworks */ = {isa = PBXBuildFile; productRef = F69717AD2DD624EC008E675B /* DotEnv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */,
+				F69717AE2DD624EC008E675B /* DotEnv in Frameworks */,
 				9E05AB292D7DA46800980012 /* DisplayServices.framework in Frameworks */,
 				9ECA5C6B2DB7E65300EEE02C /* LaunchAtLogin in Frameworks */,
 				9E284D442D8B2E8000ED8E89 /* MediaRemote.framework in Frameworks */,
@@ -103,6 +105,7 @@
 			packageProductDependencies = (
 				9E36AFAA2D78EB2100D53482 /* Lottie */,
 				9ECA5C6A2DB7E65300EEE02C /* LaunchAtLogin */,
+				F69717AD2DD624EC008E675B /* DotEnv */,
 			);
 			productName = MewNotch;
 			productReference = 9EA41D872D6DEACA00817679 /* MewNotch.app */;
@@ -136,6 +139,7 @@
 			packageReferences = (
 				9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				9ECA5C692DB7E65300EEE02C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+				F69717AC2DD624EC008E675B /* XCRemoteSwiftPackageReference "DotEnv" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9EA41D882D6DEACA00817679 /* Products */;
@@ -401,6 +405,14 @@
 				kind = branch;
 			};
 		};
+		F69717AC2DD624EC008E675B /* XCRemoteSwiftPackageReference "DotEnv" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftpackages/DotEnv";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -413,6 +425,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9ECA5C692DB7E65300EEE02C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
 			productName = LaunchAtLogin;
+		};
+		F69717AD2DD624EC008E675B /* DotEnv */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F69717AC2DD624EC008E675B /* XCRemoteSwiftPackageReference "DotEnv" */;
+			productName = DotEnv;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -21,28 +21,18 @@ struct ExpandedNotchView: View {
         if notchViewModel.isExpanded {
             VStack {
                 HStack {
-                    OnlyNotchView(
-                        notchSize: notchViewModel.notchSize
-                    )
-                    
-                    PinControlView(
-                        notchViewModel: notchViewModel
-                    )
+                    OnlyNotchView( notchSize: notchViewModel.notchSize )
+                    PinControlView( notchViewModel: notchViewModel )
                 }
                 
-                HStack(
-                    spacing: 12
-                ) {
+                HStack( spacing: 12 ) {
                     let items = Array(
                         notchDefaults.expandedNotchItems.sorted {
                             $0.rawValue < $1.rawValue
                         }
                     )
                     
-                    ForEach(
-                        0..<items.count,
-                        id: \.self
-                    ) { index in
+                    ForEach( 0..<items.count, id: \.self ) { index in
                         
                         let item = items[index]
                         
@@ -52,11 +42,7 @@ struct ExpandedNotchView: View {
                                 notchViewModel: notchViewModel
                             )
                         case .NowPlaying:
-                            NowPlayingDetailView(
-                                namespace: namespace,
-                                notchViewModel: notchViewModel,
-                                nowPlayingModel: expandedNotchViewModel.nowPlayingMedia ?? .Placeholder
-                            )
+                          StatsDetailView()
                         }
                         
                         if index != items.count - 1 {
@@ -64,9 +50,7 @@ struct ExpandedNotchView: View {
                         }
                     }
                 }
-                .frame(
-                    height: notchViewModel.notchSize.height * 3
-                )
+                .frame( height: notchViewModel.notchSize.height * 3 )
             }
             .padding(
                 .init(
