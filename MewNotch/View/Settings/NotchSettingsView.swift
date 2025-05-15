@@ -9,42 +9,20 @@ import SwiftUI
 import LaunchAtLogin
 
 struct NotchSettingsView: View {
-    
     @Environment(\.scenePhase) private var scenePhase
-    
-    @StateObject var appDefaults = AppDefaults.shared
+
     @StateObject var notchDefaults = NotchDefaults.shared
-    
+
     @State var screens: [NSScreen] = []
-    
+
     func refreshNSScreens() {
         withAnimation {
             self.screens = NSScreen.screens
         }
     }
-    
+
     var body: some View {
         Form {
-            Section(
-                content: {
-                    LaunchAtLogin.Toggle()
-                    
-                    Toggle( isOn: $appDefaults.showMenuIcon ) {
-                        VStack(
-                            alignment: .leading
-                        ) {
-                            Text("Status Icon")
-                            
-                            Text("Shown in Menu Bar for easy access")
-                                .font(.footnote)
-                        }
-                    }
-                },
-                header: {
-                    Text("App")
-                }
-            )
-            
             Section(
                 content: {
                     ForEach(

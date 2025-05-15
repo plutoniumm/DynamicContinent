@@ -10,19 +10,17 @@ import SwiftData
 
 @main
 struct MewNotchApp: App {
-    
+
     @NSApplicationDelegateAdaptor(MewAppDelegate.self) var mewAppDelegate
-    
+
     @Environment(\.openWindow) private var openWindow
     @Environment(\.openSettings) private var openSettings
-    
-    @ObservedObject private var appDefaults = AppDefaults.shared
-    
+
     @State private var isMenuShown: Bool = true
-    
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([ ])
-        
+
         let modelConfiguration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: false
@@ -39,11 +37,9 @@ struct MewNotchApp: App {
             )
         }
     }()
-    
+
     init() {
-        self._isMenuShown = .init(
-            initialValue: self.appDefaults.showMenuIcon
-        )
+        self._isMenuShown = .init( initialValue: true )
     }
 
     var body: some Scene {
@@ -51,7 +47,7 @@ struct MewNotchApp: App {
             isInserted: $isMenuShown,
             content: {
                 Text("MewNotch")
-                
+
                 Button("Settings") {
                     openSettings()
                 }
@@ -60,7 +56,7 @@ struct MewNotchApp: App {
                     modifiers: .command
                 )
 
-                
+
                 Button("Restart") {
                     AppManager.shared.restartApp(
                         killPreviousInstance: true
@@ -72,14 +68,7 @@ struct MewNotchApp: App {
             MewNotch.Assets.iconMenuBar
                 .renderingMode(.template)
         }
-        .onChange(
-            of: appDefaults.showMenuIcon
-        ) { oldVal, newVal in
-            if oldVal != newVal {
-                isMenuShown = newVal
-            }
-        }
-        
+
         Settings {
             MewSettingsView()
                 .modelContainer(sharedModelContainer)

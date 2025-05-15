@@ -9,8 +9,8 @@ struct StatsModel: Codable {
 class StatsViewModel: ObservableObject {
     @Published var deviceStats = StatsModel(cpu: 0, ram: 0, hdd: 0)
     @Published var serverStats = StatsModel(cpu: 0, ram: 0, hdd: 0)
-  
-    @StateObject var notchDefaults = NotchDefaults.shared
+
+    let notchDefaults = NotchDefaults.shared
 
     @AppStorage("cSrvStats") private var cSrvStats: Data = Data()
     @AppStorage("cSrvStatsTimestamp") private var cSrvStatsTimestamp: Double = 0

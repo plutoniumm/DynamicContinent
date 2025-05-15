@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct NotchView: View {
-    
+
     @Namespace var namespace
-    
+
     @Environment(\.openSettings) private var openSettings
-    
+
     @StateObject var notchDefaults = NotchDefaults.shared
-    
+
     @StateObject var notchViewModel: NotchViewModel
-    
-    @State var isExpanded: Bool = false
-    
+
     init(
         screen: NSScreen
     ) {
@@ -28,22 +26,20 @@ struct NotchView: View {
             )
         )
     }
-    
+
     var body: some View {
         VStack {
             HStack {
                 Spacer()
-                
+
                 ZStack(
                     alignment: .top
                 ) {
                     ExpandedNotchView(
-                        namespace: namespace,
                         notchViewModel: notchViewModel
                     )
-                    
+
                     CollapsedNotchView(
-                        namespace: namespace,
                         notchViewModel: notchViewModel
                     )
                 }
@@ -72,20 +68,20 @@ struct NotchView: View {
                 .onTapGesture(
                     perform: notchViewModel.onTap
                 )
-                
+
                 Spacer()
             }
-            
+
             Spacer()
         }
         .preferredColorScheme(.dark)
         .contextMenu(
             menuItems: {
-                
+
                 Button("Fix System HUD") {
                     OSDUIManager.shared.reset()
                 }
-                
+
                 Button("Settings") {
                     openSettings()
                 }
@@ -93,7 +89,7 @@ struct NotchView: View {
                     ",",
                     modifiers: .command
                 )
-                
+
                 Button("Restart") {
                     AppManager.shared.restartApp(
                         killPreviousInstance: true

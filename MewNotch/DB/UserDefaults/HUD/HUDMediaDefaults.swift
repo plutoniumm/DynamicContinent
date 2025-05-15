@@ -29,7 +29,7 @@ class HUDMediaDefaults: HUDDefaultsProtocol {
     
     @CodableUserDefault(
         PREFIX + "Style",
-        defaultValue: HUDStyle.Progress
+        defaultValue: HUDStyle.Minimal
     )
     var style: HUDStyle {
         didSet {

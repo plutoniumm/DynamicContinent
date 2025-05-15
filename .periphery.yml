@@ -1,0 +1,4 @@
+project: MewNotch.xcodeproj
+retain_objc_annotated: true
+schemes:
+- MewNotch

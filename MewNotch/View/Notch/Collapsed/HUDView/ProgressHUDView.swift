@@ -10,12 +10,12 @@ import SwiftUI
 import Lottie
 
 struct ProgressHUDView<T: HUDDefaultsProtocol>: View {
-    
+
     @ObservedObject var notchViewModel: NotchViewModel
     @ObservedObject var defaults: T
-    
+
     var hudModel: HUDPropertyModel?
-    
+
     var body: some View {
         if let hud = hudModel, defaults.isEnabled, defaults.style == .Progress {
             VStack {
@@ -29,9 +29,9 @@ struct ProgressHUDView<T: HUDDefaultsProtocol>: View {
                         hud.getIcon()
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    
+
                     Spacer()
-                    
+
                     Text(
                         "000 %"
                     )
@@ -53,18 +53,10 @@ struct ProgressHUDView<T: HUDDefaultsProtocol>: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                 }
-                
-                RoundedRectangle(
-                    cornerRadius: 99
-                )
-                .fill(
-                    .white.opacity(
-                        0.1
-                    )
-                )
-                .frame(
-                    height: 8
-                )
+
+                RoundedRectangle( cornerRadius: 99 )
+                .fill( .white.opacity( 0.1 ) )
+                .frame( height: 8 )
                 .overlay {
                     GeometryReader { geometry in
                         Rectangle()
@@ -80,22 +72,12 @@ struct ProgressHUDView<T: HUDDefaultsProtocol>: View {
                     }
                 }
                 .clipShape(
-                    RoundedRectangle(
-                        cornerRadius: 99
-                    )
+                    RoundedRectangle( cornerRadius: 99 )
                 )
                 .background {
-                    RoundedRectangle(
-                        cornerRadius: 99
-                    )
-                    .fill(
-                        .white.opacity(
-                            0.2
-                        )
-                    )
-                    .blur(
-                        radius: 3
-                    )
+                    RoundedRectangle( cornerRadius: 99 )
+                    .fill( .white.opacity(0.2) )
+                    .blur( radius: 3 )
                 }
             }
             .padding(
@@ -109,16 +91,10 @@ struct ProgressHUDView<T: HUDDefaultsProtocol>: View {
             .padding(
                 .horizontal, notchViewModel.extraNotchPadSize.width / 2
             )
-            .frame(
-                width: notchViewModel.notchSize.width
-            )
+            .frame( width: notchViewModel.notchSize.width )
             .transition(
-                .move(
-                    edge: .top
-                )
-                .combined(
-                    with: .opacity
-                )
+                .move( edge: .top )
+                .combined( with: .opacity )
             )
         }
     }
