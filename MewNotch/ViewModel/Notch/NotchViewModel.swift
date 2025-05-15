@@ -13,18 +13,9 @@ class NotchViewModel: ObservableObject {
     
     @Published var notchSize: CGSize = .zero
     
-    var cornerRadius: (
-        top: CGFloat,
-        bottom: CGFloat
-    ) = (
-        top: 8,
-        bottom: 13
-    )
+    var cornerRadius: ( top: CGFloat, bottom: CGFloat ) = ( top: 8, bottom: 13 )
     
-    var extraNotchPadSize: CGSize = .init(
-        width: 16,
-        height: 0
-    )
+    var extraNotchPadSize: CGSize = .init( width: 16, height: 0 )
     
     @Published var isHovered: Bool = false
     @Published var isExpanded: Bool = false
@@ -38,7 +29,7 @@ class NotchViewModel: ObservableObject {
     ) {
         self.screen = screen
         
-        var shouldForce = NotchDefaults.shared.notchDisplayVisibility != .NotchedDisplayOnly
+      let shouldForce = NotchDefaults.shared.notchDisplayVisibility != .NotchedDisplayOnly
         
         self.notchSize = NotchUtils.shared.notchSize(
             screen: self.screen,
@@ -52,7 +43,7 @@ class NotchViewModel: ObservableObject {
     }
     
     func refreshNotchSize() {
-        var shouldForce = NotchDefaults.shared.notchDisplayVisibility != .NotchedDisplayOnly
+      let shouldForce = NotchDefaults.shared.notchDisplayVisibility != .NotchedDisplayOnly
         
         self.notchSize = NotchUtils.shared.notchSize(
             screen: self.screen,

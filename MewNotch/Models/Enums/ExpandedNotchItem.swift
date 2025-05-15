@@ -17,7 +17,7 @@ enum ExpandedNotchItem: String, CaseIterable, Codable, Identifiable {
     var displayName: String {
         switch self {
         case .Mirror:
-            return "Mirror"
+            return "HackerNews"
         case .NowPlaying:
             return "Now Playing"
         }

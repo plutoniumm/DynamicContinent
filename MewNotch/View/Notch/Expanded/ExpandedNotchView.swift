@@ -21,10 +21,6 @@ struct ExpandedNotchView: View {
         if notchViewModel.isExpanded {
             VStack {
                 HStack {
-                    SettingsControlView(
-                        notchViewModel: notchViewModel
-                    )
-                    
                     OnlyNotchView(
                         notchSize: notchViewModel.notchSize
                     )
@@ -63,7 +59,7 @@ struct ExpandedNotchView: View {
                             )
                         }
                         
-                        if notchDefaults.showDividers && index != items.count - 1 {
+                        if index != items.count - 1 {
                             Divider()
                         }
                     }

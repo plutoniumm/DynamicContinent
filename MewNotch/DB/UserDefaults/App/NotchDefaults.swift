@@ -55,16 +55,6 @@ class NotchDefaults: ObservableObject {
         }
     }
     
-    @PrimitiveUserDefault(
-        PREFIX + "ExpandedNotchShowDividers",
-        defaultValue: true
-    )
-    var showDividers: Bool {
-        didSet {
-            self.objectWillChange.send()
-        }
-    }
-    
     @CodableUserDefault(
         PREFIX + "ExpandedNotchItems",
         defaultValue: [
