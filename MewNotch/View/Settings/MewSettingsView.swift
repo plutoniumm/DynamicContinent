@@ -42,22 +42,7 @@ struct MewSettingsView: View {
                     selection: $selectedPage
                 ) {
                     Section(
-                        content: {
-                            NavigationLink(
-                                destination: {
-                                    GeneraSettingsView(
-                                        settingsViewModel: settingsViewModel
-                                    )
-                                }
-                            ) {
-                                Label(
-                                    "General",
-                                    systemImage: "gear"
-                                )
-                            }
-                            .id(SettingsPages.General)
-                            
-                            
+                        content: {                            
                             NavigationLink(
                                 destination: {
                                     NotchSettingsView()
@@ -75,85 +60,11 @@ struct MewSettingsView: View {
                             }
                             .id(SettingsPages.Notch)
                         }
-                    )
-                    
-                    Section(
-                        content: {
-                            NavigationLink(
-                                destination: {
-                                    HUDBrightnessSettingsView()
-                                }
-                            ) {
-                                Label(
-                                    "Brightness",
-                                    systemImage: "rays"
-                                )
-                            }
-                            .id(SettingsPages.Brightness)
-                            
-                            NavigationLink(
-                                destination: {
-                                    HUDAudioSettingsView()
-                                }
-                            ) {
-                                Label(
-                                    "Audio",
-                                    systemImage: "waveform"
-                                )
-                            }
-                            .id(SettingsPages.Audio)
-                            
-                            NavigationLink(
-                                destination: {
-                                    HUDPowerSettingsView()
-                                }
-                            ) {
-                                Label(
-                                    "Power",
-                                    systemImage: "powerplug"
-                                )
-                            }
-                            .id(SettingsPages.Power)
-                            
-                            NavigationLink(
-                                destination: {
-                                    HUDMediaSettingsView()
-                                }
-                            ) {
-                                Label(
-                                    "Media",
-                                    systemImage: "music.note.list"
-                                )
-                            }
-                            .id(SettingsPages.Media)
-                        },
-                        header: {
-                            Text("HUD")
-                        }
-                    )
-                    
-                    Section {
-                        NavigationLink(
-                            destination: {
-                                AboutAppView(
-                                    settingsViewModel: settingsViewModel
-                                )
-                            }
-                        ) {
-                            Label(
-                                "About",
-                                systemImage: "info.circle"
-                            )
-                        }
-                        .id(SettingsPages.About)
-                    }
-                    
+                    )   
                 }
             },
             detail: {
-                GeneraSettingsView(
-                    settingsViewModel: settingsViewModel
-                )
+              NotchSettingsView()
             }
         )
         .onChange(

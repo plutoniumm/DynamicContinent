@@ -29,7 +29,7 @@ class HUDBrightnessDefaults: HUDDefaultsProtocol {
     
     @CodableUserDefault(
         PREFIX + "Style",
-        defaultValue: HUDStyle.Minimal
+        defaultValue: HUDStyle.Progress
     )
     var style: HUDStyle {
         didSet {

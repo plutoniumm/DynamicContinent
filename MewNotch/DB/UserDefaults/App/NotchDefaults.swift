@@ -37,7 +37,7 @@ class NotchDefaults: ObservableObject {
     
     @CodableUserDefault(
         PREFIX + "HeightMode",
-        defaultValue: NotchHeightMode.Match_Notch
+        defaultValue: NotchHeightMode.Match_Menu_Bar
     )
     var heightMode: NotchHeightMode {
         didSet {

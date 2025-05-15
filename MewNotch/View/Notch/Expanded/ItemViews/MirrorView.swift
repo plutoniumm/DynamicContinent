@@ -45,61 +45,18 @@ struct MirrorView: View {
     
     var body: some View {
         ZStack {
-            if cameraAuthStatus == .authorized {
-                if isCameraViewShown {
-                    CameraPreviewView()
-                        .clipShape(
-                            Circle()
-                        )
-                        .transition(
-                            .scale
-                                .combined(
-                                    with: .opacity
-                                )
-                        )
-                } else {
-                    Image(
-                        systemName: "person.crop.circle.fill"
-                    )
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(.white.opacity(0.7))
-                    .transition(
-                        .scale
-                            .combined(
-                                with: .opacity
-                            )
-                    )
-                }
-            } else {
-                Color.white.opacity(0.2)
-                
-                VStack(
-                    spacing: 6
-                ) {
-                    Image(
-                        systemName: "exclamationmark.triangle.fill"
-                    )
-                    .foregroundStyle(.yellow)
-                    
-                    VStack(
-                        spacing: -4
-                    ) {
-                        Text("Camera Access")
-                            .multilineTextAlignment(.center)
-                        
-                        Text("Unavalilable")
-                            .multilineTextAlignment(.center)
-                    }
-                    
-                    Text("Mirror")
-                        .padding(.top, 8)
-                }
-                .font(
-                    .footnote.bold()
-                )
-                .padding(8)
-            }
+              Image(
+                  systemName: "person.crop.circle.fill"
+              )
+              .resizable()
+              .scaledToFit()
+              .foregroundStyle(.white.opacity(0.7))
+              .transition(
+                  .scale
+                      .combined(
+                          with: .opacity
+                      )
+              )
         }
         .clipShape(
             Circle()

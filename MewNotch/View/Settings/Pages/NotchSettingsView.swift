@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import LaunchAtLogin
 
 struct NotchSettingsView: View {
     
     @Environment(\.scenePhase) private var scenePhase
     
+    @StateObject var appDefaults = AppDefaults.shared
     @StateObject var notchDefaults = NotchDefaults.shared
     
     @State var screens: [NSScreen] = []
@@ -101,38 +103,26 @@ struct NotchSettingsView: View {
                     Text("Displays")
                 }
             )
-            
+          
             Section(
                 content: {
-                    Picker(
-                        selection: $notchDefaults.heightMode,
-                        content: {
-                            Text(
-                                NotchHeightMode.Match_Notch.rawValue.replacingOccurrences(
-                                    of: "_",
-                                    with: " "
-                                )
-                            )
-                            .tag(
-                                NotchHeightMode.Match_Notch
-                            )
-                            
-                            Text(
-                                NotchHeightMode.Match_Menu_Bar.rawValue.replacingOccurrences(
-                                    of: "_",
-                                    with: " "
-                                )
-                            )
-                            .tag(
-                                NotchHeightMode.Match_Menu_Bar
-                            )
-                        }
+                    LaunchAtLogin.Toggle()
+                    
+                    Toggle(
+                        isOn: $appDefaults.showMenuIcon
                     ) {
-                        Text("Height")
+                        VStack(
+                            alignment: .leading
+                        ) {
+                            Text("Status Icon")
+                            
+                            Text("Shown in Menu Bar for easy access")
+                                .font(.footnote)
+                        }
                     }
                 },
                 header: {
-                    Text("Interface")
+                    Text("App")
                 }
             )
             
@@ -153,19 +143,6 @@ struct NotchSettingsView: View {
                 },
                 header: {
                     Text("Interaction")
-                }
-            )
-            
-            Section(
-                content: {
-                    Toggle(
-                        isOn: $notchDefaults.showDividers
-                    ) {
-                        Text("Separator between Items")
-                    }
-                },
-                header: {
-                    Text("Expanded Notch")
                 }
             )
             
