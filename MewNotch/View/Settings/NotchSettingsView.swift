@@ -9,72 +9,70 @@ import SwiftUI
 import LaunchAtLogin
 
 struct NotchSettingsView: View {
-    @Environment(\.scenePhase) private var scenePhase
+  @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject var notchDefaults = NotchDefaults.shared
+  @StateObject var notchDefaults = NotchDefaults.shared
 
-    @State var screens: [NSScreen] = []
+  @State var screens: [NSScreen] = []
 
-    func refreshNSScreens() {
-        withAnimation {
-            self.screens = NSScreen.screens
-        }
+  func refreshNSScreens() {
+    withAnimation {
+      self.screens = NSScreen.screens
     }
+  }
 
-    var body: some View {
-        Form {
-            Section(
-                content: {
-                    ForEach(
-                        ExpandedNotchItem.allCases
-                    ) { item in
-                        Toggle(
-                            isOn: .init(
-                                get: { notchDefaults.expandedNotchItems.contains(item) },
-                                set: { isEnabled in
-                                    if isEnabled {
-                                        notchDefaults.expandedNotchItems.insert(item)
-                                    } else {
-                                        notchDefaults.expandedNotchItems.remove(item)
-                                    }
-                                }
-                            )
-                        ) {
-                            Text(item.displayName)
-                        }
-                    }
-                },
-                header: {
-                    Text("Expanded Notch Items")
+  var body: some View {
+    Form {
+      Section(
+        content: {
+          ForEach( ExpandedNotchItem.allCases ) { item in
+            Toggle(
+              isOn: .init(
+                get: { notchDefaults.expandedNotchItems.contains(item) },
+                set: { isEnabled in
+                  if isEnabled {
+                    notchDefaults.expandedNotchItems.insert(item)
+                  } else {
+                    notchDefaults.expandedNotchItems.remove(item)
+                  }
                 }
-            )
-        }
-        .formStyle(.grouped)
-        .navigationTitle("Notch")
-        .toolbar {
-            ToolbarItem( placement: .automatic ) {
-                Button {
-                    NSApplication.shared.terminate(nil)
-                } label: {
-                    Label("", systemImage: "power")
-                }
+              )
+            ) {
+              Text(item.displayName)
             }
+          }
+        },
+        header: {
+          Text("Expanded Notch Items")
         }
-        .onChange( of: notchDefaults.notchDisplayVisibility ) {
-            NotchManager.shared.refreshNotches()
-        }
-        .onChange( of: notchDefaults.shownOnDisplay ) {
-            NotchManager.shared.refreshNotches()
-        }
-        .onChange( of: scenePhase ) {
-            self.refreshNSScreens()
-        }
-        .onAppear {
-            self.refreshNSScreens()
-        }
+      )
     }
+    .formStyle(.grouped)
+    .navigationTitle("Notch")
+    .toolbar {
+      ToolbarItem( placement: .automatic ) {
+        Button {
+          NSApplication.shared.terminate(nil)
+        } label: {
+          Label("", systemImage: "power")
+        }
+      }
+    }
+    .onChange( of: notchDefaults.notchDisplayVisibility ) {
+      NotchManager.shared.refreshNotches()
+    }
+    .onChange( of: notchDefaults.shownOnDisplay ) {
+      NotchManager.shared.refreshNotches()
+    }
+    .onChange( of: scenePhase ) {
+      self.refreshNSScreens()
+    }
+    .onAppear {
+      self.refreshNSScreens()
+    }
+  }
 }
 
 #Preview {
-    NotchSettingsView()
+  NotchSettingsView()
 }

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct GenericControlView<Content: View>: View {
-    
+
     @ObservedObject var notchViewModel: NotchViewModel
-    
+
     var content: () -> Content
-    
+
     var body: some View {
         content()
             .frame(
@@ -20,12 +20,8 @@ struct GenericControlView<Content: View>: View {
                 height: notchViewModel.notchSize.height
             )
             .transition(
-                .move(
-                    edge: .top
-                )
-                .combined(
-                    with: .opacity
-                )
+                .move( edge: .top )
+                .combined( with: .opacity )
             )
     }
 }

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct NotchShape: Shape {
-    
+
     var topRadius: CGFloat
     var bottomRadius: CGFloat
-    
+
     init(
         topRadius: CGFloat = 8,
         bottomRadius: CGFloat = 13
@@ -19,24 +19,22 @@ struct NotchShape: Shape {
         self.bottomRadius = bottomRadius
         self.topRadius = topRadius
     }
-    
+
     var animatableData: CGFloat {
         get { bottomRadius }
         set { bottomRadius = newValue }
     }
-    
-    func path(
-        in rect: CGRect
-    ) -> Path {
+
+    func path( in rect: CGRect ) -> Path {
         var path = Path()
-        
+
         path.move(
             to: CGPoint(
                 x: rect.minX,
                 y: rect.minY
             )
         )
-        
+
         path.addQuadCurve(
             to: CGPoint(
                 x: rect.minX + topRadius,
@@ -47,7 +45,7 @@ struct NotchShape: Shape {
                 y: rect.minY
             )
         )
-        
+
         path
             .addLine(
                 to: CGPoint(
@@ -55,7 +53,7 @@ struct NotchShape: Shape {
                     y: rect.maxY - bottomRadius
                 )
             )
-        
+
         path
             .addQuadCurve(
                 to: CGPoint(
@@ -67,7 +65,7 @@ struct NotchShape: Shape {
                     y: rect.maxY
                 )
             )
-        
+
         path
             .addLine(
                 to: CGPoint(
@@ -75,7 +73,7 @@ struct NotchShape: Shape {
                     y: rect.maxY
                 )
             )
-        
+
         path
             .addQuadCurve(
                 to: CGPoint(
@@ -87,7 +85,7 @@ struct NotchShape: Shape {
                     y: rect.maxY
                 )
             )
-        
+
         path
             .addLine(
                 to: CGPoint(
@@ -95,7 +93,7 @@ struct NotchShape: Shape {
                     y: rect.minY + bottomRadius
                 )
             )
-        
+
         path
             .addQuadCurve(
                 to: CGPoint(
@@ -107,7 +105,7 @@ struct NotchShape: Shape {
                     y: rect.minY
                 )
             )
-        
+
         path
             .addLine(
                 to: CGPoint(
@@ -115,7 +113,7 @@ struct NotchShape: Shape {
                     y: rect.minY
                 )
             )
-        
+
         return path
     }
 }

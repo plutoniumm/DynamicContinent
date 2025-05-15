@@ -10,12 +10,12 @@ import SwiftUI
 import Lottie
 
 struct NotchedHUDView<T: HUDDefaultsProtocol>: View {
-    
+
     @ObservedObject var notchViewModel: NotchViewModel
     @ObservedObject var defaults: T
-    
+
     var hudModel: HUDPropertyModel?
-    
+
     var body: some View {
         if let hud = hudModel, defaults.isEnabled, defaults.style == .Notched {
             VStack {
@@ -24,7 +24,7 @@ struct NotchedHUDView<T: HUDDefaultsProtocol>: View {
                     .overlay {
                         hud.getIcon()
                     }
-                
+
                 RoundedRectangle(
                     cornerRadius: 2
                 )
@@ -68,12 +68,8 @@ struct NotchedHUDView<T: HUDDefaultsProtocol>: View {
                 height: notchViewModel.notchSize.width - notchViewModel.notchSize.height - notchViewModel.extraNotchPadSize.width
             )
             .transition(
-                .move(
-                    edge: .top
-                )
-                .combined(
-                    with: .opacity
-                )
+                .move( edge: .top )
+                .combined( with: .opacity )
             )
         }
     }

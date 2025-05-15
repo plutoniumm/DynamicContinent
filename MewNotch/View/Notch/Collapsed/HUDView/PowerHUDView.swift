@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct PowerHUDView<T: HUDDefaultsProtocol>: View {
-    
+
     @ObservedObject var notchViewModel: NotchViewModel
     @ObservedObject var defaults: T
-    
+
     var hudModel: HUDPropertyModel?
-    
+
     var body: some View {
         if let hud = hudModel, defaults.isEnabled {
             HStack {
                 hud.getIcon()
                     .padding(5)
-                
+
                 Spacer()
-                
+
                 if hud.value.isFinite {
                     let value = Int(hud.value)
-                    
+
                     let hour = value / 3600
                     let min = (value % 3600) / 60
-                    
+
                     (
                         Text(hour > 0 ? "\(hour)" : "")
                         +
@@ -64,12 +64,8 @@ struct PowerHUDView<T: HUDDefaultsProtocol>: View {
                 height: notchViewModel.notchSize.height
             )
             .transition(
-                .move(
-                    edge: .top
-                )
-                .combined(
-                    with: .opacity
-                )
+                .move( edge: .top )
+                .combined( with: .opacity )
             )
         }
     }
